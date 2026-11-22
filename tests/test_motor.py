@@ -143,7 +143,9 @@ def test_cultivos(res):
     assert p["26X03904"].cultivo == "Sandía"
     assert p["26X03902"].cultivo == "Pimiento"
     assert p["26010905"].cultivo == "Tomate"
-    assert p["26011200"].cultivo == "Otros"
+    assert p["26011200"].cultivo == "Calabacín"  # 22/11/2026: línea propia
+    assert cultivo("CALABACÍN SINATRA", "Normal") == "Calabacín"
+    assert cultivo("LECHUGA X", "Normal") == "Otros"
     assert cultivo("MELÓN X", "Normal") == "Melón"
     assert categoria_injerto("TINJ X 2HV") == "Pinzado"
 

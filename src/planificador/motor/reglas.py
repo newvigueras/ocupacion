@@ -77,13 +77,14 @@ CULTIVO_POR_PALABRA = {
     "MINJ": "Melón", "MELON": "Melón",
     "BINJ": "Berenjena", "BERENJENA": "Berenjena",
     "CALABAZA": "Calabaza",
+    "CALABACIN": "Calabacín",  # decisión 22/11/2026: línea propia (antes en «Otros»)
 }
 PALABRAS_TOMATE = frozenset({"TINJ", "TOMATE", ""})
 
 #: Orden en que se muestran los cultivos.
 CULTIVOS = [
     "Jiffy 8x8", "Jiffy 5x5", "Jiffy", "Hidropónico", "Tomate", "Pimiento",
-    "Pepino", "Sandía", "Melón", "Berenjena", "Calabaza", "Otros",
+    "Pepino", "Sandía", "Melón", "Berenjena", "Calabaza", "Calabacín", "Otros",
 ]
 
 TIPOS_PLANTA = ("injerto", "normal", "componente")
