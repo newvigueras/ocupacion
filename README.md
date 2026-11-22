@@ -39,8 +39,27 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
   226.165 bandejas netas, **117.042 cargadas en 1.429 asignaciones** y 109.123 sin cargar; el
   21/11/2026 hay unas 95.000 bandejas en 38 invernaderos (INV4A 3.549/3.010, INV37 2.384/1.996).
 
-Quedan para más adelante: EXTENSIONCALLES y los PDF en Real, «Recalcular todas las semanas» y
-«Reimportar desde cero / conservar» (§10.4–10.6), y las migraciones de la base de datos (Alembic)
+- **Carga por calle de EXTENSIONCALLES.xlsx en Real** (§10.5b): si entre los archivos viene el
+  de calles, manda. Descifra las celdas «Inv-Sec» que Excel convirtió en fecha, busca la calle
+  (también con el número del invernadero delante: INV1A 101–130), toma la entrada de EXTENSIONES,
+  de lo ya guardado, del maestro o de la siembra (nunca después de hoy), deja la salida en hoy si
+  ya pasó, y reparte las partidas grandes entre calles contiguas (estimación; `--sin-reparto` para
+  no repartir). Sustituye lo que esas partidas tuvieran en Real. Con `EXTENSIONCALLES.xlsx` +
+  `0110.xlsx` cargado tras EXTENSIONES da las cifras del §17.3b: 1.115 partidas / 80.641
+  bandejas en calles; 639 / 71.617 fuera del planificador; 28 / 1.707 con calle desconocida; 82 /
+  4.222 sin ubicación; entrada 1.073 / 17 / 25; 71 partidas con salida de hoy; reparto de 222
+  partidas (39.411 bandejas movidas, 944 sin hueco); 1.686 asignaciones en 814 calles de 36
+  invernaderos; 13 calles por encima de su capacidad (+944); Real queda en **114.160 bandejas**.
+  Sin reparto: 512 calles, 228 por encima (+40.355), 1.471 asignaciones.
+- **PDF de túneles y de cargas** (§12.1–12.2): `planificador cargar-pdf` reconoce el tipo por el
+  contenido. Túneles: bandejas reales injertadas, entrada real, calle, entrega, cliente,
+  categoría y formato por el grupo, lucha biológica. Cargas: fecha real de salida. Las
+  asignaciones que la partida ya tenga en Real toman las fechas nuevas. Para abrir los PDF hace
+  falta `pip install -e ".[pdf]"` (pdfplumber); **pendiente de comprobar con los PDF reales**
+  (`fuentes_de_datos/`).
+
+Quedan para más adelante: «Recalcular todas las semanas» y «Reimportar desde cero / conservar»
+(§10.4, §10.6), los checks de calidad (§12.3) y las migraciones de la base de datos (Alembic)
 antes de ponerla en común.
 
 ## Decisiones nuevas respecto al documento maestro
@@ -71,6 +90,8 @@ planificador asignar-bloque 49 1 INV41 500           # bloque n.º 1 → INV41 (
 planificador asignar-partida 26X02589 INV41 300 --calle 3
 planificador tecnico 26X02589 2027-01-10             # fecha técnico («quitar» para borrarla)
 planificador cargar-extensiones EXTENSIONES.xlsx 0110.xlsx   # lo ya colocado → base Real
+planificador cargar-extensiones EXTENSIONCALLES.xlsx 0110.xlsx   # foto por calle → base Real
+planificador cargar-pdf 15_julio.pdf cargas_15.pdf --detalle     # partes de túneles y de cargas
 planificador ocupacion --base partidas --fecha 2026-12-01
 ```
 
@@ -86,5 +107,7 @@ planificador ocupacion --base partidas --fecha 2026-12-01
 - `src/planificador/bd/importar.py` — guardar en la base las partidas leídas de los Excel.
 - `src/planificador/bd/planificacion.py` — bloques, asignaciones, ocupación y avisos.
 - `src/planificador/bd/extensiones.py` — carga de EXTENSIONES.xlsx en la base Real.
+- `src/planificador/bd/calles.py` — carga por calle de EXTENSIONCALLES.xlsx en la base Real.
+- `src/planificador/bd/pdf.py` — PDF de túneles (parte de injerto) y de cargas.
 - `src/planificador/datos/invernaderos.json` — invernaderos y calles con su capacidad.
 - `tests/` — casos del §17.1 y §17.2 del documento maestro y de la fase 2.

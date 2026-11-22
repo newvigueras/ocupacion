@@ -121,7 +121,7 @@ class DatoReal(Base):
     fecha_salida_real: Mapped[date | None] = mapped_column(Date)
     fecha_liberacion_ext: Mapped[date | None] = mapped_column(Date)
     liberacion_estimada: Mapped[bool] = mapped_column(Boolean, default=False)
-    localizacion: Mapped[str] = mapped_column(String(64), default="")
+    localizacion: Mapped[str] = mapped_column(Text, default="")
     observaciones: Mapped[str] = mapped_column(Text, default="")
     tipo_planta: Mapped[str] = mapped_column(String(16), default="")
     cliente: Mapped[str] = mapped_column(String(200), default="")

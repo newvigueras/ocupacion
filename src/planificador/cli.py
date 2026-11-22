@@ -5,6 +5,9 @@
     planificador semana 49 [--tipo injerto]
     planificador asignar-bloque 49 1 INV41 500
     planificador asignar-partida 26X02589 INV41 300 [--base real] [--calle 3]
+    planificador cargar-extensiones EXTENSIONES.xlsx 0110.xlsx
+    planificador cargar-extensiones EXTENSIONCALLES.xlsx 0110.xlsx [--sin-reparto]
+    planificador cargar-pdf parte_injerto.pdf cargas_15.pdf
     planificador tecnico 26X02589 2027-01-10        (o «quitar»)
     planificador ocupacion [--base partidas] [--fecha 2026-12-01] [--sin-ext]
 
@@ -138,15 +141,23 @@ def cmd_asignar_partida(args: argparse.Namespace) -> int:
 
 
 def cmd_cargar_extensiones(args: argparse.Namespace) -> int:
-    from .bd.extensiones import cargar_extensiones
+    from .bd.calles import cargar_por_calles
+    from .bd.extensiones import cargar_extensiones, clasificar_archivos
 
     with _sesion(args) as s:
         try:
-            r = cargar_extensiones(s, args.archivos)
+            arch = clasificar_archivos(args.archivos)
+            if arch.calles is not None:  # el de calles manda (§10.5b)
+                r = cargar_por_calles(s, arch, repartir=not args.sin_reparto, hoy=args.hoy)
+            else:
+                r = cargar_extensiones(s, arch)
         except (ErrorExcel, OSError) as e:
             print(f"ERROR: {e}", file=sys.stderr)
             return 1
         s.commit()
+    if arch.calles is not None:
+        _resumen_calles(r, args.top)
+        return 0
     print(f"Movimientos: {r.archivo_movimientos} ({_miles(r.movimientos)} movimientos)")
     if r.archivos_prevision:
         print(f"Previsión: {', '.join(r.archivos_prevision)}")
@@ -166,6 +177,88 @@ def cmd_cargar_extensiones(args: argparse.Namespace) -> int:
     if r.fuera_de_calendario:
         print(f"  Entrada fuera del calendario: {', '.join(r.fuera_de_calendario[:10])}")
     return 0
+
+
+def _resumen_calles(r, top: int) -> None:
+    print(f"Calles: {r.archivo_calles} ({_miles(r.filas)} partidas con bandejas, "
+          f"{r.omitidas} filas sin bandejas)")
+    if r.archivo_movimientos:
+        print(f"Movimientos (solo la primera colocación): {r.archivo_movimientos}")
+    if r.archivos_prevision:
+        print(f"Previsión: {', '.join(r.archivos_prevision)}")
+    print(f"  En calles del planificador: {_miles(r.en_calle.partidas)} partidas, "
+          f"{_miles(r.en_calle.bandejas)} bandejas")
+    e, sal = r.entrada, r.salida
+    print(f"  Entrada: {e['movimientos']} de EXTENSIONES · {e['existente']} ya guardadas · "
+          f"{e['maestro']} del maestro · {e['siembra']} por la siembra · {e['hoy']} hoy")
+    print(f"  Salida: {sal['tecnico_o_pdf']} fecha técnico o PDF · {sal['maestro']} del maestro · "
+          f"{sal['prevision']} de la previsión · {sal['estimada']} estimadas "
+          f"({len(r.dudosas)} por fecha dudosa)")
+    if r.retrasadas.partidas:
+        print(f"  Siguen pasada su salida prevista (se deja hoy): {r.retrasadas.partidas} partidas, "
+              f"{_miles(r.retrasadas.bandejas)} bandejas")
+    print(f"  Sustituidas en Real: {r.sustituidas_ext} de EXTENSIONES sin calle, "
+          f"{r.sustituidas_calles} de una carga anterior por calle, {r.sustituidas_otras} otras")
+    if r.reparto:
+        print(f"  Reparto entre calles contiguas (estimación): {r.reparto.repartidas} partidas "
+              f"en varias calles, {_miles(r.reparto.movidas)} bandejas fuera de su calle de inicio"
+              + (f", {_miles(r.reparto.sin_hueco)} no caben" if r.reparto.sin_hueco else ""))
+    print(f"  Cargadas en Real: {_miles(r.bandejas_cargadas)} bandejas en "
+          f"{_miles(r.asignaciones)} asignaciones ({_miles(r.partidas_cargadas)} partidas), "
+          f"{r.calles_con_carga} calles de {r.invernaderos_con_carga} invernaderos")
+    print("  No cargadas:")
+    print(f"    invernaderos que el planificador no tiene: {_miles(r.fuera.partidas)} partidas, "
+          f"{_miles(r.fuera.bandejas)} bandejas")
+    for inv, b in sorted(r.fuera_por_invernadero.items(), key=lambda x: -x[1])[:top]:
+        print(f"      {inv:<10} {_miles(b):>8}")
+    print(f"    calle que no existe en el planificador: {_miles(r.desconocida.partidas)} partidas, "
+          f"{_miles(r.desconocida.bandejas)} bandejas")
+    print(f"    sin ubicación: {_miles(r.sin_ubicacion.partidas)} partidas, "
+          f"{_miles(r.sin_ubicacion.bandejas)} bandejas")
+    print(f"  Avisos: {r.desde_fecha} celdas Inv-Sec venían como fecha (año {r.año_ref}), "
+          f"{r.ambiguas} ambiguas tomadas como invernadero 1")
+    if r.calles_excedidas:
+        peores = ", ".join(f"{i} calle {n} con {_miles(b)} de {_miles(c)}"
+                           for i, n, b, c in r.calles_excedidas[:3])
+        print(f"    {len(r.calles_excedidas)} calles por encima de su capacidad "
+              f"(+{_miles(r.exceso_calles)} bandejas), p. ej. {peores}")
+    if r.ext_sin_foto.partidas:
+        print(f"    {r.ext_sin_foto.partidas} partidas de EXTENSIONES con salida futura no salen "
+              f"en este Excel ({_miles(r.ext_sin_foto.bandejas)} bandejas): se dejan como estaban")
+    if r.sin_semana:
+        print(f"    Entrada fuera del calendario: {', '.join(r.sin_semana[:10])}")
+
+
+def cmd_cargar_pdf(args: argparse.Namespace) -> int:
+    from .bd.pdf import ErrorPdf, cargar_pdf
+
+    errores = 0
+    with _sesion(args) as s:
+        for ruta in args.archivos:
+            try:
+                r = cargar_pdf(s, ruta, args.tipo)
+            except (ErrorPdf, OSError) as e:
+                print(f"ERROR {ruta}: {e}", file=sys.stderr)
+                errores += 1
+                continue
+            s.commit()
+            fechas = ", ".join(f"{f:%d/%m/%Y}" for f in sorted(set(r.fechas))[:5])
+            if r.tipo == "cargas":
+                print(f"\n== {r.archivo} · parte de carga · {r.paginas} páginas · salida {fechas}")
+                print(f"   {len(r.partidas)} partidas, {_miles(r.bandejas)} bandejas salidas")
+            else:
+                print(f"\n== {r.archivo} · parte de injerto (túneles) · {r.paginas} páginas")
+                print(f"   {len(r.partidas)} partidas, {_miles(r.bandejas)} bandejas injertadas"
+                      + (f" · entrada real {fechas}" if fechas else ""))
+            print(f"   {len(r.nuevas)} sin dato real antes · {r.asignaciones_actualizadas} "
+                  "asignaciones de Real actualizadas con las fechas nuevas")
+            if r.fuera_del_maestro:
+                print(f"   ⚠ {len(r.fuera_del_maestro)} no están en el maestro: "
+                      + ", ".join(r.fuera_del_maestro[:10]))
+            if args.detalle:
+                for fila in r.detalle:
+                    print("   " + " · ".join("" if v is None else str(v) for v in fila))
+    return 1 if errores else 0
 
 
 def cmd_tecnico(args: argparse.Namespace) -> int:
@@ -256,14 +349,26 @@ def main(argv: list[str] | None = None) -> int:
     ap.set_defaults(func=cmd_asignar_partida)
 
     ce = sub.add_parser("cargar-extensiones",
-                        help="Cargar lo colocado (EXTENSIONES.xlsx + Excel de previsión) en Real")
+                        help="Cargar lo colocado (EXTENSIONES o EXTENSIONCALLES + previsión) en Real")
     ce.add_argument("archivos", nargs="+",
-                    help="EXTENSIONES.xlsx y, si se quiere, Excel de previsión (p. ej. 0110.xlsx)")
+                    help="EXTENSIONES.xlsx y/o EXTENSIONCALLES.xlsx (si viene, manda y carga por "
+                         "calle) y, si se quiere, Excel de previsión (p. ej. 0110.xlsx)")
     ce.add_argument("--top", type=int, default=10,
                     help="Cuántos destinos no cargados listar")
+    ce.add_argument("--sin-reparto", action="store_true",
+                    help="Por calle: dejar cada partida entera en su calle (sin repartir)")
+    ce.add_argument("--hoy", type=_fecha, help="Por calle: día de la foto (por defecto, hoy)")
     ce.set_defaults(func=cmd_cargar_extensiones)
 
-    tec = sub.add_parser("tecnico", help="Poner o quitar la fecha técnico de una partida")
+    cp = sub.add_parser("cargar-pdf",
+                        help="Leer PDF de túneles (parte de injerto) o de cargas y guardarlos en Real")
+    cp.add_argument("archivos", nargs="+")
+    cp.add_argument("--tipo", choices=["tuneles", "cargas"],
+                    help="Forzar el tipo (por defecto se reconoce por el contenido)")
+    cp.add_argument("--detalle", action="store_true", help="Mostrar partida a partida")
+    cp.set_defaults(func=cmd_cargar_pdf)
+
+    tec = sub.add_parser("tecnico",help="Poner o quitar la fecha técnico de una partida")
     tec.add_argument("codigo")
     tec.add_argument("fecha", help="AAAA-MM-DD o «quitar»")
     tec.set_defaults(func=cmd_tecnico)

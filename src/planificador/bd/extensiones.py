@@ -63,6 +63,14 @@ _CABECERA_MOV = {
     "tipo": ("tipo",),
     "bandejas": ("nband", "noband", "nbandejas", "bandejas"),
 }
+_CABECERA_CALLES = {
+    "partida": ("partida", "npartida", "nopartida"),
+    "invsec": ("invsec",),
+    "bandejas": ("nband", "noband", "nbandejas"),
+    "cliente": ("nombrecliente", "cliente"),
+    "f_siembra": ("fsiembra", "fechasiembra"),
+    "semilla": ("semilla",),
+}
 _CABECERA_PREV = {
     "partida": ("partida", "npartida", "nopartida"),
     "f_siembra": ("fsiembra", "fechasiembra"),
@@ -89,10 +97,12 @@ def _mapear(fila: Sequence[Any], columnas: dict[str, tuple[str, ...]]) -> dict[s
 
 
 def tipo_de_cabecera(fila: Sequence[Any]) -> str | None:
-    """'movimientos', 'prevision' o None."""
+    """'movimientos', 'calles', 'prevision' o None."""
     mov = _mapear(fila, _CABECERA_MOV)
     if {"partida", "destino", "bandejas"} <= mov.keys():
         return "movimientos"
+    if {"partida", "invsec", "bandejas"} <= _mapear(fila, _CABECERA_CALLES).keys():
+        return "calles"
     prev = _mapear(fila, _CABECERA_PREV)
     if {"partida", "f_siembra", "f_entrega"} <= prev.keys():
         return "prevision"
@@ -124,7 +134,40 @@ def clasificar_archivo(ruta: str | Path) -> tuple[str, int, list[tuple]]:
             tipo = tipo_de_cabecera(fila)
             if tipo:
                 return tipo, i, filas
-    raise ErrorExcel(f"{ruta.name}: no es un Excel de movimientos (EXTENSIONES) ni de previsión")
+    raise ErrorExcel(f"{ruta.name}: no es un Excel de movimientos (EXTENSIONES), de calles "
+                     "(EXTENSIONCALLES) ni de previsión")
+
+
+@dataclass
+class Archivos:
+    """Archivos de una carga, por tipo. De movimientos y de calles manda el más reciente;
+    los de previsión se juntan (los más recientes mandan)."""
+    movimientos: tuple[Path, int, list[tuple]] | None = None
+    calles: tuple[Path, int, list[tuple]] | None = None
+    previsiones: list[tuple[Path, int, list[tuple]]] = field(default_factory=list)
+
+    @property
+    def nombres_prevision(self) -> list[str]:
+        return [r.name for r, _, _ in self.previsiones]
+
+    def prevision(self) -> dict[str, "DatosPrevision"]:
+        datos: dict[str, DatosPrevision] = {}
+        for _, cab, filas in self.previsiones:
+            datos.update(leer_prevision(cab, filas))
+        return datos
+
+
+def clasificar_archivos(archivos: Sequence[str | Path]) -> Archivos:
+    por_tipo: dict[str, list[tuple[float, Path, int, list[tuple]]]] = defaultdict(list)
+    for archivo in archivos:
+        ruta = Path(archivo)
+        tipo, cab, filas = clasificar_archivo(ruta)
+        por_tipo[tipo].append((ruta.stat().st_mtime, ruta, cab, filas))
+    for lista in por_tipo.values():
+        lista.sort(key=lambda x: x[0])
+    ultimo = lambda t: por_tipo[t][-1][1:] if por_tipo.get(t) else None  # noqa: E731
+    return Archivos(movimientos=ultimo("movimientos"), calles=ultimo("calles"),
+                    previsiones=[x[1:] for x in por_tipo.get("prevision", [])])
 
 
 # --- Movimientos ----------------------------------------------------------------
@@ -244,6 +287,85 @@ def salida_estimada(codigo: str, entrada: date) -> date:
     return entrada + timedelta(days=dias + DIAS_LIBERACION)
 
 
+@dataclass
+class Preparada:
+    """Salida y datos de una partida para la base Real."""
+    liberacion_ext: date | None  # None: manda la fecha técnico o la salida real del PDF
+    origen: str  # 'tecnico_o_pdf', 'maestro', 'prevision' o 'estimada'
+    dudosa: bool
+    tipo_planta: str
+    cliente: str
+    variedad: str
+    categoria: str
+    cultivo: str
+    bio: str
+    estilo: str
+    formato: str
+
+    @property
+    def estimada(self) -> bool:
+        return self.origen == "estimada"
+
+
+def preparar_partida(plan: Planificador, codigo: str, entrada: date, p: Partida | None,
+                     prev: DatosPrevision | None, dato: DatoReal | None, *,
+                     variedad_extra: str = "", cliente_extra: str = "") -> Preparada:
+    """Salida = técnico → salida real (PDF) → maestro → previsión + 3 → estimada (§10.5 3).
+
+    Datos: del maestro; si no, de la previsión; si no, de ``variedad_extra`` y
+    ``cliente_extra`` (lo que trae el propio Excel de calles); si no, por el código.
+    """
+    liberacion_ext: date | None = None
+    dudosa = False
+    if plan.fecha_tecnico(codigo) or (dato is not None and dato.fecha_salida_real):
+        origen = "tecnico_o_pdf"
+    else:
+        candidatas = []
+        if p is not None:
+            candidatas.append(("maestro", p.liberacion))
+        if prev is not None and prev.entrega is not None:
+            candidatas.append(("prevision", prev.entrega + timedelta(days=DIAS_LIBERACION)))
+        origen = "estimada"
+        for o, fecha in candidatas:
+            if (fecha - entrada).days > DIAS_DUDOSA:
+                dudosa = True
+                continue
+            liberacion_ext, origen = fecha, o
+            break
+        if liberacion_ext is None:
+            liberacion_ext = salida_estimada(codigo, entrada)
+
+    if p is not None:
+        return Preparada(liberacion_ext, origen, dudosa, p.tipo_planta, p.cliente, p.variedad,
+                         p.categoria, p.cultivo, p.bio, p.estilo, p.formato)
+    tipo = C.tipo_planta_de_codigo(codigo)
+    variedad = prev.variedad if prev and prev.variedad else variedad_extra
+    cliente = (prev.cliente if prev and prev.cliente else cliente_extra) or SIN_DATOS_CLIENTE
+    categoria = C.categoria(codigo, tipo, variedad)
+    cultivo = C.cultivo(variedad, categoria) if variedad else "Otros"
+    bio = C.bio_valor(codigo, tipo, prev.lucha if prev else False)
+    return Preparada(liberacion_ext, origen, dudosa, tipo, cliente, variedad, categoria,
+                     cultivo, bio, "", "")
+
+
+def escribir_dato(s: Session, dato: DatoReal | None, codigo: str, prep: Preparada, *,
+                  bandejas: int, entrada: date, localizacion: str, fuente: str) -> DatoReal:
+    if dato is None:
+        dato = DatoReal(codigo=codigo)
+        s.add(dato)
+    dato.bandejas_real = bandejas
+    dato.fec_entrada_real = entrada
+    dato.fecha_liberacion_ext = prep.liberacion_ext
+    dato.liberacion_estimada = prep.estimada
+    dato.localizacion = localizacion
+    dato.tipo_planta, dato.cliente, dato.variedad = prep.tipo_planta, prep.cliente, prep.variedad
+    dato.categoria, dato.cultivo, dato.bio = prep.categoria, prep.cultivo, prep.bio
+    dato.estilo, dato.formato = prep.estilo, prep.formato
+    dato.fuente = fuente
+    s.flush()
+    return dato
+
+
 # --- Carga ------------------------------------------------------------------------
 
 @dataclass
@@ -272,27 +394,15 @@ class ResumenExtensiones:
 
 def cargar_extensiones(s: Session, archivos: Sequence[str | Path]) -> ResumenExtensiones:
     """Carga uno o varios archivos (movimientos + previsión) en la base Real."""
-    movimientos: list[tuple[float, Path, int, list[tuple]]] = []
-    previsiones: list[tuple[float, Path, int, list[tuple]]] = []
-    for archivo in archivos:
-        ruta = Path(archivo)
-        tipo, cab, filas = clasificar_archivo(ruta)
-        destino = movimientos if tipo == "movimientos" else previsiones
-        destino.append((ruta.stat().st_mtime, ruta, cab, filas))
-    if not movimientos:
+    arch = archivos if isinstance(archivos, Archivos) else clasificar_archivos(archivos)
+    if arch.movimientos is None:
         raise ErrorExcel("Falta el Excel de movimientos (EXTENSIONES)")
-
-    # Si hay varios del mismo tipo, manda el más reciente.
-    movimientos.sort(key=lambda x: x[0])
-    previsiones.sort(key=lambda x: x[0])
-    _, ruta_mov, cab_mov, filas_mov = movimientos[-1]
+    ruta_mov, cab_mov, filas_mov = arch.movimientos
     movs = leer_movimientos(cab_mov, filas_mov)
-    prevision: dict[str, DatosPrevision] = {}
-    for _, _, cab, filas in previsiones:
-        prevision.update(leer_prevision(cab, filas))
+    prevision = arch.prevision()
 
     res = ResumenExtensiones(archivo_movimientos=ruta_mov.name,
-                             archivos_prevision=[r.name for _, r, _, _ in previsiones],
+                             archivos_prevision=arch.nombres_prevision,
                              movimientos=len(movs))
     netas = posiciones_netas(movs)
     entrada_de = {}
@@ -335,67 +445,25 @@ def cargar_extensiones(s: Session, archivos: Sequence[str | Path]) -> ResumenExt
             res.conservadas.append(codigo)
             continue
         entrada = entrada_de[codigo]
-        p = maestro.get(codigo)
-        prev = prevision.get(codigo)
-
-        # Salida
-        tecnico = plan.fecha_tecnico(codigo)
         dato = reales.get(codigo)
-        salida_pdf = dato.fecha_salida_real if dato else None
-        liberacion_ext: date | None = None
-        estimada = False
-        if tecnico or salida_pdf:
+        prep = preparar_partida(plan, codigo, entrada, maestro.get(codigo),
+                                prevision.get(codigo), dato)
+        if prep.dudosa:
+            res.dudosas.append(codigo)
+        if prep.origen == "tecnico_o_pdf":
             res.salida_tecnico_o_pdf += 1
+        elif prep.origen == "maestro":
+            res.salida_maestro += 1
+        elif prep.origen == "prevision":
+            res.salida_prevision += 1
         else:
-            candidatas = []
-            if p is not None:
-                candidatas.append(("maestro", p.liberacion))
-            if prev is not None and prev.entrega is not None:
-                candidatas.append(("prevision", prev.entrega + timedelta(days=DIAS_LIBERACION)))
-            for origen, fecha in candidatas:
-                if (fecha - entrada).days > DIAS_DUDOSA:
-                    if codigo not in res.dudosas:
-                        res.dudosas.append(codigo)
-                    continue
-                liberacion_ext = fecha
-                if origen == "maestro":
-                    res.salida_maestro += 1
-                else:
-                    res.salida_prevision += 1
-                break
-            if liberacion_ext is None:
-                liberacion_ext = salida_estimada(codigo, entrada)
-                estimada = True
-                res.salida_estimada += 1
+            res.salida_estimada += 1
+        tipo, cultivo, categoria = prep.tipo_planta, prep.cultivo, prep.categoria
+        bio, cliente = prep.bio, prep.cliente
 
-        # Datos de la partida
-        if p is not None:
-            tipo, cliente, variedad = p.tipo_planta, p.cliente, p.variedad
-            categoria, cultivo, bio = p.categoria, p.cultivo, p.bio
-            estilo, formato = p.estilo, p.formato
-        else:
-            tipo = C.tipo_planta_de_codigo(codigo)
-            variedad = prev.variedad if prev else ""
-            cliente = prev.cliente if prev and prev.cliente else SIN_DATOS_CLIENTE
-            categoria = C.categoria(codigo, tipo, variedad)
-            cultivo = C.cultivo(variedad, categoria) if variedad else "Otros"
-            bio = C.bio_valor(codigo, tipo, prev.lucha if prev else False)
-            estilo, formato = "", ""
-
-        total = round(sum(netas[codigo].values()))
-        if dato is None:
-            dato = DatoReal(codigo=codigo)
-            s.add(dato)
-        dato.bandejas_real = total
-        dato.fec_entrada_real = entrada
-        dato.fecha_liberacion_ext = liberacion_ext
-        dato.liberacion_estimada = estimada
-        dato.localizacion = ", ".join(sorted(netas[codigo]))
-        dato.tipo_planta, dato.cliente, dato.variedad = tipo, cliente, variedad
-        dato.categoria, dato.cultivo, dato.bio = categoria, cultivo, bio
-        dato.estilo, dato.formato = estilo, formato
-        dato.fuente = FUENTE
-        s.flush()
+        dato = escribir_dato(s, dato, codigo, prep,
+                             bandejas=round(sum(netas[codigo].values())), entrada=entrada,
+                             localizacion=", ".join(sorted(netas[codigo])), fuente=FUENTE)
 
         _, liberacion = plan.fechas_reales(dato)
         semana = cal.semana_de(entrada)

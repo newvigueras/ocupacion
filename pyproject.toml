@@ -11,6 +11,7 @@ dependencies = ["openpyxl>=3.1", "sqlalchemy>=2.0"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+pdf = ["pdfplumber>=0.11"]
 
 [project.scripts]
 planificador = "planificador.cli:main"
