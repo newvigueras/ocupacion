@@ -137,6 +137,37 @@ def cmd_asignar_partida(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_cargar_extensiones(args: argparse.Namespace) -> int:
+    from .bd.extensiones import cargar_extensiones
+
+    with _sesion(args) as s:
+        try:
+            r = cargar_extensiones(s, args.archivos)
+        except (ErrorExcel, OSError) as e:
+            print(f"ERROR: {e}", file=sys.stderr)
+            return 1
+        s.commit()
+    print(f"Movimientos: {r.archivo_movimientos} ({_miles(r.movimientos)} movimientos)")
+    if r.archivos_prevision:
+        print(f"Previsión: {', '.join(r.archivos_prevision)}")
+    print(f"  {_miles(r.partidas)} partidas con algo colocado · {_miles(r.bandejas_netas)} bandejas netas")
+    print(f"  Salida: {r.salida_tecnico_o_pdf} fecha técnico o PDF · {r.salida_maestro} del maestro · "
+          f"{r.salida_prevision} de la previsión · {r.salida_estimada} estimadas "
+          f"({len(r.dudosas)} por fecha dudosa)")
+    print(f"  Cargadas en Real: {_miles(r.bandejas_cargadas)} bandejas en "
+          f"{_miles(r.asignaciones)} asignaciones ({_miles(r.partidas_cargadas)} partidas)")
+    if r.no_cargadas:
+        print(f"  No cargadas (invernaderos que el planificador no tiene): "
+              f"{_miles(r.bandejas_no_cargadas)} bandejas")
+        for etiqueta, b in sorted(r.no_cargadas.items(), key=lambda x: -x[1])[:args.top]:
+            print(f"    {etiqueta:<20} {_miles(b):>8}")
+    if r.conservadas:
+        print(f"  No tocadas (Real con trabajo a mano): {len(r.conservadas)} partidas")
+    if r.fuera_de_calendario:
+        print(f"  Entrada fuera del calendario: {', '.join(r.fuera_de_calendario[:10])}")
+    return 0
+
+
 def cmd_tecnico(args: argparse.Namespace) -> int:
     fecha = None if args.fecha.lower() == "quitar" else _fecha(args.fecha)
     with _sesion(args) as s:
@@ -223,6 +254,14 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--base", choices=["partidas", "real"], default="partidas")
     ap.add_argument("--calle", type=int)
     ap.set_defaults(func=cmd_asignar_partida)
+
+    ce = sub.add_parser("cargar-extensiones",
+                        help="Cargar lo colocado (EXTENSIONES.xlsx + Excel de previsión) en Real")
+    ce.add_argument("archivos", nargs="+",
+                    help="EXTENSIONES.xlsx y, si se quiere, Excel de previsión (p. ej. 0110.xlsx)")
+    ce.add_argument("--top", type=int, default=10,
+                    help="Cuántos destinos no cargados listar")
+    ce.set_defaults(func=cmd_cargar_extensiones)
 
     tec = sub.add_parser("tecnico", help="Poner o quitar la fecha técnico de una partida")
     tec.add_argument("codigo")

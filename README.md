@@ -31,9 +31,17 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
   invernadero (Jiffy 8x8 y 5x5 cuentan como uno).
 - **Máximo asignable** de una partida: lo que cabe el peor día de toda su estancia.
 
-Quedan para más adelante: cargar EXTENSIONES / EXTENSIONCALLES y los PDF en Real, «Recalcular
-todas las semanas» y «Reimportar desde cero / conservar» (§10.4–10.6), y las migraciones de la
-base de datos (Alembic) antes de ponerla en común.
+- **Carga de EXTENSIONES.xlsx en Real** (§10.5), con uno o varios Excel de previsión (p. ej.
+  `0110.xlsx`): posición neta por partida e invernadero, salida (técnico → PDF → maestro → previsión
+  + 3 → estimada por familia; más de 150 días = dudosa), mitad A/B con menos ocupación, SURINVER y
+  túneles fuera. No toca lo hecho a mano en Real y cargar dos veces da lo mismo. Con
+  `EXTENSIONES.xlsx` + `0110.xlsx` da las cifras del §17.3: 2.418 movimientos, 2.307 partidas,
+  226.165 bandejas netas, **117.042 cargadas en 1.429 asignaciones** y 109.123 sin cargar; el
+  21/11/2026 hay unas 95.000 bandejas en 38 invernaderos (INV4A 3.549/3.010, INV37 2.384/1.996).
+
+Quedan para más adelante: EXTENSIONCALLES y los PDF en Real, «Recalcular todas las semanas» y
+«Reimportar desde cero / conservar» (§10.4–10.6), y las migraciones de la base de datos (Alembic)
+antes de ponerla en común.
 
 ## Decisiones nuevas respecto al documento maestro
 
@@ -62,6 +70,7 @@ planificador semana 49                               # bloques que entran la sem
 planificador asignar-bloque 49 1 INV41 500           # bloque n.º 1 → INV41 (base Bloques)
 planificador asignar-partida 26X02589 INV41 300 --calle 3
 planificador tecnico 26X02589 2027-01-10             # fecha técnico («quitar» para borrarla)
+planificador cargar-extensiones EXTENSIONES.xlsx 0110.xlsx   # lo ya colocado → base Real
 planificador ocupacion --base partidas --fecha 2026-12-01
 ```
 
@@ -76,5 +85,6 @@ planificador ocupacion --base partidas --fecha 2026-12-01
 - `src/planificador/bd/conexion.py` — conexión y preparación de la base de datos.
 - `src/planificador/bd/importar.py` — guardar en la base las partidas leídas de los Excel.
 - `src/planificador/bd/planificacion.py` — bloques, asignaciones, ocupación y avisos.
+- `src/planificador/bd/extensiones.py` — carga de EXTENSIONES.xlsx en la base Real.
 - `src/planificador/datos/invernaderos.json` — invernaderos y calles con su capacidad.
 - `tests/` — casos del §17.1 y §17.2 del documento maestro y de la fase 2.
