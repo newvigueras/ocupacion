@@ -84,6 +84,10 @@ def calcular_bandejas(
         calc.avisos.append(("excepcion", f"Tasa propia de la partida: {exc:g} plantas por bandeja"))
         return calc
 
+    # 1b. Tasa fija por tipo de siembra (pepino Jiffy PI35), lleve o no «JIF» la variedad.
+    if tipo_planta in R.EXT_ABIERTOS_TIPOS_PLANTA and tipo in R.TASA_FIJA_TIPO_SIEMBRA:
+        return por_plantas(R.TASA_FIJA_TIPO_SIEMBRA[tipo], f"Pepino Jiffy {tipo}")
+
     # 2. Jiffy (solo injerto: la categoría Jiffy solo existe en injerto).
     if categoria == "Jiffy":
         if R.JIFFY_DESARROLLADA.search(obs):

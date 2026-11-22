@@ -30,7 +30,8 @@ def res(excel_ejemplo):
     ("26010905", 310, 40),    # taco TH02
     ("26010978", 616, 40),    # pepino PEH2
     ("26X02968", 333, 40),    # minipepino MIH2
-    ("26X02997", 122, 18),    # pepino PI35
+    ("26X02997", 147, 15),    # pepino Jiffy PI35 (22/11/2026: 15, antes 18)
+    ("26X02998", 160, 15),    # pepino Jiffy PI35 con «JIF» en la variedad
     ("26011200", 100, 84),    # calabacín CCH5 (22/11/2026)
 ])
 def test_bandejas_casos_reales(res, codigo, bandejas, tasa):

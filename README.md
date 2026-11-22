@@ -24,6 +24,7 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
 | 22/11/2026 | **Lista editable de excepciones por partida** (código → plantas por bandeja), que manda sobre cualquier otra regla. Empieza con 26X03025 y 26X02999 a 15. |
 | 22/11/2026 | Solo se importan los **códigos conocidos** (26X, 26YE, 26F, numéricos, 26EC, 26P, 26C, 26WE, 26VE). H26/…, B26/… (no van a extensión), 23A…, 26KC…, 26ZE… se ignoran de momento y quedan en los avisos. |
 | 22/11/2026 | Calabacín: solo el tipo CCH5 va a 84; los demás tipos, con Band. |
+| 22/11/2026 | Pepino Jiffy **PI35** = Pl sol ÷ **15** (antes 18), lleve o no «JIF» la variedad. |
 | 22/11/2026 | Jiffy desarrollada (tallos/brazos) e hidro adelantada van a 15 aunque no se conozca la medida. |
 
 ## Uso

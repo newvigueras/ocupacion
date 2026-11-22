@@ -38,6 +38,7 @@ FILAS = [
     fila(26010978, "PEPINO TACO", tipo="PEH2", pl=24624),
     fila("26X02968", "PEINJ MINIPEPINO", tipo="MIH2", pl=13320),
     fila("26X02997", "PEINJ PEPINO", tipo="PI35", pl=2200),
+    fila("26X02998", "PEINJ PEPINO JIF", tipo="PI35", pl=2400, band=99),
     fila(26011200, "CALABACIN X", tipo="CCH5", pl=8400, band=120),
     fila("26X03900", "TINJ X HIDRO 120", tipo="TIHI", pl=12000, band=77),
     fila("26X03901", "TINJ X JIF", tipo="ZZZ", pl=1800, band=55),

@@ -48,10 +48,13 @@ EXT_ABIERTOS = {
     "TH02": 40,  # tomate taco
     "PEH2": 40,  # pepino taco
     "MIH2": 40,  # minipepino taco
-    "PI35": 18,  # pepino Jiffy 8x8
     "CCH5": 84,  # calabacín (decisión 22/11/2026: abierta a 84, como el PDF de ocupación)
 }
 EXT_ABIERTOS_TIPOS_PLANTA = frozenset({"injerto", "normal"})
+
+#: Tipos de siembra con tasa fija aunque la variedad lleve «JIF» (antes de la regla Jiffy).
+#: Decisión 22/11/2026: pepino Jiffy PI35 = 15 plantas por bandeja (antes 18).
+TASA_FIJA_TIPO_SIEMBRA = {"PI35": 15}
 
 #: Excepciones por partida (código → plantas por bandeja) con las que se arranca.
 EXCEPCIONES_PARTIDA_INICIALES = {
