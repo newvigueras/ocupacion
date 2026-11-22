@@ -1,0 +1,7089 @@
+{
+ "origen": "Planificador_Ocupacion_Verano2026.html (calles-data, 21/11/2026)",
+ "invernaderos": [
+  {
+   "nombre": "INV0A",
+   "sala": "Sala 1",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 19,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 20,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 21,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 22,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 23,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 24,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 25,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 26,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 27,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 28,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 29,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 30,
+     "zona": "Arriba",
+     "capacidad": 80
+    }
+   ]
+  },
+  {
+   "nombre": "INV0B",
+   "sala": "Sala 1",
+   "calles": [
+    {
+     "calle": 41,
+     "zona": "Abajo",
+     "capacidad": 60
+    },
+    {
+     "calle": 42,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 43,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 44,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 45,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 46,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 47,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 48,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 49,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 50,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 51,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 52,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 53,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 54,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 55,
+     "zona": "Abajo",
+     "capacidad": 60
+    },
+    {
+     "calle": 56,
+     "zona": "Abajo",
+     "capacidad": 80
+    },
+    {
+     "calle": 57,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 58,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 59,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 60,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 61,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 62,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 63,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 64,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 65,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 66,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 67,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 68,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 69,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 70,
+     "zona": "Abajo",
+     "capacidad": 80
+    }
+   ]
+  },
+  {
+   "nombre": "INV10A",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1001,
+     "zona": "Arriba",
+     "capacidad": 96
+    },
+    {
+     "calle": 1002,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1003,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1004,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1005,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1006,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1007,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1008,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1009,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1010,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1011,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 1012,
+     "zona": "Arriba",
+     "capacidad": 96
+    },
+    {
+     "calle": 1028,
+     "zona": "Abajo",
+     "capacidad": 86
+    },
+    {
+     "calle": 1029,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1030,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1031,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1032,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1033,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1034,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1035,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1036,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1037,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1038,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 1039,
+     "zona": "Abajo",
+     "capacidad": 86
+    }
+   ]
+  },
+  {
+   "nombre": "INV10B",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 96
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 19,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 20,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 21,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 22,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 23,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 24,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 25,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 26,
+     "zona": "Arriba",
+     "capacidad": 144
+    },
+    {
+     "calle": 27,
+     "zona": "Arriba",
+     "capacidad": 96
+    },
+    {
+     "calle": 40,
+     "zona": "Abajo",
+     "capacidad": 86
+    },
+    {
+     "calle": 41,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 42,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 43,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 44,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 45,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 46,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 47,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 48,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 49,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 50,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 51,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 52,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 53,
+     "zona": "Abajo",
+     "capacidad": 129
+    },
+    {
+     "calle": 54,
+     "zona": "Abajo",
+     "capacidad": 40
+    }
+   ]
+  },
+  {
+   "nombre": "INV11A",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 13,
+     "zona": "Abajo",
+     "capacidad": 96
+    },
+    {
+     "calle": 14,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 15,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 96
+    }
+   ]
+  },
+  {
+   "nombre": "INV11B",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1125,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 1126,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1127,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1128,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1129,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1130,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1131,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1132,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1133,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1134,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1135,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 1136,
+     "zona": "Arriba",
+     "capacidad": 82
+    },
+    {
+     "calle": 1137,
+     "zona": "Abajo",
+     "capacidad": 96
+    },
+    {
+     "calle": 1138,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 1139,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 1140,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 1141,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 1142,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 1143,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 1144,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 1145,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 1146,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 1147,
+     "zona": "Abajo",
+     "capacidad": 115
+    },
+    {
+     "calle": 1148,
+     "zona": "Abajo",
+     "capacidad": 27
+    }
+   ]
+  },
+  {
+   "nombre": "INV15",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Completo",
+     "capacidad": 82
+    },
+    {
+     "calle": 2,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 3,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 4,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 5,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 6,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 7,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 8,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 9,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 10,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 11,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 12,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 13,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 14,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 15,
+     "zona": "Completo",
+     "capacidad": 88
+    },
+    {
+     "calle": 16,
+     "zona": "Completo",
+     "capacidad": 92
+    },
+    {
+     "calle": 17,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 18,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 19,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 20,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 21,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 22,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 23,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 24,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 25,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 26,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 27,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 28,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 29,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 30,
+     "zona": "Completo",
+     "capacidad": 98
+    }
+   ]
+  },
+  {
+   "nombre": "INV16",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 78
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 125
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 125
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 125
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 125
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 125
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 88
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 140
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 140
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 140
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 140
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 96
+    }
+   ]
+  },
+  {
+   "nombre": "INV17",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Completo",
+     "capacidad": 82
+    },
+    {
+     "calle": 2,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 3,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 4,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 5,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 6,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 7,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 8,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 9,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 10,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 11,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 12,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 13,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 14,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 15,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 16,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 17,
+     "zona": "Completo",
+     "capacidad": 132
+    },
+    {
+     "calle": 18,
+     "zona": "Completo",
+     "capacidad": 88
+    },
+    {
+     "calle": 19,
+     "zona": "Completo",
+     "capacidad": 88
+    },
+    {
+     "calle": 20,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 21,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 22,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 23,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 24,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 25,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 26,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 27,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 28,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 29,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 30,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 31,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 32,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 33,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 34,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 35,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 36,
+     "zona": "Completo",
+     "capacidad": 98
+    }
+   ]
+  },
+  {
+   "nombre": "INV18",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 70
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 82
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 138
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 138
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 138
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 138
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 138
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 138
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 138
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 138
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 144
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 96
+    }
+   ]
+  },
+  {
+   "nombre": "INV19",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 2,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 3,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 4,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 5,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 6,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 7,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 8,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 9,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 10,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 11,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 12,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 13,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 14,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 15,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 16,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 17,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 18,
+     "zona": "Completo",
+     "capacidad": 147
+    },
+    {
+     "calle": 19,
+     "zona": "Completo",
+     "capacidad": 126
+    },
+    {
+     "calle": 20,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 21,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 22,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 23,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 24,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 25,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 26,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 27,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 28,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 29,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 30,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 31,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 32,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 33,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 34,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 35,
+     "zona": "Completo",
+     "capacidad": 135
+    },
+    {
+     "calle": 36,
+     "zona": "Completo",
+     "capacidad": 135
+    }
+   ]
+  },
+  {
+   "nombre": "INV1A",
+   "sala": "Sala 1",
+   "calles": [
+    {
+     "calle": 101,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 102,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 103,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 104,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 105,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 106,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 107,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 108,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 109,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 110,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 111,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 112,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 113,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 114,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 115,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 116,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 117,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 118,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 119,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 120,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 121,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 122,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 123,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 124,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 125,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 126,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 127,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 128,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 129,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 130,
+     "zona": "Arriba",
+     "capacidad": 80
+    }
+   ]
+  },
+  {
+   "nombre": "INV1B",
+   "sala": "Sala 1",
+   "calles": [
+    {
+     "calle": 141,
+     "zona": "Abajo",
+     "capacidad": 60
+    },
+    {
+     "calle": 142,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 143,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 144,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 145,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 146,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 147,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 148,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 149,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 150,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 151,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 152,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 153,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 154,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 155,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 156,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 157,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 158,
+     "zona": "Abajo",
+     "capacidad": 60
+    },
+    {
+     "calle": 159,
+     "zona": "Abajo",
+     "capacidad": 80
+    },
+    {
+     "calle": 160,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 161,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 162,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 163,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 164,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 165,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 166,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 167,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 168,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 169,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 170,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 171,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 172,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 173,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 174,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 175,
+     "zona": "Abajo",
+     "capacidad": 80
+    }
+   ]
+  },
+  {
+   "nombre": "INV20",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 100
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 150
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 100
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 84
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 126
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 84
+    }
+   ]
+  },
+  {
+   "nombre": "INV21",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 132
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 143
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 143
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 143
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 143
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 143
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 143
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 143
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 143
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 19,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 20,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 21,
+     "zona": "Arriba",
+     "capacidad": 98
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 114
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 118
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 117
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 147
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 147
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 147
+    },
+    {
+     "calle": 37,
+     "zona": "Abajo",
+     "capacidad": 147
+    },
+    {
+     "calle": 38,
+     "zona": "Abajo",
+     "capacidad": 147
+    },
+    {
+     "calle": 39,
+     "zona": "Abajo",
+     "capacidad": 147
+    },
+    {
+     "calle": 40,
+     "zona": "Abajo",
+     "capacidad": 147
+    },
+    {
+     "calle": 41,
+     "zona": "Abajo",
+     "capacidad": 147
+    },
+    {
+     "calle": 42,
+     "zona": "Abajo",
+     "capacidad": 98
+    }
+   ]
+  },
+  {
+   "nombre": "INV22",
+   "sala": "Sala 2",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 94
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 94
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 94
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 94
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 94
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 94
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 94
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 147
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 106
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 166
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 166
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 166
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 166
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 166
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 166
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 166
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 171
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 171
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 171
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 171
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 171
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 171
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 171
+    }
+   ]
+  },
+  {
+   "nombre": "INV2A",
+   "sala": "Sala 1",
+   "calles": [
+    {
+     "calle": 201,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 202,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 203,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 204,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 205,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 206,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 207,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 208,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 209,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 210,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 211,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 212,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 213,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 214,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 215,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 216,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 217,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 218,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 219,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 220,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 221,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 222,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 223,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 224,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 225,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 226,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 227,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 228,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 229,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 230,
+     "zona": "Arriba",
+     "capacidad": 80
+    }
+   ]
+  },
+  {
+   "nombre": "INV2B",
+   "sala": "Sala 1",
+   "calles": [
+    {
+     "calle": 241,
+     "zona": "Abajo",
+     "capacidad": 60
+    },
+    {
+     "calle": 242,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 243,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 244,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 245,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 246,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 247,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 248,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 249,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 250,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 251,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 252,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 253,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 254,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 255,
+     "zona": "Abajo",
+     "capacidad": 60
+    },
+    {
+     "calle": 256,
+     "zona": "Abajo",
+     "capacidad": 80
+    },
+    {
+     "calle": 257,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 258,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 259,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 260,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 261,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 262,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 263,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 264,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 265,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 266,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 267,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 268,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 269,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 270,
+     "zona": "Abajo",
+     "capacidad": 80
+    }
+   ]
+  },
+  {
+   "nombre": "INV3A",
+   "sala": "Sala 1",
+   "calles": [
+    {
+     "calle": 301,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 302,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 303,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 304,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 305,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 306,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 307,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 308,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 309,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 310,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 311,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 312,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 313,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 314,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 315,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 316,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 317,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 318,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 319,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 320,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 321,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 322,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 323,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 324,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 325,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 326,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 327,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 328,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 329,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 330,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 331,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 332,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 333,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 334,
+     "zona": "Arriba",
+     "capacidad": 80
+    }
+   ]
+  },
+  {
+   "nombre": "INV3B",
+   "sala": "Sala 1",
+   "calles": [
+    {
+     "calle": 341,
+     "zona": "Abajo",
+     "capacidad": 60
+    },
+    {
+     "calle": 342,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 343,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 344,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 345,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 346,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 347,
+     "zona": "Abajo",
+     "capacidad": 90
+    },
+    {
+     "calle": 348,
+     "zona": "Abajo",
+     "capacidad": 60
+    },
+    {
+     "calle": 349,
+     "zona": "Abajo",
+     "capacidad": 80
+    },
+    {
+     "calle": 350,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 351,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 352,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 353,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 354,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 355,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 356,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 357,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 358,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 359,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 360,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 361,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 362,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 363,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 364,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 365,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 366,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 367,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 368,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 369,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 370,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 371,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 372,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 373,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 374,
+     "zona": "Abajo",
+     "capacidad": 120
+    },
+    {
+     "calle": 375,
+     "zona": "Abajo",
+     "capacidad": 80
+    }
+   ]
+  },
+  {
+   "nombre": "INV4A",
+   "sala": "Sala 1",
+   "calles": [
+    {
+     "calle": 401,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 402,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 403,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 404,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 405,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 406,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 407,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 408,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 409,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 410,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 411,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 412,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 413,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 414,
+     "zona": "Arriba",
+     "capacidad": 90
+    },
+    {
+     "calle": 415,
+     "zona": "Arriba",
+     "capacidad": 60
+    },
+    {
+     "calle": 416,
+     "zona": "Arriba",
+     "capacidad": 80
+    },
+    {
+     "calle": 417,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 418,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 419,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 420,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 421,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 422,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 423,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 424,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 425,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 426,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 427,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 428,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 429,
+     "zona": "Arriba",
+     "capacidad": 120
+    },
+    {
+     "calle": 430,
+     "zona": "Arriba",
+     "capacidad": 80
+    }
+   ]
+  },
+  {
+   "nombre": "INV31",
+   "sala": "Sala 3",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 88,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 88,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Abajo",
+     "capacidad": 89,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 89,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV32",
+   "sala": "Sala 3",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 88,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 88,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Abajo",
+     "capacidad": 89,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 89,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV33",
+   "sala": "Sala 3",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 118,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 118,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 101,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 101,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV34",
+   "sala": "Sala 3",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 122,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 122,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Abajo",
+     "capacidad": 104,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV35",
+   "sala": "Sala 3",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 85,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Arriba",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Arriba",
+     "capacidad": 85,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 85,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 37,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 38,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 39,
+     "zona": "Abajo",
+     "capacidad": 90,
+     "estimada": true
+    },
+    {
+     "calle": 40,
+     "zona": "Abajo",
+     "capacidad": 86,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV36",
+   "sala": "Sala 3",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 111,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Abajo",
+     "capacidad": 112,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Abajo",
+     "capacidad": 94,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 105,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 94,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV37",
+   "sala": "Sala 3",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 102,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 102,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Abajo",
+     "capacidad": 87,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Abajo",
+     "capacidad": 108,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Abajo",
+     "capacidad": 108,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Abajo",
+     "capacidad": 108,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Abajo",
+     "capacidad": 108,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Abajo",
+     "capacidad": 108,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 108,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 108,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 88,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV40",
+   "sala": "Sala 4",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 96,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Abajo",
+     "capacidad": 96,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 97,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 97,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV41",
+   "sala": "Sala 4",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 92,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Arriba",
+     "capacidad": 92,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 93,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 37,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 38,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 39,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 40,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 41,
+     "zona": "Abajo",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 42,
+     "zona": "Abajo",
+     "capacidad": 93,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV42",
+   "sala": "Sala 4",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 101,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Abajo",
+     "capacidad": 101,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 132,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 132,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV43",
+   "sala": "Sala 4",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 138,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 126,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Abajo",
+     "capacidad": 138,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Abajo",
+     "capacidad": 167,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 167,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV44",
+   "sala": "Sala 4",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 119,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 119,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 152,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 152,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV45",
+   "sala": "Sala 4",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 118,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Abajo",
+     "capacidad": 118,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 151,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 156,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 151,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV51",
+   "sala": "Sala 5",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 109,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 144,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 109,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 85,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 37,
+     "zona": "Abajo",
+     "capacidad": 85,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV52",
+   "sala": "Sala 5",
+   "calles": [
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 124,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 125,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 98,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 98,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV53",
+   "sala": "Sala 5",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 109,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 109,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 82,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 83,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV54",
+   "sala": "Sala 5",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 115,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 115,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 89,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 89,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV55",
+   "sala": "Sala 5",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 124,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 124,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 97,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 97,
+     "estimada": true
+    }
+   ]
+  },
+  {
+   "nombre": "INV56",
+   "sala": "Sala 5",
+   "calles": [
+    {
+     "calle": 1,
+     "zona": "Arriba",
+     "capacidad": 122,
+     "estimada": true
+    },
+    {
+     "calle": 2,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 3,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 4,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 5,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 6,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 7,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 8,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 9,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 10,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 11,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 12,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 13,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 14,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 15,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 16,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 17,
+     "zona": "Arriba",
+     "capacidad": 147,
+     "estimada": true
+    },
+    {
+     "calle": 18,
+     "zona": "Arriba",
+     "capacidad": 123,
+     "estimada": true
+    },
+    {
+     "calle": 19,
+     "zona": "Abajo",
+     "capacidad": 96,
+     "estimada": true
+    },
+    {
+     "calle": 20,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 21,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 22,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 23,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 24,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 25,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 26,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 27,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 28,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 29,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 30,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 31,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 32,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 33,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 34,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 35,
+     "zona": "Abajo",
+     "capacidad": 120,
+     "estimada": true
+    },
+    {
+     "calle": 36,
+     "zona": "Abajo",
+     "capacidad": 96,
+     "estimada": true
+    }
+   ]
+  }
+ ]
+}

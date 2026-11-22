@@ -12,8 +12,28 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
 | Fase | Contenido | Estado |
 |---|---|---|
 | 1 | Motor de cálculo: Excel de previsión → partidas, fechas, ECO/BIO, bandejas, calendario | ✅ con pruebas |
-| 2 | Base de datos y asignaciones (Bloques, Partidas, Real) | pendiente |
+| 2 | Base de datos y asignaciones (Bloques, Partidas, Real), ocupación diaria y avisos | ✅ con pruebas |
 | 3 | Servidor web, usuarios y pantallas | pendiente |
+
+### Fase 2: qué incluye
+
+- **Base de datos** con SQLAlchemy. Por defecto, un archivo SQLite (`planificador.db`); para la
+  base común se apunta a PostgreSQL con la variable `PLANIFICADOR_BD`, sin cambiar el código.
+- **40 invernaderos y 1.250 calles** (150.119 bandejas, §8) más el destino especial **BASURA**,
+  cargados de `src/planificador/datos/invernaderos.json` (sacado del planificador HTML del 21/11).
+- **Partidas** guardadas desde los Excel, fusionando por código (las que no vienen se mantienen).
+- **Tres bases independientes** de asignaciones: Bloques (§10.1–10.2: el bloque se reparte partida a
+  partida por liberación y código), Partidas (con o sin calle) y Real (solo partidas con dato real).
+- **Fecha técnico** por partida, que manda sobre la liberación en las tres bases.
+- **Ocupación diaria** (entrada y liberación incluidas) y, en Bloques y Partidas, **lo ya colocado**
+  (Real), sustituido bandeja a bandeja por lo asignado de la misma partida (§10.3 3b).
+- **Avisos**: invernaderos por encima de su capacidad (se permite) y cultivos distintos en el mismo
+  invernadero (Jiffy 8x8 y 5x5 cuentan como uno).
+- **Máximo asignable** de una partida: lo que cabe el peor día de toda su estancia.
+
+Quedan para más adelante: cargar EXTENSIONES / EXTENSIONCALLES y los PDF en Real, «Recalcular
+todas las semanas» y «Reimportar desde cero / conservar» (§10.4–10.6), y las migraciones de la
+base de datos (Alembic) antes de ponerla en común.
 
 ## Decisiones nuevas respecto al documento maestro
 
@@ -34,6 +54,15 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
 pip install -e ".[dev]"
 python -m pytest
 planificador importar 201126.xlsx --partida 26X02589
+
+# Base de datos (fase 2)
+planificador preparar                                # crea planificador.db con invernaderos y calles
+planificador importar 201126.xlsx --guardar          # guarda las partidas
+planificador semana 49                               # bloques que entran la semana 49 (49/26)
+planificador asignar-bloque 49 1 INV41 500           # bloque n.º 1 → INV41 (base Bloques)
+planificador asignar-partida 26X02589 INV41 300 --calle 3
+planificador tecnico 26X02589 2027-01-10             # fecha técnico («quitar» para borrarla)
+planificador ocupacion --base partidas --fecha 2026-12-01
 ```
 
 ## Estructura
@@ -43,4 +72,9 @@ planificador importar 201126.xlsx --partida 26X02589
 - `src/planificador/motor/bandejas.py` — cálculo de bandejas.
 - `src/planificador/motor/excel.py` — lectura de los Excel de previsión.
 - `src/planificador/motor/calendario.py` — semanas de domingo a sábado.
-- `tests/` — casos del §17.1 del documento maestro.
+- `src/planificador/bd/tablas.py` — tablas: invernaderos, calles, partidas, fechas técnico, datos reales y asignaciones.
+- `src/planificador/bd/conexion.py` — conexión y preparación de la base de datos.
+- `src/planificador/bd/importar.py` — guardar en la base las partidas leídas de los Excel.
+- `src/planificador/bd/planificacion.py` — bloques, asignaciones, ocupación y avisos.
+- `src/planificador/datos/invernaderos.json` — invernaderos y calles con su capacidad.
+- `tests/` — casos del §17.1 y §17.2 del documento maestro y de la fase 2.
