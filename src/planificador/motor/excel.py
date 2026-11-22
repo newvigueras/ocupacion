@@ -210,11 +210,17 @@ def analizar_filas(
             omitir(f"Liberación ({liberacion:%d/%m/%Y}) anterior a la entrada ({entrada:%d/%m/%Y})")
             continue
 
+        anterior = res.partidas.pop(codigo, None)
+        if anterior is not None:
+            # Gana la última fila: los avisos de cálculo de la anterior ya no valen.
+            res.avisos = [
+                a for a in res.avisos if not (a.codigo == codigo and a.fila == anterior.fila)
+            ]
+
         for tipo_aviso, mensaje in calc.avisos:
             res.avisos.append(Aviso(tipo_aviso, mensaje, codigo, n_fila))
 
-        if codigo in res.partidas:
-            anterior = res.partidas.pop(codigo)
+        if anterior is not None:
             res.avisos.append(Aviso(
                 "repetida",
                 f"Partida repetida (filas {anterior.fila} y {n_fila}); gana la última",
@@ -262,10 +268,20 @@ def leer_excel(
     tipo_planta: str | None = None,
 ) -> ResultadoImportacion:
     """Lee un Excel de previsión y devuelve las partidas calculadas."""
+    from zipfile import BadZipFile
+
     from openpyxl import load_workbook
+    from openpyxl.utils.exceptions import InvalidFileException
 
     ruta = Path(ruta)
-    wb = load_workbook(ruta, read_only=True, data_only=True)
+    if ruta.suffix.lower() == ".xls":
+        raise ErrorExcel(
+            f"{ruta.name}: formato .xls antiguo; ábrelo en Excel y guárdalo como .xlsx"
+        )
+    try:
+        wb = load_workbook(ruta, read_only=True, data_only=True)
+    except (InvalidFileException, BadZipFile, KeyError) as e:
+        raise ErrorExcel(f"{ruta.name}: no se puede abrir como Excel .xlsx ({e})") from e
     try:
         nombres = sorted(
             wb.sheetnames,

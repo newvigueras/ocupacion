@@ -2,7 +2,9 @@ from datetime import date
 
 import pytest
 
-from planificador.motor import Calendario, Reglas, leer_excel
+from conftest import CABECERA, fila
+from planificador.cli import main
+from planificador.motor import Calendario, ErrorExcel, Reglas, analizar_filas, leer_excel
 from planificador.motor.bandejas import redondear
 from planificador.motor.clasificacion import categoria_injerto, cultivo, tipo_planta_de_codigo
 from planificador.motor.excel import a_fecha, a_numero
@@ -187,3 +189,41 @@ def test_partida_en_semanas(res):
     assert en_49["26X02589"].nueva and not en_49["26X02589"].sale
     en_53 = {x.partida.codigo: x for x in cal.partidas_de_semana([p], 53)}
     assert en_53["26X02589"].sale and not en_53["26X02589"].nueva
+
+
+# --- Correcciones de la revisión (22/11/2026) -----------------------------------
+
+def test_excepcion_sin_importar_mayusculas(excel_ejemplo):
+    reglas = Reglas.por_defecto()
+    reglas.excepciones_partida[" 26x03373 "] = 20
+    assert leer_excel(excel_ejemplo, reglas=reglas).partidas["26X03373"].bandejas == 448
+
+
+def test_repetida_no_duplica_avisos():
+    filas = [CABECERA,
+             fila("26X05000", "TINJ X JIF", tipo="TIJ2", pl=1500, obs="TALLOS 15 CM"),
+             fila("26X05000", "TINJ X JIF", tipo="TIJ2", pl=3000, obs="TALLOS 15 CM")]
+    res = analizar_filas(filas)
+    assert res.partidas["26X05000"].bandejas == 200
+    desarrolladas = res.avisos_de("desarrollada")
+    assert len(desarrolladas) == 1 and desarrolladas[0].fila == 3
+    assert len(res.avisos_de("repetida")) == 1
+
+
+def test_excel_danado_o_xls_da_error_claro(tmp_path):
+    danado = tmp_path / "danado.xlsx"
+    danado.write_bytes(b"esto no es un Excel")
+    with pytest.raises(ErrorExcel, match="no se puede abrir"):
+        leer_excel(danado)
+    antiguo = tmp_path / "antiguo.xls"
+    antiguo.write_bytes(b"\xd0\xcf\x11\xe0")
+    with pytest.raises(ErrorExcel, match=r"\.xls antiguo"):
+        leer_excel(antiguo)
+
+
+def test_cli_sigue_con_los_demas_archivos(tmp_path, excel_ejemplo, capsys):
+    danado = tmp_path / "danado.xlsx"
+    danado.write_bytes(b"esto no es un Excel")
+    assert main(["importar", str(danado), str(excel_ejemplo)]) == 1
+    salida = capsys.readouterr()
+    assert "ERROR" in salida.err and "prevision.xlsx" in salida.out

@@ -16,12 +16,15 @@ def _miles(n: float) -> str:
 
 
 def cmd_importar(args: argparse.Namespace) -> int:
+    errores = 0
     for ruta in args.archivos:
         try:
             res = leer_excel(ruta, tipo_planta=args.tipo)
         except (ErrorExcel, OSError) as e:
+            # Se avisa y se sigue con los demás archivos.
             print(f"ERROR {ruta}: {e}", file=sys.stderr)
-            return 1
+            errores += 1
+            continue
         print(f"\n== {res.archivo} · hoja «{res.hoja}» · cabecera en la fila {res.fila_cabecera}")
         print(f"   {len(res.partidas)} partidas · {_miles(res.total_bandejas)} bandejas")
         for cultivo, (n, band) in res.resumen_por_cultivo().items():
@@ -39,7 +42,7 @@ def cmd_importar(args: argparse.Namespace) -> int:
             print(f"   {p.codigo}: {p.cultivo} · {p.categoria} · {p.bio or 'sin ECO'} · "
                   f"{p.bandejas} bandejas [{p.regla_bandejas}] · entrada {p.entrada:%d/%m/%Y} · "
                   f"liberación {p.liberacion:%d/%m/%Y}")
-    return 0
+    return 1 if errores else 0
 
 
 def main(argv: list[str] | None = None) -> int:

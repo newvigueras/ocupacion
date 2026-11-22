@@ -100,5 +100,12 @@ class Reglas:
         return cls()
 
     def excepcion(self, codigo: str) -> float | None:
-        tasa = self.excepciones_partida.get(codigo.strip().upper())
+        """Tasa propia de la partida; el código se compara sin mayúsculas ni espacios."""
+        clave = codigo.strip().upper()
+        tasa = self.excepciones_partida.get(clave)
+        if tasa is None:
+            tasa = next(
+                (v for k, v in self.excepciones_partida.items() if k.strip().upper() == clave),
+                None,
+            )
         return tasa if tasa and tasa > 0 else None
