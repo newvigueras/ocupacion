@@ -8,6 +8,9 @@
     planificador cargar-extensiones EXTENSIONES.xlsx 0110.xlsx
     planificador cargar-extensiones EXTENSIONCALLES.xlsx 0110.xlsx [--sin-reparto]
     planificador cargar-pdf parte_injerto.pdf cargas_15.pdf
+    planificador recalcular
+    planificador reimportar 201126.xlsx PLANTA_NORMAL.xlsx [--conservar]
+    planificador copias [--base real]  ·  planificador restaurar-copia 12
     planificador tecnico 26X02589 2027-01-10        (o «quitar»)
     planificador ocupacion [--base partidas] [--fecha 2026-12-01] [--sin-ext]
 
@@ -299,6 +302,113 @@ def cmd_ocupacion(args: argparse.Namespace) -> int:
     return 0
 
 
+_NOMBRE_BASE = {"bloques": "Bloques (Planificación Global)", "partidas": "Partidas",
+                "real": "Real (Planificación Exacta)"}
+
+
+def _informe_recalculo(inf) -> None:
+    print(f"\n== {_NOMBRE_BASE[inf.base]}")
+    if inf.vacia:
+        print("   Sin asignaciones.")
+        return
+    dif = inf.bandejas_despues - inf.bandejas_antes
+    print(f"   Asignaciones: {_miles(inf.asignaciones_antes)} → {_miles(inf.asignaciones_despues)}"
+          f" · Bandejas: {_miles(inf.bandejas_antes)} → {_miles(inf.bandejas_despues)}"
+          f" ({'+' if dif >= 0 else '-'}{_miles(abs(dif))})")
+    if inf.cambio_bio:
+        print(f"   Cambiaron de ECO / BIO: {_miles(inf.cambio_bio)} bandejas")
+    if inf.recortadas:
+        print(f"   Recortadas por haber ahora menos bandejas: {_miles(inf.recortadas)}")
+    if inf.otra_semana:
+        print(f"   {'⚠ ' if inf.base == 'bloques' else ''}{inf.otra_semana} trozos de partidas que "
+              + ("cambiaron de semana: se dejan sin tocar (vuelva a asignarlas en su semana)"
+                 if inf.base == "bloques" else "cambiaron de semana: se han movido con la partida"))
+    if inf.huerfanas:
+        print(f"   ⚠ {inf.huerfanas} trozos de partidas que ya no existen se han dejado sin tocar")
+    if inf.semanas_cambiadas:
+        textos = [f"{sem}{f' ({tipo})' if tipo else ''}: {_miles(a)} → {_miles(d)}"
+                  for sem, tipo, a, d in inf.semanas_cambiadas]
+        print("   Semanas con cambio de total: " + " · ".join(textos[:12])
+              + (f" … y {len(textos) - 12} más" if len(textos) > 12 else ""))
+    else:
+        print("   Ninguna semana cambió de total.")
+    if inf.copia_id:
+        print(f"   Copia de seguridad n.º {inf.copia_id} (planificador restaurar-copia "
+              f"{inf.copia_id})")
+
+
+def cmd_recalcular(args: argparse.Namespace) -> int:
+    from .bd.recalcular import recalcular_todo
+
+    with _sesion(args) as s:
+        informes = recalcular_todo(s)
+        s.commit()
+    if all(i.vacia for i in informes):
+        print("No hay asignaciones en ninguna base: no hay nada que recalcular.")
+        return 0
+    print("Recálculo terminado (todas las semanas, las tres bases).")
+    for inf in informes:
+        _informe_recalculo(inf)
+    return 0
+
+
+def cmd_reimportar(args: argparse.Namespace) -> int:
+    from .bd.recalcular import reimportar
+
+    try:
+        with _sesion(args) as s:
+            r = reimportar(s, args.archivos, conservar=args.conservar)
+            s.commit()
+    except (ErrorExcel, OSError) as e:
+        print(f"ERROR: {e}\nNo se ha cambiado nada.", file=sys.stderr)
+        return 1
+    for a in r.archivos:
+        tipos = ", ".join(f"{n} de {t}" for t, n in a.tipos.most_common())
+        print(f"== {a.nombre}: {a.partidas} partidas ({tipos})"
+              + (f", {a.omitidas} omitidas" if a.omitidas else ""))
+        print(f"   Maestro: {a.guardado.nuevas} nuevas, {a.guardado.actualizadas} actualizadas, "
+              f"{a.guardado.sin_cambios} sin cambios")
+    if r.modo == "cero":
+        print(f"\nDesde cero: quitadas {_miles(r.quitadas.get('bloques', 0))} asignaciones de "
+              f"Bloques, {_miles(r.quitadas.get('partidas', 0))} de Partidas y "
+              f"{_miles(r.quitadas.get('real', 0))} de Real. En Real quedan "
+              f"{_miles(r.quedan_real)} (EXTENSIONES sin calle y EXTENSIONCALLES).")
+        if r.copias:
+            print("   Copias de seguridad: " + ", ".join(
+                f"{_NOMBRE_BASE[b].split(' (')[0]} n.º {i}" for b, i in r.copias.items()))
+    for inf in r.informes:
+        _informe_recalculo(inf)
+    return 0
+
+
+def cmd_copias(args: argparse.Namespace) -> int:
+    from .bd.recalcular import copias
+
+    with _sesion(args) as s:
+        lista = copias(s, args.base)
+        if not lista:
+            print("No hay copias de seguridad.")
+        for c in lista:
+            print(f"  n.º {c.id:<4} {c.creada_en:%d/%m/%Y %H:%M} · {c.base:<8} · "
+                  f"{_miles(c.asignaciones):>6} asignaciones, {_miles(c.bandejas):>8} bandejas"
+                  f" · {c.motivo}")
+    return 0
+
+
+def cmd_restaurar_copia(args: argparse.Namespace) -> int:
+    from .bd.recalcular import restaurar_copia
+
+    with _sesion(args) as s:
+        c, previa = restaurar_copia(s, args.id)
+        s.commit()
+        print(f"Base {c.base} restaurada como estaba el {c.creada_en:%d/%m/%Y %H:%M} "
+              f"({_miles(c.asignaciones)} asignaciones, {_miles(c.bandejas)} bandejas).")
+        if previa:
+            print(f"Lo que había ({_miles(previa.asignaciones)} asignaciones) está en la copia "
+                  f"n.º {previa.id}.")
+    return 0
+
+
 def _avisos(plan: Planificador, base: str, ext: bool = True) -> None:
     desde = date.today() if ext and base != "real" else None
     for e in plan.excedidos(base, ext, desde=desde):
@@ -371,6 +481,26 @@ def main(argv: list[str] | None = None) -> int:
                     help="Forzar el tipo (por defecto se reconoce por el contenido)")
     cp.add_argument("--detalle", action="store_true", help="Mostrar partida a partida")
     cp.set_defaults(func=cmd_cargar_pdf)
+
+    rc = sub.add_parser("recalcular",
+                        help="Recalcular las tres bases, todas las semanas, con las partidas de hoy")
+    rc.set_defaults(func=cmd_recalcular)
+
+    ri = sub.add_parser("reimportar",
+                        help="Volver a leer los Excel de previsión y recalcular (por defecto, desde cero)")
+    ri.add_argument("archivos", nargs="+", help="Excel de previsión (el más nuevo manda)")
+    ri.add_argument("--conservar", action="store_true",
+                    help="Conservar las asignaciones y recalcularlas (si no, se vacían Bloques, "
+                         "Partidas y lo puesto a mano en Real)")
+    ri.set_defaults(func=cmd_reimportar)
+
+    co = sub.add_parser("copias", help="Copias de seguridad de las asignaciones")
+    co.add_argument("--base", choices=list(BASES))
+    co.set_defaults(func=cmd_copias)
+
+    rs = sub.add_parser("restaurar-copia", help="Dejar una base como estaba en una copia")
+    rs.add_argument("id", type=int)
+    rs.set_defaults(func=cmd_restaurar_copia)
 
     tec = sub.add_parser("tecnico",help="Poner o quitar la fecha técnico de una partida")
     tec.add_argument("codigo")

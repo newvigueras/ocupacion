@@ -61,9 +61,27 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
   Se rechazan los PDF sin texto (escaneados) y los listados que no son ninguno de los dos partes
   (p. ej. la hoja de control del técnico); `--tipo` fuerza la lectura.
 
-Quedan para más adelante: «Recalcular todas las semanas» y «Reimportar desde cero / conservar»
-(§10.4, §10.6), los checks de calidad (§12.3) y las migraciones de la base de datos (Alembic)
-antes de ponerla en común.
+- **Recalcular todas las semanas** (§10.4): rehace las tres bases con las partidas y reglas de
+  hoy, conservando a qué invernadero (y calle) va cada cosa. Recorta si ahora hay menos bandejas;
+  si hay más, no sube (queda pendiente). Informe por base: asignaciones y bandejas antes/después,
+  cambios de ECO/BIO, recortadas, huérfanas y semanas con cambio. **Novedad respecto al HTML:** en
+  Partidas y Real, si una partida cambia de semana de entrada, su asignación se va con ella (el
+  HTML la dejaba con las fechas viejas); en Bloques se deja sin tocar y se avisa, porque el bloque
+  es de una semana.
+- **Reimportar los Excel y recalcular** (§10.6): varios Excel a la vez (el más nuevo manda), fusión
+  por código y luego *desde cero* (por defecto: vacía Bloques, Partidas y lo puesto a mano en Real;
+  en Real quedan EXTENSIONES sin calle y EXTENSIONCALLES; fechas técnico y datos de PDF intactos)
+  o `--conservar` (recalcula las tres bases). Se leen todos los Excel antes de tocar nada.
+- **Copias de seguridad** de cada base antes de recalcular, reimportar o restaurar (las 10 últimas
+  por base): `planificador copias` y `planificador restaurar-copia N`.
+- Comprobado con los datos reales (23/11/2026): recalcular Real justo después de cargar
+  EXTENSIONES + EXTENSIONCALLES la deja idéntica (2.042 asignaciones, 114.160 bandejas, mismas
+  fechas). Con el maestro del 28/10 y 381 asignaciones en las semanas 48–61, reimportar
+  `201126.xlsx` conservando recorta 170 bandejas en Bloques y 250 en Partidas, 78 cambian de
+  ECO/BIO y 38 trozos cambian de semana.
+
+Quedan para más adelante: los checks de calidad (§12.3) y las migraciones de la base de datos
+(Alembic) antes de ponerla en común.
 
 ## Decisiones nuevas respecto al documento maestro
 
@@ -95,6 +113,9 @@ planificador tecnico 26X02589 2027-01-10             # fecha técnico («quitar�
 planificador cargar-extensiones EXTENSIONES.xlsx 0110.xlsx   # lo ya colocado → base Real
 planificador cargar-extensiones EXTENSIONCALLES.xlsx 0110.xlsx   # foto por calle → base Real
 planificador cargar-pdf 15_julio.pdf cargas_15.pdf --detalle     # partes de túneles y de cargas
+planificador recalcular                              # las tres bases, todas las semanas
+planificador reimportar 201126.xlsx "PLANTA NORMAL.xlsx" [--conservar]
+planificador copias                                  # y «restaurar-copia N» para deshacer
 planificador ocupacion --base partidas --fecha 2026-12-01
 ```
 
@@ -112,5 +133,6 @@ planificador ocupacion --base partidas --fecha 2026-12-01
 - `src/planificador/bd/extensiones.py` — carga de EXTENSIONES.xlsx en la base Real.
 - `src/planificador/bd/calles.py` — carga por calle de EXTENSIONCALLES.xlsx en la base Real.
 - `src/planificador/bd/pdf.py` — PDF de túneles (parte de injerto) y de cargas.
+- `src/planificador/bd/recalcular.py` — recalcular, reimportar y copias de seguridad.
 - `src/planificador/datos/invernaderos.json` — invernaderos y calles con su capacidad.
 - `tests/` — casos del §17.1 y §17.2 del documento maestro y de la fase 2.

@@ -245,7 +245,10 @@ class Planificador:
         if categoria in SEPARAR_POR_CLIENTE:
             celda = celda.where(Asignacion.cliente == cliente)
         self.s.execute(celda)
+        return self._repartir_bloque(semana, bloque, inv, bandejas)
 
+    def _repartir_bloque(self, semana: int, bloque: Bloque, inv: Invernadero, bandejas: int) -> int:
+        """Reparte ``bandejas`` del bloque partida a partida (sin borrar nada antes)."""
         restante = max(0, int(bandejas))
         colocado = 0
         for p in bloque.partidas:
@@ -275,7 +278,21 @@ class Planificador:
         inv = self.invernadero(invernadero)
         c = self.calle(inv, calle) if calle is not None else None
         codigo = codigo.strip().upper()
+        if base == "real":
+            self.dato_real(codigo)
+        else:
+            self.partida(codigo)
 
+        self.s.execute(delete(Asignacion).where(
+            Asignacion.base == base, Asignacion.codigo == codigo,
+            Asignacion.invernadero_id == inv.id,
+            Asignacion.calle_id.is_(None) if c is None else Asignacion.calle_id == c.id,
+        ))
+        return self._poner_partida(base, codigo, inv, c, bandejas)
+
+    def _poner_partida(self, base: str, codigo: str, inv: Invernadero, c: Calle | None,
+                       bandejas: int) -> int:
+        """Coloca hasta ``bandejas`` de la partida (sin borrar nada antes); devuelve lo puesto."""
         if base == "real":
             d = self.dato_real(codigo)
             p = self.s.get(Partida, codigo)
@@ -287,12 +304,6 @@ class Planificador:
             total = p.bandejas
             entrada, liberacion = p.entrada, self.liberacion_efectiva(p)
             origen = p
-
-        self.s.execute(delete(Asignacion).where(
-            Asignacion.base == base, Asignacion.codigo == codigo,
-            Asignacion.invernadero_id == inv.id,
-            Asignacion.calle_id.is_(None) if c is None else Asignacion.calle_id == c.id,
-        ))
         libre = total - self.asignado(base, codigo)
         trozo = max(0, min(int(bandejas), libre))
         if trozo > 0:

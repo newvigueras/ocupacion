@@ -163,3 +163,19 @@ class Asignacion(Base):
 
     invernadero: Mapped[Invernadero] = relationship()
     calle: Mapped[Calle | None] = relationship()
+
+
+class CopiaSeguridad(Base):
+    """Copia de las asignaciones de una base antes de recalcular o reimportar (§10.4, §10.6)."""
+
+    __tablename__ = "copia_seguridad"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    base: Mapped[str] = mapped_column(String(16), index=True)
+    motivo: Mapped[str] = mapped_column(String(64))
+    asignaciones: Mapped[int] = mapped_column(Integer)
+    bandejas: Mapped[int] = mapped_column(Integer)
+    #: Las asignaciones en JSON (todas las columnas menos ``id`` y ``creada_en``).
+    datos: Mapped[str] = mapped_column(Text)
+    #: Hora local de quien la hace (no la del servidor de la base de datos, que puede ir en UTC).
+    creada_en: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
