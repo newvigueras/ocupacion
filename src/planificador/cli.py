@@ -127,7 +127,7 @@ def cmd_asignar_bloque(args: argparse.Namespace) -> int:
         s.commit()
         print(f"{' · '.join(filter(None, b.clave))} → {args.invernadero}: {_miles(puesto)} "
               f"de {_miles(args.bandejas)} bandejas")
-        _avisos(plan, "bloques")
+        _avisos(plan, "bloques", solo={plan.invernadero(args.invernadero).nombre})
     return 0
 
 
@@ -139,7 +139,7 @@ def cmd_asignar_partida(args: argparse.Namespace) -> int:
         s.commit()
         donde = args.invernadero + (f" calle {args.calle}" if args.calle is not None else "")
         print(f"{args.codigo.upper()} → {donde} ({args.base}): {_miles(puesto)} bandejas")
-        _avisos(plan, args.base)
+        _avisos(plan, args.base, solo={plan.invernadero(args.invernadero).nombre})
     return 0
 
 
@@ -409,14 +409,32 @@ def cmd_restaurar_copia(args: argparse.Namespace) -> int:
     return 0
 
 
-def _avisos(plan: Planificador, base: str, ext: bool = True) -> None:
+def _avisos(plan: Planificador, base: str, ext: bool = True,
+            solo: set[str] | None = None) -> None:
+    """Invernaderos por encima de su capacidad y con cultivos mezclados.
+
+    Con ``solo`` (tras asignar) se muestran únicamente los de esos invernaderos y, del
+    resto, solo cuántos hay; la lista entera sale en «planificador ocupacion».
+    """
     desde = date.today() if ext and base != "real" else None
-    for e in plan.excedidos(base, ext, desde=desde):
+    excesos = plan.excedidos(base, ext, desde=desde)
+    mezclas = plan.mezclas_cultivo(base, ext)
+    otros: set[str] = set()
+    for e in excesos:
+        if solo is not None and e.invernadero not in solo:
+            otros.add(e.invernadero)
+            continue
         print(f"  ! {e.invernadero} pasa su capacidad desde el {e.primer_dia:%d/%m/%Y} "
               f"(máximo {_miles(e.maximo)} de {_miles(e.capacidad)} el {e.dia_maximo:%d/%m/%Y})")
-    for m in plan.mezclas_cultivo(base, ext):
+    for m in mezclas:
+        if solo is not None and m.invernadero not in solo:
+            otros.add(m.invernadero)
+            continue
         print(f"  ~ {m.invernadero}: coinciden {', '.join(m.cultivos)} "
               f"desde el {m.primer_dia:%d/%m/%Y}")
+    if otros:
+        print(f"  (otros {len(otros)} invernaderos tienen avisos: "
+              f"planificador ocupacion --base {base})")
 
 
 def main(argv: list[str] | None = None) -> int:

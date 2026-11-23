@@ -203,3 +203,19 @@ def test_cli_flujo_completo(tmp_path, excel_ejemplo, capsys):
     assert main(bd + ["ocupacion", "--base", "bloques", "--fecha", "2026-12-01"]) == 0
     assert "INV41" in capsys.readouterr().out
     assert main(bd + ["asignar-partida", "26X00000", "INV41", "5"]) == 1
+
+
+def test_cli_avisos_solo_del_invernadero_tocado(tmp_path, excel_ejemplo, capsys):
+    bd = ["--bd", f"sqlite:///{tmp_path / 'cli.db'}"]
+    main(bd + ["importar", str(excel_ejemplo), "--guardar"])
+    main(bd + ["asignar-partida", "26X02589", "INV41", "100"])   # Jiffy
+    main(bd + ["asignar-partida", "26X03902", "INV41", "10"])    # Pimiento: mezcla en INV41
+    capsys.readouterr()
+    assert main(bd + ["asignar-partida", "26X02789", "INV42", "100"]) == 0
+    out = capsys.readouterr().out
+    assert "~ INV41" not in out and "otros 1 invernaderos tienen avisos" in out
+    assert main(bd + ["asignar-partida", "26X03903", "INV41", "5"]) == 0
+    out = capsys.readouterr().out
+    assert "~ INV41: coinciden Jiffy, Pimiento, Tomate" in out and "otros" not in out
+    assert main(bd + ["ocupacion", "--fecha", "2026-12-01"]) == 0
+    assert "~ INV41" in capsys.readouterr().out  # aquí sale la lista entera
