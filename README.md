@@ -55,8 +55,11 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
   contenido. Túneles: bandejas reales injertadas, entrada real, calle, entrega, cliente,
   categoría y formato por el grupo, lucha biológica. Cargas: fecha real de salida. Las
   asignaciones que la partida ya tenga en Real toman las fechas nuevas. Para abrir los PDF hace
-  falta `pip install -e ".[pdf]"` (pdfplumber); **pendiente de comprobar con los PDF reales**
-  (`fuentes_de_datos/`).
+  falta `pip install -e ".[pdf]"` (pdfplumber). Comprobado con los partes reales de
+  `fuentes_de_datos/` (23/11/2026): túneles del 12 al 15 de julio cuadran con el total de cada
+  parte (673, 715, 401 y 1.006 bandejas) y cargas_12 / cargas_15 se leen enteros (13 y 34 líneas).
+  Se rechazan los PDF sin texto (escaneados) y los listados que no son ninguno de los dos partes
+  (p. ej. la hoja de control del técnico); `--tipo` fuerza la lectura.
 
 Quedan para más adelante: «Recalcular todas las semanas» y «Reimportar desde cero / conservar»
 (§10.4, §10.6), los checks de calidad (§12.3) y las migraciones de la base de datos (Alembic)

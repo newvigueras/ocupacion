@@ -237,7 +237,11 @@ def cmd_cargar_pdf(args: argparse.Namespace) -> int:
         for ruta in args.archivos:
             try:
                 r = cargar_pdf(s, ruta, args.tipo)
-            except (ErrorPdf, OSError) as e:
+            except ErrorPdf as e:  # el mensaje ya lleva el nombre del archivo
+                print(f"ERROR {e}", file=sys.stderr)
+                errores += 1
+                continue
+            except OSError as e:
                 print(f"ERROR {ruta}: {e}", file=sys.stderr)
                 errores += 1
                 continue

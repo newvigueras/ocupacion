@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from planificador.bd import DatoReal, Planificador, crear_motor, guardar_partidas, preparar_bd
 from planificador.bd.pdf import (
-    Palabra, cargar_texto, formato_de_grupo, leer_linea_cargas, leer_parte_cargas,
+    ErrorPdf, Palabra, cargar_texto, formato_de_grupo, leer_linea_cargas, leer_parte_cargas,
     leer_parte_injerto, texto_de_palabras, tipo_de_texto,
 )
 from planificador.cli import main
@@ -47,6 +47,57 @@ CARGAS = "\n".join([
 ])
 
 
+# Formato tal como sale de un parte real con pdfplumber (julio de 2026), clientes cambiados:
+# miles con coma, bandejas con decimal, observaciones en dos columnas, la misma partida en dos
+# partes (una sin Band.Sol) y subtotales al final de cada grupo.
+TUNELES_REAL = "\n".join([
+    "Empresa                                        Ejercicio           Informe"
+    "                                        Fecha         Pág",
+    "G.Semilleros La Sala S.L.                                        2026          Listado Salidas"
+    " Previstas de Prendimiento con Ubicación                                        11/07/2026"
+    "           1",
+    "Cliente                                        Obsi                                FecPrevSal",
+    "NºParte           Fecha Entrega       Nº Partida     Band.Sol  Variedad"
+    "                                      Nº Plantas        Nº Band.  Localizacion"
+    "                         Fec Entrada  Obs Inj                              FecRealSal"
+    "   Inv     Sec1   Sec2",
+    "TI15 - TOMATE INJ 150",
+    "007 - BI",
+    "26006234              20/07/2026      26X00365         192  CLIENTE UNO SL"
+    "             13,910             93.0  82                                        06/07/2026"
+    "                                        12/07/2026",
+    "TINJ VARIEDAD 141                                        PATRON SOBRANTE",
+    "_________",
+    "26006240              06/07/2026      26X00365            CLIENTE UNO SL"
+    "             15,082           101.0   82-83                                     06/07/2026"
+    "  HEREDERO                            12/07/2026",
+    "TINJ VARIEDAD 141",
+    "_________",
+    "28,992           194.0",
+    "28,992           194.0",
+    "TIJ6 - TINJ JIFFY 5x5",
+    "No definido",
+    "26006241              20/07/2026      25F08946             CLIENTE DOS LDA"
+    "                    216               1.0  81                                        06/07/2026"
+    "                                        12/07/2026",
+    "TINJ HEREDERO DEF JIF                                        P. NARANJA JIFFY",
+    "_________",
+    "216               1.0",
+    "29,208           195.0",
+])
+
+# Hoja de control del técnico: parecida, pero otras columnas. No se debe leer como túneles.
+HOJA_TECNICO = "\n".join([
+    "LISTADO SALIDAS PREVISTAS DE PRENDIMIENTO CON UBICACION",
+    "N PARTE F. ENTREGA     PARTIDA / VARIEDAD             CLIENTE           F. ENTRADA F.PREV"
+    "  PLANTAS BAND.  ORIGEN  CALLE REAL",
+    "PI48 - PEPINO INJ 48                   NO DEFINIDO",
+    "26006095  08/07/2026   25X06717                    CLIENTE TRES SL         25/06/2026"
+    "   02/07                       106",
+    "1.472  31",
+])
+
+
 @pytest.fixture
 def s(tmp_path, excel_ejemplo):
     motor = crear_motor(f"sqlite:///{tmp_path / 'pdf.db'}")
@@ -76,6 +127,27 @@ def test_leer_parte_injerto():
     assert formato_de_grupo("TOMATE INJ 150") == "150"
     assert formato_de_grupo("TOMATE 104 REPICADO") == "104"
     assert formato_de_grupo("TOMATE JIFFY 8x8") == ""
+
+
+def test_parte_injerto_con_formato_real():
+    rs = leer_parte_injerto(TUNELES_REAL)
+    assert [(r.partida, r.band_sol, r.bandejas, r.localizacion) for r in rs] == [
+        ("26X00365", 192, 93.0, "82"), ("26X00365", None, 101.0, "82-83"),
+        ("25F08946", None, 1.0, "81")]
+    a, b, c = rs
+    assert (a.fecha_entrega, a.fec_entrada, a.fec_real_sal) == ("20/07/2026", "06/07/2026", "12/07/2026")
+    assert a.observaciones == "TINJ VARIEDAD 141 PATRON SOBRANTE"
+    assert (b.fecha_entrega, b.observaciones) == ("06/07/2026", "HEREDERO TINJ VARIEDAD 141")
+    assert (c.categoria_nombre, c.bio, c.cliente) == ("TINJ JIFFY 5x5", "No definido", "CLIENTE DOS LDA")
+    assert sum(r.bandejas for r in rs) == 195  # el total del parte
+
+
+def test_otros_listados_no_se_cargan(s):
+    assert tipo_de_texto(HOJA_TECNICO) is None
+    with pytest.raises(ErrorPdf, match="ni de carga"):
+        cargar_texto(s, HOJA_TECNICO, "hoja.pdf")
+    # Forzando el tipo sí se intenta (lo decide quien lo pide).
+    assert cargar_texto(s, TUNELES_REAL, "real.pdf", "tuneles").bandejas == 195
 
 
 def test_leer_parte_cargas():

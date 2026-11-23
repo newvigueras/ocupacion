@@ -105,11 +105,17 @@ def texto_de_pdf(ruta: str | Path) -> tuple[str, int]:
         raise ErrorPdf(f"{ruta.name}: no se puede leer como PDF ({e})") from e
 
 
-def tipo_de_texto(texto: str) -> str:
-    """'cargas' o 'tuneles' según el contenido."""
+def tipo_de_texto(texto: str) -> str | None:
+    """'cargas', 'tuneles' o None si no es ninguno de los dos partes.
+
+    El parte de injerto lleva la cabecera «NºParte»; otros listados parecidos (p. ej. la
+    hoja de control del técnico, con «N PARTE») tienen otras columnas y no se aceptan.
+    """
     if "PARTE DE CARGA" in texto.upper() or re.search(r"DIA:\s*\d{2}/\d{2}/\d{4}", texto):
         return "cargas"
-    return "tuneles"
+    if re.search(r"N[º°]\s*Parte", texto, re.IGNORECASE):
+        return "tuneles"
+    return None
 
 
 def _fecha_dmy(texto: str | None) -> date | None:
@@ -220,7 +226,7 @@ def leer_parte_injerto(texto: str) -> list[RegistroTunel]:
             partida=partida, fecha_entrega=cols[1], band_sol=band_sol, cliente=cliente,
             bandejas=bandejas, localizacion=localizacion, fec_entrada=fec_entrada,
             fec_real_sal=fec_real_sal, categoria_codigo=cat_codigo, categoria_nombre=cat_nombre,
-            bio=bio, observaciones=(obs + " " + " ".join(extra)).strip(),
+            bio=bio, observaciones=re.sub(r"\s+", " ", obs + " " + " ".join(extra)).strip(),
         ))
         i = j + 1 if j < len(lineas) and lineas[j].strip() == "_________" else j
     return registros
@@ -415,6 +421,9 @@ def guardar_cargas(s: Session, registros: Sequence[RegistroCarga], res: ResumenP
 
 def cargar_texto(s: Session, texto: str, archivo: str = "", tipo: str | None = None) -> ResumenPdf:
     tipo = tipo or tipo_de_texto(texto)
+    if tipo is None:
+        raise ErrorPdf(f"{archivo or 'el texto'}: no es un parte de injerto (túneles) ni de carga "
+                       "(falta la cabecera «NºParte» o «PARTE DE CARGA»)")
     res = ResumenPdf(archivo=archivo, tipo=tipo)
     if tipo == "cargas":
         return guardar_cargas(s, leer_parte_cargas(texto), res)
@@ -424,6 +433,8 @@ def cargar_texto(s: Session, texto: str, archivo: str = "", tipo: str | None = N
 def cargar_pdf(s: Session, ruta: str | Path, tipo: str | None = None) -> ResumenPdf:
     """Lee un PDF de túneles o de cargas (el tipo se reconoce solo) y lo guarda en Real."""
     texto, paginas = texto_de_pdf(ruta)
+    if not texto.strip():
+        raise ErrorPdf(f"{Path(ruta).name}: el PDF no tiene texto (parece escaneado o una imagen)")
     res = cargar_texto(s, texto, Path(ruta).name, tipo)
     res.paginas = paginas
     if not res.partidas:
