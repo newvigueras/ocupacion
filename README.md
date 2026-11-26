@@ -80,8 +80,14 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
   `201126.xlsx` conservando recorta 170 bandejas en Bloques y 250 en Partidas, 78 cambian de
   ECO/BIO y 38 trozos cambian de semana.
 
-Queda para más adelante: las migraciones de la base de datos (Alembic) antes de ponerla en
-común.
+- **Migraciones de la base de datos** (Alembic): cada cambio de tablas lleva su migración y
+  `preparar` (o cualquier orden) pone la base al día sola, sin perder datos. Las bases creadas
+  antes (22–26/11/2026) se adoptan solas en la versión 0001. Comprobado con `planificador.db` y
+  la base de prueba con todos los datos, y simulando un cambio de tabla (se conservan las 1.434
+  partidas y las 114.160 bandejas de Real). Ver «Cambiar las tablas» más abajo.
+
+Con esto la fase 2 está completa; lo siguiente es la fase 3 (servidor web, usuarios y
+pantallas).
 
 ## Decisiones nuevas respecto al documento maestro
 
@@ -105,7 +111,7 @@ python -m pytest
 planificador importar 201126.xlsx --partida 26X02589
 
 # Base de datos (fase 2)
-planificador preparar                                # crea planificador.db con invernaderos y calles
+planificador preparar                                # crea (o pone al día) planificador.db
 planificador importar 201126.xlsx --guardar          # guarda las partidas
 planificador semana 49                               # bloques que entran la semana 49 (49/26)
 planificador asignar-bloque 49 1 INV41 500           # bloque n.º 1 → INV41 (base Bloques)
@@ -120,6 +126,18 @@ planificador copias                                  # y «restaurar-copia N» p
 planificador ocupacion --base partidas --fecha 2026-12-01
 ```
 
+## Cambiar las tablas (migraciones)
+
+1. Cambiar `src/planificador/bd/tablas.py`.
+2. Crear la migración comparando con una base al día (la de `PLANIFICADOR_BD`):
+   `alembic revision --autogenerate -m "qué cambia"` y revisar el archivo que aparece en
+   `src/planificador/bd/migraciones/versions/` (en una columna nueva obligatoria, poner un
+   `server_default` para las filas que ya existen).
+3. `python -m pytest`: la prueba `test_las_migraciones_coinciden_con_las_tablas` falla si las
+   tablas y las migraciones no coinciden.
+4. Subir el cambio. Cada base se actualiza sola la próxima vez que se use (`alembic current`
+   dice en qué versión está y `alembic check` si falta alguna migración).
+
 ## Estructura
 
 - `src/planificador/motor/reglas.py` — todas las tasas y reglas confirmadas.
@@ -128,7 +146,9 @@ planificador ocupacion --base partidas --fecha 2026-12-01
 - `src/planificador/motor/excel.py` — lectura de los Excel de previsión.
 - `src/planificador/motor/calendario.py` — semanas de domingo a sábado.
 - `src/planificador/bd/tablas.py` — tablas: invernaderos, calles, partidas, fechas técnico, datos reales y asignaciones.
-- `src/planificador/bd/conexion.py` — conexión y preparación de la base de datos.
+- `src/planificador/bd/conexion.py` — conexión, preparación y migración de la base de datos.
+- `src/planificador/bd/migraciones/` — migraciones de Alembic (`versions/`, una por cambio).
+- `alembic.ini` — para crear migraciones nuevas con la orden `alembic`.
 - `src/planificador/bd/importar.py` — guardar en la base las partidas leídas de los Excel.
 - `src/planificador/bd/planificacion.py` — bloques, asignaciones, ocupación y avisos.
 - `src/planificador/bd/extensiones.py` — carga de EXTENSIONES.xlsx en la base Real.

@@ -7,7 +7,7 @@ name = "planificador-lasala"
 version = "0.2.0"
 description = "Planificador de Ocupación de Viveros La Sala"
 requires-python = ">=3.11"
-dependencies = ["openpyxl>=3.1", "sqlalchemy>=2.0"]
+dependencies = ["openpyxl>=3.1", "sqlalchemy>=2.0", "alembic>=1.13"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
@@ -20,7 +20,7 @@ planificador = "planificador.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-planificador = ["datos/*.json"]
+planificador = ["datos/*.json", "bd/migraciones/script.py.mako"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

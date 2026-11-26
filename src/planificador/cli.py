@@ -86,8 +86,12 @@ def cmd_importar(args: argparse.Namespace) -> int:
 
 
 def cmd_preparar(args: argparse.Namespace) -> int:
+    from .bd.conexion import version_bd
+
     motor = crear_motor(args.bd)
-    preparar_bd(motor, args.desde, args.hasta)
+    estado = preparar_bd(motor, args.desde, args.hasta)
+    version, _ = version_bd(motor)
+    print(f"Estructura de la base: {estado} (versión {version})")
     with Session(motor) as s:
         plan = Planificador(s)
         invs = [i for i in plan.invernaderos() if not i.especial]
