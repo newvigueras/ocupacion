@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% from "_piezas.html" import pestanas_base, etiquetas, chip %}
+{% block titulo %}Por semana{% endblock %}
+{% block contenido %}
+{% set sem = v.semana %}
+{% set resto = 'semana=' ~ sem.numero ~ '&agrupar=' ~ agrupar %}
+<header class="cabecera">
+  <div>
+    <h1>Semana {{ sem.etiqueta }}</h1>
+    <p class="suave">{{ sem.inicio | fecha }} – {{ sem.fin | fecha }} · base {{ NOMBRE_BASE[base] }}{% if base != 'real' %}, con lo ya colocado (Real){% endif %}.
+      El % de cada invernadero es el del {{ sem.fin | fecha }}.</p>
+  </div>
+  <form method="get" class="filtros">
+    {{ pestanas_base(base, resto ~ '&inv=' ~ inv) }}
+    <input type="hidden" name="base" value="{{ base }}">
+    <input type="hidden" name="agrupar" value="{{ agrupar }}">
+    {% if inv %}<input type="hidden" name="inv" value="{{ inv }}">{% endif %}
+    <a class="boton" href="?base={{ base }}&semana={{ sem.numero - 1 }}&agrupar={{ agrupar }}&inv={{ inv }}" aria-label="Semana anterior">◀</a>
+    <label>Semana <input type="number" name="semana" min="1" max="{{ n_semanas }}" value="{{ sem.numero }}"></label>
+    <a class="boton" href="?base={{ base }}&semana={{ sem.numero + 1 }}&agrupar={{ agrupar }}&inv={{ inv }}" aria-label="Semana siguiente">▶</a>
+    <button type="submit">Ver</button>
+  </form>
+</header>
+
+<section class="cifras">
+  <div class="tarjeta"><b>{{ v.partidas | miles }}</b><span>Partidas en el invernadero</span></div>
+  <div class="tarjeta"><b>{{ v.nuevas | miles }}</b><span>Entran esta semana</span></div>
+  <div class="tarjeta"><b>{{ v.salen | miles }}</b><span>Se liberan esta semana</span></div>
+  <div class="tarjeta"><b>{{ v.chips | length }}</b><span>Invernaderos ocupados</span></div>
+</section>
+
+{% if v.chips %}
+<section class="chips" aria-label="Invernaderos ocupados el {{ sem.fin | fecha }}">
+  {% for i in v.chips %}
+  {{ chip(i, '?base=' ~ base ~ '&' ~ resto ~ '&inv=' ~ ('' if i.nombre == inv else i.nombre), i.nombre == inv) }}
+  {% endfor %}
+</section>
+{% endif %}
+
+<div class="cabecera">
+  <h2>Partidas de la semana{% if inv %} en {{ inv }} · <a href="?base={{ base }}&{{ resto }}">ver todas</a>{% endif %}</h2>
+  <div class="pestanas" role="group" aria-label="Agrupar">
+    <a href="?base={{ base }}&semana={{ sem.numero }}&agrupar=inv&inv={{ inv }}" class="{{ 'activa' if agrupar == 'inv' }}">Por invernadero</a>
+    <a href="?base={{ base }}&semana={{ sem.numero }}&agrupar=cultivo&inv={{ inv }}" class="{{ 'activa' if agrupar == 'cultivo' }}">Por cultivo</a>
+  </div>
+</div>
+
+{% for gr in v.grupos %}
+<section class="tarjeta grupo">
+  <h2>{{ gr.nombre }} <small class="suave">{{ gr.partidas }} partidas · {{ gr.bandejas | miles }} bandejas</small></h2>
+  <div class="tabla-scroll">
+  <table class="lista">
+    <thead><tr>
+      <th>Partida</th><th>Cliente</th><th>Variedad</th>
+      <th>{{ 'Invernadero' if agrupar == 'cultivo' else 'Cultivo' }}</th>
+      <th class="num">Bandejas</th><th>Entrada</th><th>Liberación</th><th></th>
+    </tr></thead>
+    <tbody>
+    {% for f in gr.filas %}
+      <tr>
+        <td>{{ f.codigo }}</td>
+        <td>{{ f.cliente }}</td>
+        <td>{{ f.variedad }}</td>
+        <td>{% if agrupar == 'cultivo' %}{{ f.invernadero }} {% endif %}{{ etiquetas(f.etiquetas if agrupar != 'cultivo' else f.etiquetas[1:]) }}</td>
+        <td class="num">{{ f.bandejas | miles }}</td>
+        <td>{{ f.entrada | fecha }}</td>
+        <td>{{ f.liberacion | fecha }}</td>
+        <td>{% if f.nueva %}<i class="etq entra">entra</i>{% endif %}{% if f.sale %}<i class="etq sale">sale</i>{% endif %}{% if f.real %}<i class="etq" title="Ya colocado (base Real)">Real</i>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+{% else %}
+<p class="suave vacio">No hay nada {{ 'en ' ~ inv if inv else 'en los invernaderos' }} esta semana.</p>
+{% endfor %}
+{% endblock %}

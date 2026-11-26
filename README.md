@@ -13,7 +13,7 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
 |---|---|---|
 | 1 | Motor de cálculo: Excel de previsión → partidas, fechas, ECO/BIO, bandejas, calendario | ✅ con pruebas |
 | 2 | Base de datos y asignaciones (Bloques, Partidas, Real), ocupación diaria y avisos | ✅ con pruebas |
-| 3 | Servidor web, usuarios y pantallas | en curso: 4 de las 7 pantallas |
+| 3 | Servidor web, usuarios y pantallas | en curso: las 7 pantallas hechas |
 
 ### Fase 2: qué incluye
 
@@ -106,10 +106,23 @@ Con esto la fase 2 está completa.
   aviso de los que pasan su capacidad. En Partidas y Exacta, la fecha técnico de cada partida.
 - **Datos y copias**: subir EXTENSIONES/EXTENSIONCALLES y los PDF, recalcular, reimportar los
   Excel (desde cero o conservando) y restaurar copias.
+- **Por invernadero**: por cada invernadero, gráfico de la ocupación día a día en el periodo
+  que se elija (por defecto, 20 semanas desde dos antes de la actual), con la raya de la
+  capacidad, la de hoy y el % del pico; al pasar el ratón, bandejas y % de ese día. Debajo,
+  semana a semana, las bandejas al acabar la semana y qué cultivos hay.
+- **Por semana**: partidas en los invernaderos esa semana, las que entran y las que se
+  liberan, el % de cada invernadero al acabar la semana (pulsando uno, solo sus partidas) y la
+  lista agrupada por invernadero o por cultivo.
+- **Ocupación Hotel** (Gantt): cada partida es una barra de la entrada a la liberación; con
+  todos los invernaderos, el alto es proporcional a las bandejas (la fila se llena como el
+  invernadero, con la raya de la capacidad); con uno solo, una partida por carril con su
+  código. Barra de días que mueve la raya del día y el % de cada invernadero sin recargar.
+- Las tres consultas y el Resumen usan la base que se eligió la última vez (Bloques, Partidas
+  o Real) y cuentan lo ya colocado en Real, igual que los % de las rejillas: las cifras de
+  todas las pantallas coinciden (99.615 bandejas el 21/11/2026 en la base de prueba).
 - Comprobado en el navegador con los datos reales (base de prueba del 23/11/2026).
 
-Falta: las pantallas *Por invernadero* (gráfico), *Por semana* y *Ocupación Hotel* (Gantt);
-asignar por calle desde la web; «Rellenar Bloques con lo real» (§10.4b, nuevo en el documento
+Falta: asignar por calle desde la web; «Rellenar Bloques con lo real» (§10.4b, nuevo en el documento
 maestro del 25/11); y publicarla para entrar desde fuera (servidor, HTTPS y PostgreSQL).
 
 ## Decisiones nuevas respecto al documento maestro
@@ -183,7 +196,8 @@ planificador web                                     # http://127.0.0.1:8000
 - `src/planificador/bd/pdf.py` — PDF de túneles (parte de injerto) y de cargas.
 - `src/planificador/bd/recalcular.py` — recalcular, reimportar y copias de seguridad.
 - `src/planificador/web/app.py` — aplicación web: rutas, sesiones y permisos.
-- `src/planificador/web/datos.py` — lo que muestra cada pantalla.
+- `src/planificador/web/datos.py` — lo que muestra el Resumen y las rejillas.
+- `src/planificador/web/vistas.py` — Por invernadero (gráfico), Por semana y Hotel (Gantt).
 - `src/planificador/web/seguridad.py` — usuarios y contraseñas.
 - `src/planificador/web/plantillas/`, `estatico/` — páginas, estilo y JavaScript.
 - `src/planificador/datos/invernaderos.json` — invernaderos y calles con su capacidad.

@@ -20,6 +20,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0; background: var(--bg); color: var(--ink);
@@ -163,6 +164,73 @@ table { border-collapse: collapse; }
 .etq.bio { color: var(--ok); border-color: var(--ok); }
 .etq.eco { color: #fff; background: var(--ok); border-color: var(--ok); }
 .vacio { padding: 20px 0; }
+
+/* Consultas: cifras, fichas de invernadero, gráficos y Gantt */
+.acciones { margin-bottom: 12px; align-items: center; }
+.titulo-sala { margin: 18px 0 8px; color: var(--ink-soft); font-weight: 500; }
+.inv-tarjeta { padding: 0; margin-bottom: 8px; }
+.inv-tarjeta summary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px 16px;
+  cursor: pointer; list-style: none; }
+.inv-tarjeta summary::-webkit-details-marker { display: none; }
+.inv-tarjeta summary::before { content: "▸"; color: var(--ink-soft); }
+.inv-tarjeta[open] summary::before { content: "▾"; }
+.inv-tarjeta[open] summary { border-bottom: 1px solid var(--line); }
+.inv-nombre { min-width: 64px; }
+.pico { margin-left: auto; padding: 2px 10px; border-radius: 99px; color: #fff; font-weight: 600;
+  background: var(--c, var(--ink-soft)); white-space: nowrap; }
+.inv-tarjeta > .grafico-caja, .inv-tarjeta > .tabla-scroll { margin: 12px 16px; }
+.grafico-caja { position: relative; }
+.grafico { display: block; width: 100%; height: auto; }
+.grafico .raya, .gantt .raya { stroke: var(--line); stroke-width: 1; }
+.grafico .fecha, .gantt .fecha { font-size: 10px; fill: var(--ink-soft); font-family: inherit; }
+.grafico .fecha { text-anchor: middle; }
+.grafico .area { fill: var(--c); fill-opacity: 0.14; }
+.grafico .linea { fill: none; stroke: var(--c); stroke-width: 2; stroke-linejoin: round; }
+.grafico .capacidad { stroke: var(--ink-soft); stroke-width: 1.2; stroke-dasharray: 5 4; }
+.grafico .capacidad-texto { font-size: 10.5px; fill: var(--ink-soft); font-weight: 600; font-family: inherit; }
+.grafico .hoy, .gantt .hoy { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.grafico .raton { stroke: var(--ink); stroke-width: 1; opacity: 0.35; display: none; }
+.nota-grafico { position: absolute; top: 4px; pointer-events: none; background: var(--ink); color: #fff;
+  padding: 4px 8px; border-radius: var(--radio-s); font-size: 0.9em; white-space: nowrap; }
+.nota-grafico b { color: #fff; }
+.tabla-scroll { overflow-x: auto; }
+
+.cifras { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.cifras .tarjeta { margin: 0; display: grid; gap: 2px; }
+.cifras b { font-size: 1.8em; line-height: 1.1; }
+.cifras span { color: var(--ink-soft); }
+.chips { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; margin-bottom: 16px; }
+.chips > span { display: contents; }
+.chip { display: grid; gap: 4px; padding: 7px 9px; border: 1px solid var(--line); border-radius: var(--radio-s);
+  background: #fff; color: var(--ink); text-decoration: none; }
+a.chip:hover, .chip.elegida { border-color: var(--brand); box-shadow: 0 0 0 1px var(--brand); }
+.chip-arriba { display: flex; justify-content: space-between; gap: 6px; }
+.chip .barra { max-width: none; height: 6px; }
+.chip small { color: var(--ink-soft); }
+.grupo h2 small { font-weight: 300; margin-left: 6px; }
+.etq.entra { color: #fff; background: var(--ok); border-color: var(--ok); }
+.etq.sale { color: #fff; background: var(--bad); border-color: var(--bad); }
+
+.fecha-hotel { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; padding: 10px 14px; }
+.fecha-hotel input[type=range] { flex: 1; min-width: 180px; accent-color: var(--brand); padding: 0; border: 0; }
+.gantt-scroll { display: flex; overflow: auto; max-height: calc(100vh - 160px); border: 1px solid var(--line);
+  border-radius: var(--radio); background: #fff; }
+.gantt { display: block; flex: none; }
+.gantt-nombres { position: sticky; left: 0; z-index: 1; border-right: 1px solid var(--line); }
+.gantt-nombres .fondo { fill: #fff; }
+.gantt .nombre-pct { font-size: 9.5px; fill: var(--ink-soft); font-family: inherit; }
+.gantt .separa { stroke: var(--line); stroke-width: 1; }
+.gantt .nombre { font-size: 11px; font-weight: 600; fill: var(--ink); font-family: inherit; }
+.gantt rect { stroke: #fff; stroke-width: 0.5; }
+.gantt .rotulo { font-size: 10px; fill: #fff; font-family: inherit; pointer-events: none; }
+.gantt .capacidad { stroke: var(--ink-soft); stroke-width: 1; stroke-dasharray: 4 3; }
+.gantt .dia-elegido { stroke: var(--warn); stroke-width: 2; }
+.leyenda { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--ink-soft); margin-top: 10px; }
+.leyenda i { display: inline-block; width: 14px; height: 10px; border-radius: 2px; margin-right: 5px;
+  vertical-align: -1px; }
+.leyenda i.linea-hoy { height: 0; border-top: 2px dashed var(--accent); border-radius: 0; }
+.leyenda i.linea-cap { height: 0; border-top: 1px dashed var(--ink-soft); border-radius: 0; }
+.leyenda i.linea-dia { height: 0; border-top: 2px solid var(--warn); border-radius: 0; }
 
 /* Entrar */
 .entrada { min-height: 100vh; display: grid; place-items: center; padding: 16px; }

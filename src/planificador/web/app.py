@@ -33,6 +33,7 @@ from ..bd import BASES, ErrorPlan, Planificador, crear_motor, preparar_bd
 from ..bd.tablas import ROLES, Usuario
 from ..motor.reglas import TIPOS_PLANTA
 from . import datos as D
+from . import vistas as V
 from .seguridad import (
     ErrorUsuario, admins_activos, autenticar, cambiar_clave, comprobar_clave, crear_usuario,
     hay_usuarios, puede, secreto_sesion,
@@ -79,7 +80,8 @@ def crear_app(url_bd: str | None = None) -> FastAPI:
     plantillas.env.filters["fecha"] = lambda d: f"{d:%d/%m/%Y}" if d else ""
     plantillas.env.filters["corta"] = lambda d: f"{d:%d/%m}" if d else ""
     plantillas.env.globals.update(VISTAS=VISTAS, NOMBRE_BASE=D.NOMBRE_BASE,
-                                  NOMBRE_TIPO=D.NOMBRE_TIPO, ROLES=ROLES)
+                                  NOMBRE_TIPO=D.NOMBRE_TIPO, ROLES=ROLES,
+                                  COLOR_CATEGORIA=V.COLOR_CATEGORIA)
 
     @app.middleware("http")
     async def cabeceras(request: Request, call_next):
@@ -197,12 +199,20 @@ def crear_app(url_bd: str | None = None) -> FastAPI:
 
     # --- Resumen ------------------------------------------------------------------------
 
+    def base_elegida(request: Request, base: str | None) -> str:
+        """La base de las pantallas de consulta: se recuerda la última que se eligió."""
+        if base in BASES:
+            request.session["base"] = base
+            return base
+        guardada = request.session.get("base")
+        return guardada if guardada in BASES else "partidas"
+
     @app.get("/")
-    def resumen(request: Request, base: str = "partidas", fecha: str | None = None,
+    def resumen(request: Request, base: str | None = None, fecha: str | None = None,
                 sala: str | None = None, inv: str | None = None,
                 u: Usuario = Depends(exige("ver")), s: Session = Depends(sesion_bd)):
         plan = Planificador(s)
-        base = base if base in BASES else "partidas"
+        base = base_elegida(request, base)
         dia = a_fecha(fecha) or D.dia_por_defecto(plan)
         if not plan.calendario.contiene(dia):
             dia = D.dia_por_defecto(plan)
@@ -306,15 +316,61 @@ def crear_app(url_bd: str | None = None) -> FastAPI:
                                  f.get("sala") or None,
                                  f"✓ Fecha técnico de {codigo}: {texto} ({n} asignaciones)")
 
-    # --- Pantallas aún sin hacer ---------------------------------------------------------
+    # --- Consultas: Por invernadero, Por semana y Hotel -----------------------------------
 
-    def en_preparacion(vista: str):
-        def _vista(request: Request, u: Usuario = Depends(exige("ver"))):
-            return pagina(request, "pendiente.html", u, vista)
-        return _vista
+    def _periodo(plan: Planificador, desde: str | None, hasta: str | None) -> V.Periodo:
+        return V.periodo(plan, a_entero(desde), a_entero(hasta))
 
-    for _v, _ruta, _ in VISTAS[4:]:
-        app.add_api_route(_ruta, en_preparacion(_v), methods=["GET"])
+    def _inv(plan: Planificador, nombre: str | None) -> str | None:
+        if not nombre:
+            return None
+        try:
+            return plan.invernadero(nombre).nombre
+        except ErrorPlan:
+            return None
+
+    @app.get("/invernadero")
+    def por_invernadero(request: Request, base: str | None = None, sala: str | None = None,
+                        desde: str | None = None, hasta: str | None = None,
+                        abrir: str | None = None, u: Usuario = Depends(exige("ver")),
+                        s: Session = Depends(sesion_bd)):
+        plan = Planificador(s)
+        base = base_elegida(request, base)
+        p = _periodo(plan, desde, hasta)
+        lista = V.graficos(plan, base, p, sala or None)
+        return pagina(request, "invernadero.html", u, "invernadero", base=base, p=p,
+                      sala=sala or "", salas=D.salas(plan), graficos=lista,
+                      abrir=_inv(plan, abrir), semanas=plan.calendario.semanas())
+
+    @app.get("/semana")
+    def por_semana(request: Request, base: str | None = None, semana: str | None = None,
+                   agrupar: str = "inv", inv: str | None = None,
+                   u: Usuario = Depends(exige("ver")), s: Session = Depends(sesion_bd)):
+        plan = Planificador(s)
+        base = base_elegida(request, base)
+        agrupar = agrupar if agrupar in ("inv", "cultivo") else "inv"
+        inv = _inv(plan, inv)
+        v = V.vista_semana(plan, base, _semana(plan, semana), agrupar, inv)
+        return pagina(request, "semana.html", u, "semana", base=base, v=v, agrupar=agrupar,
+                      inv=inv or "", n_semanas=plan.calendario.n_semanas)
+
+    @app.get("/hotel")
+    def hotel(request: Request, base: str | None = None, sala: str | None = None,
+              inv: str | None = None, desde: str | None = None, hasta: str | None = None,
+              fecha: str | None = None, u: Usuario = Depends(exige("ver")),
+              s: Session = Depends(sesion_bd)):
+        plan = Planificador(s)
+        base = base_elegida(request, base)
+        p = _periodo(plan, desde, hasta)
+        inv = _inv(plan, inv)
+        g = V.gantt(plan, base, p, sala or None, inv)
+        dia = a_fecha(fecha)
+        if dia is None or not p.contiene(dia):
+            dia = date.today() if p.contiene(date.today()) else p.inicio
+        i = (dia - p.inicio).days
+        return pagina(request, "hotel.html", u, "hotel", base=base, p=p, g=g, dia=dia,
+                      i_dia=i, sala=sala or "", inv=inv or "", salas=D.salas(plan),
+                      semanas=plan.calendario.semanas())
 
     # --- Datos: cargar, recalcular, reimportar, copias --------------------------------------
 

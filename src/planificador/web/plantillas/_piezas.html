@@ -1,0 +1,43 @@
+{# Piezas comunes de las pantallas de consulta. #}
+
+{% macro pestanas_base(base, resto) -%}
+<div class="pestanas" role="group" aria-label="Ocupación de">
+  {% for b in ['bloques', 'partidas', 'real'] %}
+  <a href="?base={{ b }}&{{ resto }}" class="{{ 'activa' if b == base }}">{{ NOMBRE_BASE[b] }}</a>
+  {% endfor %}
+</div>
+{%- endmacro %}
+
+{% macro elegir_periodo(p, semanas) -%}
+<label>Desde
+  <select name="desde">
+    {% for s in semanas %}<option value="{{ s.numero }}" {{ 'selected' if s.numero == p.desde.numero }}>Sem. {{ s.etiqueta }} · {{ s.inicio | corta }}</option>{% endfor %}
+  </select>
+</label>
+<label>Hasta
+  <select name="hasta">
+    {% for s in semanas %}<option value="{{ s.numero }}" {{ 'selected' if s.numero == p.hasta.numero }}>Sem. {{ s.etiqueta }} · {{ s.fin | corta }}</option>{% endfor %}
+  </select>
+</label>
+{%- endmacro %}
+
+{% macro elegir_sala(sala, salas) -%}
+<label>Sala
+  <select name="sala">
+    <option value="">Todas</option>
+    {% for nombre, clave in salas %}<option value="{{ clave }}" {{ 'selected' if clave == sala }}>{{ nombre }}</option>{% endfor %}
+  </select>
+</label>
+{%- endmacro %}
+
+{% macro etiquetas(lista) -%}
+<span class="etiquetas">{% for texto, clase in lista if texto %}<i class="etq {{ clase }}">{{ texto }}</i>{% endfor %}</span>
+{%- endmacro %}
+
+{% macro chip(i, enlace='', elegido=False) -%}
+<{{ 'a href=' ~ enlace if enlace else 'div' }} class="chip {{ 'elegida' if elegido }}" data-inv="{{ i.nombre }}">
+  <span class="chip-arriba"><b>{{ i.nombre }}</b>{% if not i.especial %}<span class="pct-texto {{ i.clase }}" data-pct>{{ '%.0f' % i.pct }}%</span>{% endif %}</span>
+  {% if not i.especial %}<span class="barra"><i class="{{ i.clase }}" style="--p: {{ [i.pct, 100] | min }}%" data-barra></i></span>{% endif %}
+  <small data-cifras>{{ i.ocupado | miles }}{% if not i.especial %} / {{ i.capacidad | miles }}{% endif %}</small>
+</{{ 'a' if enlace else 'div' }}>
+{%- endmacro %}

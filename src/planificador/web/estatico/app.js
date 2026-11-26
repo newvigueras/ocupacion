@@ -96,3 +96,117 @@
     }
   });
 })();
+
+// Por invernadero: abrir o cerrar todas las tarjetas.
+(function () {
+  document.addEventListener("click", (ev) => {
+    const abrir = ev.target.closest("[data-abrir-todos]");
+    const cerrar = ev.target.closest("[data-cerrar-todos]");
+    if (!abrir && !cerrar) return;
+    document.querySelectorAll("details.inv-tarjeta").forEach((d) => { d.open = !!abrir; });
+  });
+})();
+
+// Cifras con punto de miles y fechas dd/mm/aaaa, como en el resto de la aplicación.
+const planMiles = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+const planFecha = (iso, dias) => {
+  const d = new Date(iso + "T12:00:00");
+  d.setDate(d.getDate() + dias);
+  return d;
+};
+const planDosCifras = (n) => String(n).padStart(2, "0");
+const planFechaTexto = (d) => `${planDosCifras(d.getDate())}/${planDosCifras(d.getMonth() + 1)}/${d.getFullYear()}`;
+const planIso = (d) => `${d.getFullYear()}-${planDosCifras(d.getMonth() + 1)}-${planDosCifras(d.getDate())}`;
+const planClase = (pct) => (pct > 100 ? "mal" : pct >= 85 ? "aviso" : "bien");
+
+// Por invernadero: al pasar el ratón por el gráfico, bandejas y % de ese día.
+(function () {
+  document.querySelectorAll("svg.grafico[data-valores]").forEach((svg) => {
+    const valores = svg.dataset.valores.split(",").map(Number);
+    const capacidad = Number(svg.dataset.capacidad);
+    const caja = svg.parentElement;
+    const nota = document.createElement("div");
+    nota.className = "nota-grafico";
+    nota.hidden = true;
+    caja.appendChild(nota);
+    const vb = svg.viewBox.baseVal;
+    const izq = 12, util = vb.width - 24;
+    const raya = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    raya.setAttribute("class", "raton");
+    raya.setAttribute("y1", "12");
+    raya.setAttribute("y2", String(vb.height - 22));
+    svg.appendChild(raya);
+
+    svg.addEventListener("mousemove", (ev) => {
+      const r = svg.getBoundingClientRect();
+      const x = (ev.clientX - r.left) * (vb.width / r.width);
+      const i = Math.max(0, Math.min(valores.length - 1, Math.floor((x - izq) / util * valores.length)));
+      const v = valores[i];
+      const pct = capacidad ? ` (${Math.round(100 * v / capacidad)}%)` : "";
+      nota.innerHTML = "";
+      const b = document.createElement("b");
+      b.textContent = planMiles(v);
+      nota.append(b, ` bandejas${pct}`, document.createElement("br"),
+                  planFechaTexto(planFecha(svg.dataset.inicio, i)));
+      nota.hidden = false;
+      const xr = izq + (i + 0.5) / valores.length * util;
+      raya.setAttribute("x1", xr);
+      raya.setAttribute("x2", xr);
+      raya.style.display = "";
+      const escala = r.width / vb.width;
+      const izqNota = Math.max(4, Math.min(r.width - nota.offsetWidth - 4, xr * escala - nota.offsetWidth / 2));
+      nota.style.left = izqNota + "px";
+    });
+    svg.addEventListener("mouseleave", () => { nota.hidden = true; raya.style.display = "none"; });
+  });
+})();
+
+// Ocupación Hotel: mover el día con la barra, sin recargar la página.
+(function () {
+  const hotel = document.getElementById("hotel");
+  if (!hotel) return;
+  const inicio = hotel.dataset.inicio;
+  const deslizador = hotel.querySelector("[data-deslizador]");
+  const fecha = hotel.querySelector("[data-fecha]");
+  const linea = hotel.querySelector(".dia-elegido");
+  hotel.querySelectorAll("[data-sin-js]").forEach((b) => { b.hidden = true; });
+
+  function poner(i) {
+    const dia = planFecha(inicio, i);
+    fecha.value = planIso(dia);
+    deslizador.value = i;
+    if (linea) {
+      const x = Number(linea.dataset.izquierda) + (i + 0.5) * Number(linea.dataset.anchoDia);
+      linea.setAttribute("x1", x);
+      linea.setAttribute("x2", x);
+    }
+    hotel.querySelectorAll("[data-valores]").forEach((caja) => {
+      const v = Number(caja.dataset.valores.split(",")[i] || 0);
+      const cap = Number(caja.dataset.capacidad);
+      const pct = cap ? 100 * v / cap : 0;
+      const texto = caja.querySelector("[data-pct]");
+      if (texto) {
+        texto.textContent = Math.round(pct) + "%";
+        texto.className = "pct-texto " + planClase(pct);
+      }
+      const barra = caja.querySelector("[data-barra]");
+      if (barra) {
+        barra.className = planClase(pct);
+        barra.style.setProperty("--p", Math.min(pct, 100) + "%");
+      }
+      caja.querySelector("[data-cifras]").textContent = planMiles(v) + (cap ? " / " + planMiles(cap) : "");
+      const enlace = caja.querySelector("a.chip");
+      if (enlace) {
+        const u = new URL(enlace.href);
+        u.searchParams.set("fecha", fecha.value);
+        enlace.href = u.pathname + u.search;
+      }
+    });
+  }
+
+  deslizador.addEventListener("input", () => poner(Number(deslizador.value)));
+  fecha.addEventListener("change", () => {
+    const dias = Math.round((new Date(fecha.value + "T12:00:00") - new Date(inicio + "T12:00:00")) / 864e5);
+    if (dias >= 0 && dias <= Number(deslizador.max)) poner(dias);
+  });
+})();

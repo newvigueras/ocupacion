@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% from "_piezas.html" import pestanas_base, elegir_periodo, elegir_sala, chip %}
+{% block titulo %}Ocupación Hotel{% endblock %}
+{% block contenido %}
+{% set resto = 'sala=' ~ sala ~ '&desde=' ~ p.desde.numero ~ '&hasta=' ~ p.hasta.numero %}
+<header class="cabecera">
+  <div>
+    <h1>Ocupación Hotel</h1>
+    <p class="suave">Cada barra es una partida en su invernadero, de la entrada a la liberación;
+      su alto, las bandejas (la raya, la capacidad) ·
+      base {{ NOMBRE_BASE[base] }}{% if base != 'real' %}, con lo ya colocado (Real){% endif %}.
+      Más clara: ECO o BIO.</p>
+  </div>
+  <form method="get" class="filtros">
+    {{ pestanas_base(base, resto ~ '&inv=' ~ inv) }}
+    <input type="hidden" name="base" value="{{ base }}">
+    {{ elegir_periodo(p, semanas) }}
+    {{ elegir_sala(sala, salas) }}
+    {% if inv %}<input type="hidden" name="inv" value="{{ inv }}">{% endif %}
+    <button type="submit">Ver</button>
+  </form>
+</header>
+
+<div id="hotel" data-inicio="{{ p.inicio.isoformat() }}" data-dias="{{ p.n_dias }}">
+  <form method="get" class="tarjeta fecha-hotel">
+    <input type="hidden" name="base" value="{{ base }}">
+    <input type="hidden" name="sala" value="{{ sala }}">
+    <input type="hidden" name="inv" value="{{ inv }}">
+    <input type="hidden" name="desde" value="{{ p.desde.numero }}">
+    <input type="hidden" name="hasta" value="{{ p.hasta.numero }}">
+    <label>Día <input type="date" name="fecha" value="{{ dia.isoformat() }}" min="{{ p.inicio.isoformat() }}" max="{{ p.fin.isoformat() }}" data-fecha></label>
+    <input type="range" min="0" max="{{ p.n_dias - 1 }}" value="{{ i_dia }}" aria-label="Día" data-deslizador>
+    <button type="submit" data-sin-js>Ver</button>
+  </form>
+
+  <section class="chips" aria-label="Ocupación de cada invernadero ese día">
+    {% for f in g.filas %}
+    <span data-valores="{{ f.valores_texto }}" data-capacidad="{{ 0 if f.especial else f.capacidad }}">
+    {{ chip(f.chip(i_dia), '?base=' ~ base ~ '&' ~ resto ~ '&fecha=' ~ dia.isoformat() ~ '&inv=' ~ ('' if f.nombre == inv else f.nombre), f.nombre == inv) }}
+    </span>
+    {% endfor %}
+  </section>
+  {% if inv %}<p><a href="?base={{ base }}&{{ resto }}&fecha={{ dia.isoformat() }}">← Ver todos los invernaderos</a></p>{% endif %}
+
+  {% if not g.filas %}
+  <p class="suave vacio">No hay invernaderos en esta sala.</p>
+  {% else %}
+  <div class="gantt-scroll">
+    {# Los nombres van aparte para que no se vayan al mover la barra hacia los lados. #}
+    <svg class="gantt gantt-nombres" width="{{ g.izquierda }}" height="{{ g.alto }}" viewBox="0 0 {{ g.izquierda }} {{ g.alto }}" aria-hidden="true">
+      <rect class="fondo" x="0" y="0" width="{{ g.izquierda }}" height="{{ g.alto }}"/>
+      {% for f in g.filas %}
+      <line class="separa" x1="0" y1="{{ f.y + f.alto }}" x2="{{ g.izquierda }}" y2="{{ f.y + f.alto }}"/>
+      <text class="nombre" x="6" y="{{ f.y + 20 }}">{{ f.nombre }}</text>
+      {% if not f.especial %}<text class="nombre-pct" x="6" y="{{ f.y + 34 }}">{{ f.capacidad | miles }}</text>{% endif %}
+      {% endfor %}
+    </svg>
+    <svg class="gantt" width="{{ g.ancho - g.izquierda }}" height="{{ g.alto }}" viewBox="{{ g.izquierda }} 0 {{ g.ancho - g.izquierda }} {{ g.alto }}"
+         role="img" aria-label="Partidas de cada invernadero de {{ p.inicio | fecha }} a {{ p.fin | fecha }}">
+      {% for x, texto in g.marcas %}
+      <line class="raya" x1="{{ x }}" y1="{{ g.arriba }}" x2="{{ x }}" y2="{{ g.alto - 6 }}"/>
+      <text class="fecha" x="{{ x + 2 }}" y="15">{{ texto }}</text>
+      {% endfor %}
+      {% for f in g.filas %}
+      <line class="separa" x1="{{ g.izquierda }}" y1="{{ f.y + f.alto }}" x2="{{ g.ancho }}" y2="{{ f.y + f.alto }}"/>
+      {% if f.y_capacidad is not none %}<line class="capacidad" x1="{{ g.izquierda }}" y1="{{ f.y_capacidad }}" x2="{{ g.ancho - 12 }}" y2="{{ f.y_capacidad }}"><title>Capacidad de {{ f.nombre }}: {{ f.capacidad | miles }} bandejas</title></line>{% endif %}
+      {% endfor %}
+      {% for b in g.barras %}
+      <rect x="{{ b.x }}" y="{{ b.y }}" width="{{ b.ancho }}" height="{{ b.alto }}" rx="2" fill="{{ b.color }}" fill-opacity="{{ b.opacidad }}"><title>{{ b.texto }}</title></rect>
+      {% if b.rotulo %}<text class="rotulo" x="{{ b.x + 3 }}" y="{{ b.y + b.alto - 4 }}">{{ b.rotulo }}</text>{% endif %}
+      {% endfor %}
+      {% if g.x_hoy is not none %}<line class="hoy" x1="{{ g.x_hoy }}" y1="{{ g.arriba - 4 }}" x2="{{ g.x_hoy }}" y2="{{ g.alto - 6 }}"><title>Hoy</title></line>{% endif %}
+      <line class="dia-elegido" x1="{{ g.x_dia(i_dia) }}" y1="{{ g.arriba - 4 }}" x2="{{ g.x_dia(i_dia) }}" y2="{{ g.alto - 6 }}"
+            data-izquierda="{{ g.izquierda }}" data-ancho-dia="{{ g.ancho_dia }}"/>
+    </svg>
+  </div>
+  <p class="leyenda">
+    {% for cat, color in COLOR_CATEGORIA.items() %}<span><i style="background: {{ color }}"></i>{{ cat }}</span>{% endfor %}
+    <span><i class="linea-cap"></i>Capacidad</span><span><i class="linea-hoy"></i>Hoy</span><span><i class="linea-dia"></i>Día elegido</span>
+  </p>
+  {% endif %}
+</div>
+{% endblock %}

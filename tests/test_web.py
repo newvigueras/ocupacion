@@ -100,6 +100,59 @@ def test_resumen_y_rejillas(app):
     assert c.get("/datos").status_code == 403  # consulta no carga datos
 
 
+def test_pantallas_de_consulta(app, url):
+    """Por invernadero, Por semana y Hotel cuentan lo mismo que el resto de pantallas."""
+    c, token = entrar(app, "pepe")
+    cab = {"X-CSRF": token}
+    for inv, n in (("INV42", "500"), ("INV41", "3000")):
+        c.post("/celda", data={"vista": "partidas", "semana": "49", "codigo": "26X02589",
+                               "invernadero": inv, "valor": n}, headers=cab)
+
+    from planificador.web import vistas as V
+    with Session(crear_motor(url)) as s:
+        plan = Planificador(s)
+        p = V.periodo(plan, 48, 60)
+        dia = plan.partida("26X02589").entrada
+        i = (dia - p.inicio).days
+        graficos = {g.nombre: g for g in V.graficos(plan, "partidas", p)}
+        assert graficos["INV41"].valores[i] + graficos["INV42"].valores[i] == 2028
+        assert graficos["INV41"].pico == 2028 - 500 and graficos["INV41"].linea.startswith("M")
+        v = V.vista_semana(plan, "partidas", 49)
+        assert v.partidas == 1 and v.nuevas == 1 and len(v.filas) == 2
+        assert {c.nombre for c in v.chips} == {"INV41", "INV42"}
+        g = V.gantt(plan, "partidas", p, sala=V.clave_sala(plan.invernadero("INV41").sala))
+        assert len(g.barras) == 2 and all(b.alto > 0 for b in g.barras)
+        uno = V.gantt(plan, "partidas", p, inv="INV42")
+        assert [f.nombre for f in uno.filas] == ["INV42"] and "26X02589" in uno.barras[0].texto
+
+    luis, _ = entrar(app, "luis")  # consulta también ve estas pantallas
+    r = luis.get("/invernadero?base=partidas&desde=48&hasta=60&abrir=INV41")
+    assert r.status_code == 200 and "<details class=\"tarjeta inv-tarjeta\" open>" in r.text
+    assert "data-valores=" in r.text and "capacidad" in r.text
+    r = luis.get("/semana?base=partidas&semana=49&agrupar=cultivo")
+    assert "26X02589" in r.text and "entra" in r.text and "Jiffy" in r.text
+    assert "No hay nada en INV10A" in luis.get("/semana?base=partidas&semana=49&inv=INV10A").text
+    r = luis.get("/hotel?base=partidas&desde=48&hasta=60&inv=INV41&fecha=2026-12-05")
+    assert r.status_code == 200 and "26X02589" in r.text and 'value="2026-12-05"' in r.text
+    # Fuera de rango o desconocido: se corrige, no falla.
+    assert luis.get("/hotel?desde=999&hasta=1&inv=NOEXISTE&fecha=x").status_code == 200
+    assert luis.get("/invernadero?desde=abc").status_code == 200
+    # La base elegida se recuerda al cambiar de pantalla.
+    luis.get("/semana?base=real")
+    assert 'class="activa">Real</a>' in luis.get("/hotel").text
+
+
+def test_apilar_sin_tapar():
+    from datetime import date
+
+    from planificador.web.vistas import Trozo, _apilar
+    t = lambda cod, d1, d2, n: Trozo("INV1", cod, "Tomate", "Normal", "", "", date(2026, 1, d1),
+                                     date(2026, 1, d2), n, False)
+    puestos, alto = _apilar([t("A", 1, 10, 100), t("B", 5, 20, 50), t("C", 11, 20, 80)])
+    abajo = {x.codigo: y for x, y in puestos}
+    assert abajo == {"A": 0, "B": 100, "C": 0} and alto == 150  # C aprovecha el hueco de A
+
+
 def test_editar_celdas(app, url):
     c, token = entrar(app, "pepe")
     cab = {"X-CSRF": token}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from "_piezas.html" import pestanas_base, elegir_periodo, elegir_sala %}
+{% block titulo %}Por invernadero{% endblock %}
+{% block contenido %}
+<header class="cabecera">
+  <div>
+    <h1>Por invernadero</h1>
+    <p class="suave">Ocupación día a día de {{ p.inicio | fecha }} a {{ p.fin | fecha }} ·
+      base {{ NOMBRE_BASE[base] }}{% if base != 'real' %}, con lo ya colocado (Real){% endif %}.
+      Pulse un invernadero para ver su gráfico.</p>
+  </div>
+  <form method="get" class="filtros">
+    {{ pestanas_base(base, 'sala=' ~ sala ~ '&desde=' ~ p.desde.numero ~ '&hasta=' ~ p.hasta.numero) }}
+    <input type="hidden" name="base" value="{{ base }}">
+    {{ elegir_periodo(p, semanas) }}
+    {{ elegir_sala(sala, salas) }}
+    <button type="submit">Ver</button>
+  </form>
+</header>
+
+<div class="en-linea acciones">
+  <button type="button" data-abrir-todos>Abrir todos</button>
+  <button type="button" data-cerrar-todos>Cerrar todos</button>
+  <span class="suave">Pico: la ocupación más alta del periodo.</span>
+</div>
+
+{% for g in graficos %}
+{% if loop.first or g.sala != loop.previtem.sala %}<h2 class="titulo-sala">{{ g.sala }}</h2>{% endif %}
+<details class="tarjeta inv-tarjeta" {{ 'open' if g.nombre == abrir or graficos | length == 1 }}>
+  <summary>
+    <b class="inv-nombre">{{ g.nombre }}</b>
+    <span class="suave">{% if g.especial %}sin capacidad fija{% else %}capacidad {{ g.capacidad | miles }} bandejas{% endif %} · {{ g.con_datos }} semanas con ocupación</span>
+    {% if g.especial %}<span class="pico">pico {{ g.pico | miles }}</span>
+    {% else %}<span class="pico {{ g.clase }}" title="{{ g.pico | miles }} bandejas el {{ g.dia_pico | fecha }}">{{ '%.0f' % g.pct_pico }}% pico</span>{% endif %}
+  </summary>
+  <div class="grafico-caja">
+    <svg class="grafico {{ g.clase }}" viewBox="0 0 {{ g.ancho }} {{ g.alto }}" role="img"
+         aria-label="Ocupación de {{ g.nombre }}: pico {{ g.pico | miles }} bandejas el {{ g.dia_pico | fecha }}"
+         data-valores="{{ g.valores_texto }}" data-inicio="{{ g.inicio.isoformat() }}" data-capacidad="{{ 0 if g.especial else g.capacidad }}">
+      {% for x, texto in g.marcas %}
+      <line class="raya" x1="{{ x }}" y1="12" x2="{{ x }}" y2="{{ g.abajo }}"/>
+      <text class="fecha" x="{{ x }}" y="{{ g.alto - 6 }}">{{ texto }}</text>
+      {% endfor %}
+      <path class="area" d="{{ g.area }}"/>
+      <path class="linea" d="{{ g.linea }}"/>
+      {% if g.y_capacidad >= 0 %}
+      <line class="capacidad" x1="12" y1="{{ g.y_capacidad }}" x2="{{ g.ancho - 12 }}" y2="{{ g.y_capacidad }}"/>
+      <text class="capacidad-texto" x="16" y="{{ g.y_capacidad - 5 }}">capacidad {{ g.capacidad | miles }}</text>
+      {% endif %}
+      {% if g.x_hoy is not none %}<line class="hoy" x1="{{ g.x_hoy }}" y1="12" x2="{{ g.x_hoy }}" y2="{{ g.abajo }}"><title>Hoy</title></line>{% endif %}
+    </svg>
+  </div>
+  <div class="tabla-scroll">
+  <table class="lista">
+    <thead><tr><th>Semana</th><th>Contenido al acabar la semana</th><th class="num">Bandejas</th><th>% capacidad</th></tr></thead>
+    <tbody>
+    {% for s in g.semanas if s.bandejas %}
+      <tr>
+        <td>{{ s.semana.etiqueta }} <small class="suave">{{ s.semana.fin | corta }}</small></td>
+        <td>{% for cultivo, n in s.contenido %}{{ cultivo }} {{ n | miles }}{{ ' · ' if not loop.last }}{% endfor %}</td>
+        <td class="num">{{ s.bandejas | miles }}</td>
+        <td>{% if s.capacidad %}<span class="pct-texto {{ s.clase }}">{{ '%.0f' % s.pct }}%</span>{% endif %}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="4" class="suave">Sin ocupación en este periodo.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</details>
+{% else %}
+<p class="suave vacio">No hay invernaderos en esta sala.</p>
+{% endfor %}
+{% endblock %}
