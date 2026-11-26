@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block contenido %}
+<header class="cabecera"><div>
+  <h1>{% for c, ruta, n in VISTAS if c == vista %}{{ n }}{% endfor %}</h1>
+  <p class="suave">Esta pantalla está en preparación.</p>
+</div></header>
+{% endblock %}

@@ -11,6 +11,8 @@
     planificador recalcular
     planificador reimportar 201126.xlsx PLANTA_NORMAL.xlsx [--conservar]
     planificador copias [--base real]  ·  planificador restaurar-copia 12
+    planificador usuario crear NOMBRE --rol admin   (pide la contraseña)
+    planificador web [--puerto 8000]                (aplicación web)
     planificador tecnico 26X02589 2027-01-10        (o «quitar»)
     planificador ocupacion [--base partidas] [--fecha 2026-12-01] [--sin-ext]
 
@@ -413,6 +415,69 @@ def cmd_restaurar_copia(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_usuario(args: argparse.Namespace) -> int:
+    import getpass
+    import os
+
+    from sqlalchemy import select
+
+    from .bd.tablas import Usuario
+    from .web.seguridad import ErrorUsuario, cambiar_clave, crear_usuario, normalizar_nombre
+
+    def pedir_clave() -> str:
+        # PLANIFICADOR_CLAVE solo para automatizar (pruebas); lo normal es escribirla.
+        if os.environ.get("PLANIFICADOR_CLAVE"):
+            return os.environ["PLANIFICADOR_CLAVE"]
+        clave = getpass.getpass("Contraseña (10 caracteres o más): ")
+        if clave != getpass.getpass("Repítala: "):
+            raise ErrorUsuario("Las dos contraseñas no coinciden")
+        return clave
+
+    with _sesion(args) as s:
+        try:
+            if args.accion == "lista":
+                for u in s.scalars(select(Usuario).order_by(Usuario.nombre)):
+                    acceso = f"{u.ultimo_acceso:%d/%m/%Y %H:%M}" if u.ultimo_acceso else "nunca"
+                    print(f"  {u.nombre:<20} {u.rol:<13} {'activo' if u.activo else 'inactivo':<9}"
+                          f" último acceso: {acceso}")
+                return 0
+            if not args.nombre:
+                raise ErrorUsuario("Falta el nombre del usuario")
+            if args.accion == "crear":
+                u = crear_usuario(s, args.nombre, pedir_clave(), args.rol or "consulta",
+                                  args.completo or "")
+                print(f"Usuario {u.nombre} creado (perfil {u.rol})")
+            else:  # clave
+                u = s.scalar(select(Usuario).where(
+                    Usuario.nombre == normalizar_nombre(args.nombre)))
+                if u is None:
+                    raise ErrorUsuario(f"No existe el usuario {args.nombre}")
+                cambiar_clave(u, pedir_clave())
+                if args.rol:
+                    u.rol = args.rol
+                u.activo = True
+                print(f"Contraseña de {u.nombre} cambiada")
+            s.commit()
+        except ErrorUsuario as e:
+            print(f"ERROR: {e}", file=sys.stderr)
+            return 1
+    return 0
+
+
+def cmd_web(args: argparse.Namespace) -> int:
+    import os
+
+    import uvicorn
+
+    from .web.app import crear_app
+
+    if args.bd:
+        os.environ["PLANIFICADOR_BD"] = args.bd
+    print(f"Planificador en http://{args.host}:{args.puerto}  (Ctrl+C para parar)")
+    uvicorn.run(crear_app(args.bd), host=args.host, port=args.puerto, log_level="warning")
+    return 0
+
+
 def _avisos(plan: Planificador, base: str, ext: bool = True,
             solo: set[str] | None = None) -> None:
     """Invernaderos por encima de su capacidad y con cultivos mezclados.
@@ -523,6 +588,19 @@ def main(argv: list[str] | None = None) -> int:
     rs = sub.add_parser("restaurar-copia", help="Dejar una base como estaba en una copia")
     rs.add_argument("id", type=int)
     rs.set_defaults(func=cmd_restaurar_copia)
+
+    us = sub.add_parser("usuario", help="Usuarios de la aplicación web")
+    us.add_argument("accion", choices=["crear", "clave", "lista"])
+    us.add_argument("nombre", nargs="?")
+    us.add_argument("--rol", choices=["consulta", "planificador", "admin"])
+    us.add_argument("--completo", help="Nombre y apellidos")
+    us.set_defaults(func=cmd_usuario)
+
+    we = sub.add_parser("web", help="Arrancar la aplicación web")
+    we.add_argument("--host", default="127.0.0.1",
+                    help="0.0.0.0 para que entren otros equipos de la red")
+    we.add_argument("--puerto", type=int, default=8000)
+    we.set_defaults(func=cmd_web)
 
     tec = sub.add_parser("tecnico",help="Poner o quitar la fecha técnico de una partida")
     tec.add_argument("codigo")

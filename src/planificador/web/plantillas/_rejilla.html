@@ -1,0 +1,55 @@
+<div class="resumen-rejilla">
+  <span><b>{{ r.filas | length }}</b> {{ 'bloques' if vista == 'global' else 'partidas' }}</span>
+  <span><b>{{ r.total | miles }}</b> bandejas</span>
+  <span>asignadas <b>{{ r.asignado | miles }}</b></span>
+  <span class="{{ 'aviso' if r.total - r.asignado > 0 }}">pendientes <b>{{ (r.total - r.asignado) | miles }}</b></span>
+  {% if r.excedidos %}<span class="mal">⚠ Pasan su capacidad esta semana: {{ r.excedidos | map(attribute='nombre') | join(', ') }}</span>{% endif %}
+</div>
+{% if not r.filas %}
+<p class="suave vacio">No hay {{ 'bloques' if vista == 'global' else 'partidas' }} que entren esta semana{% if vista == 'exacta' %} con dato real{% endif %}.</p>
+{% else %}
+<div class="rejilla-scroll">
+<table class="rejilla">
+  <thead>
+    <tr>
+      <th class="fijo">{{ 'Bloque' if vista == 'global' else 'Partida' }}</th>
+      <th class="num">Total</th>
+      <th class="num">Pend.</th>
+      {% if vista != 'global' %}<th>Fechas</th>{% endif %}
+      {% for c in r.columnas %}
+      <th class="inv {{ 'excedido' if c.excedido }}" title="{{ c.sala }} · capacidad {{ c.capacidad | miles }} · {{ c.ocupado | miles }} ocupadas el {{ r.fin | fecha }} · máximo de la semana {{ c.pico | miles }}">
+        {{ c.nombre }}
+        {% if not c.especial %}<span class="pct-texto {{ c.clase }}">{{ '%.0f' % c.pct }}%</span>{% endif %}
+      </th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+  {% for f in r.filas %}
+    <tr data-clave='{{ f.clave | tojson }}'>
+      <th class="fijo" title="{{ f.detalle }}">
+        <span class="titulo">{{ f.titulo }}</span>
+        <span class="etiquetas">{% for texto, clase in f.etiquetas if texto %}<i class="etq {{ clase }}">{{ texto }}</i>{% endfor %}</span>
+      </th>
+      <td class="num">{{ f.total | miles }}</td>
+      <td class="num {{ 'aviso' if f.pendiente > 0 else 'hecho' }}">{{ f.pendiente | miles }}</td>
+      {% if vista != 'global' %}
+      <td class="fechas">
+        {{ f.entrada | corta }} → {{ f.liberacion | corta }}
+        <input class="tecnico" type="date" value="{{ f.tecnico.isoformat() if f.tecnico else '' }}" title="Fecha técnico (manda sobre la liberación)" aria-label="Fecha técnico de {{ f.titulo }}">
+      </td>
+      {% endif %}
+      {% for c in r.columnas %}
+      {% set v = f.celdas.get(c.nombre, 0) %}
+      {% set cc = f.con_calle.get(c.nombre, 0) %}
+      <td class="celda {{ 'llena' if v or cc }}">
+        <input class="valor" inputmode="numeric" value="{{ v if v else '' }}" data-inv="{{ c.nombre }}" aria-label="{{ f.titulo }} en {{ c.nombre }}">
+        {% if cc %}<small title="En calles (se cambia desde la carga por calle)">+{{ cc | miles }} c.</small>{% endif %}
+      </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}

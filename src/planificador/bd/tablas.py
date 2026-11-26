@@ -9,7 +9,7 @@ from __future__ import annotations
 from datetime import date, datetime
 
 from sqlalchemy import (
-    Boolean, Date, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint, func,
+    Boolean, Date, DateTime, Float, ForeignKey, Integer, String, Text, UniqueConstraint, func, true,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
@@ -163,6 +163,28 @@ class Asignacion(Base):
 
     invernadero: Mapped[Invernadero] = relationship()
     calle: Mapped[Calle | None] = relationship()
+
+
+#: Perfiles: consulta (solo ver), planificador (asignar y cargar datos), admin (además:
+#: reimportar, restaurar copias y gestionar usuarios).
+ROLES = ("consulta", "planificador", "admin")
+
+
+class Usuario(Base):
+    """Personas que entran en la aplicación web (fase 3)."""
+
+    __tablename__ = "usuario"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    #: Nombre con el que se entra (en minúsculas).
+    nombre: Mapped[str] = mapped_column(String(64), unique=True)
+    nombre_completo: Mapped[str] = mapped_column(String(200), default="", server_default="")
+    rol: Mapped[str] = mapped_column(String(16), default="consulta", server_default="consulta")
+    #: «scrypt$n$r$p$sal$hash» (nunca la contraseña).
+    clave_hash: Mapped[str] = mapped_column(String(256))
+    activo: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())
+    creado_en: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+    ultimo_acceso: Mapped[datetime | None] = mapped_column(DateTime)
 
 
 class CopiaSeguridad(Base):

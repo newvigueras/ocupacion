@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block titulo %}Datos y copias{% endblock %}
+{% block contenido %}
+<header class="cabecera">
+  <div>
+    <h1>Datos y copias</h1>
+    <p class="suave">
+      {% for b, (n, band) in cuentas.items() %}{{ NOMBRE_BASE[b] }}: {{ n | miles }} asignaciones, {{ band | miles }} bandejas{{ ' · ' if not loop.last }}{% endfor %}
+    </p>
+  </div>
+</header>
+
+<section class="dos">
+  <form class="tarjeta" method="post" action="/datos/extensiones" enctype="multipart/form-data">
+    <h2>Lo ya colocado (base Real)</h2>
+    <p class="suave">EXTENSIONES.xlsx o EXTENSIONCALLES.xlsx (si viene, manda y se carga por calle) y,
+      si se quiere, Excel de previsión como 0110.xlsx. No toca lo hecho a mano en Real.</p>
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <input type="file" name="archivos" accept=".xlsx" multiple required>
+    <button type="submit" class="principal">Cargar</button>
+  </form>
+
+  <form class="tarjeta" method="post" action="/datos/pdf" enctype="multipart/form-data">
+    <h2>PDF de túneles y de cargas</h2>
+    <p class="suave">Partes de injerto (bandejas reales, entrada, calle) y partes de carga (salida
+      real). El tipo se reconoce solo.</p>
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <input type="file" name="archivos" accept=".pdf" multiple required>
+    <button type="submit" class="principal">Cargar PDF</button>
+  </form>
+
+  <form class="tarjeta" method="post" action="/datos/recalcular">
+    <h2>Recalcular todas las semanas</h2>
+    <p class="suave">Rehace las tres bases con las partidas de hoy, conservando a qué invernadero
+      (y calle) va cada cosa. Si ahora hay menos bandejas, recorta. Guarda copia antes.</p>
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <button type="submit" class="principal" data-confirmar="¿Recalcular las tres bases, todas las semanas?">Recalcular</button>
+  </form>
+
+  {% if puede('administrar') %}
+  <form class="tarjeta" method="post" action="/datos/reimportar" enctype="multipart/form-data">
+    <h2>Reimportar los Excel de previsión</h2>
+    <p class="suave">Actualiza el maestro por código (las partidas que no vienen se mantienen). Si
+      se eligen varios, el último de la lista manda.</p>
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <input type="file" name="archivos" accept=".xlsx" multiple required>
+    <label class="opcion"><input type="radio" name="modo" value="cero" checked> <b>Desde cero</b>:
+      vacía Bloques, Partidas y lo puesto a mano en Real (quedan EXTENSIONES y EXTENSIONCALLES, las
+      fechas técnico y los datos de PDF).</label>
+    <label class="opcion"><input type="radio" name="modo" value="conservar"> <b>Conservar</b> lo
+      asignado y recalcularlo.</label>
+    <button type="submit" class="principal" data-confirmar="¿Reimportar los Excel? Antes se guarda copia de cada base.">Reimportar</button>
+  </form>
+  {% endif %}
+</section>
+
+<section class="tarjeta">
+  <h2>Copias de seguridad</h2>
+  <p class="suave">Se guardan solas antes de recalcular, reimportar o restaurar (las 10 últimas de cada base).</p>
+  <table class="lista">
+    <thead><tr><th>N.º</th><th>Fecha</th><th>Base</th><th class="num">Asignaciones</th><th class="num">Bandejas</th><th>Motivo</th><th></th></tr></thead>
+    <tbody>
+    {% for c in copias %}
+      <tr>
+        <td>{{ c.id }}</td><td>{{ c.creada_en.strftime('%d/%m/%Y %H:%M') }}</td><td>{{ NOMBRE_BASE[c.base] }}</td>
+        <td class="num">{{ c.asignaciones | miles }}</td><td class="num">{{ c.bandejas | miles }}</td><td>{{ c.motivo }}</td>
+        <td>{% if puede('administrar') %}
+          <form method="post" action="/datos/restaurar">
+            <input type="hidden" name="csrf" value="{{ csrf }}"><input type="hidden" name="copia" value="{{ c.id }}">
+            <button type="submit" data-confirmar="¿Dejar la base {{ NOMBRE_BASE[c.base] }} como estaba en la copia n.º {{ c.id }}? Lo que hay ahora se copia antes.">Restaurar</button>
+          </form>{% endif %}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="7" class="suave">Todavía no hay copias.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

@@ -13,7 +13,7 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
 |---|---|---|
 | 1 | Motor de cálculo: Excel de previsión → partidas, fechas, ECO/BIO, bandejas, calendario | ✅ con pruebas |
 | 2 | Base de datos y asignaciones (Bloques, Partidas, Real), ocupación diaria y avisos | ✅ con pruebas |
-| 3 | Servidor web, usuarios y pantallas | pendiente |
+| 3 | Servidor web, usuarios y pantallas | en curso: 4 de las 7 pantallas |
 
 ### Fase 2: qué incluye
 
@@ -86,8 +86,31 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
   la base de prueba con todos los datos, y simulando un cambio de tabla (se conservan las 1.434
   partidas y las 114.160 bandejas de Real). Ver «Cambiar las tablas» más abajo.
 
-Con esto la fase 2 está completa; lo siguiente es la fase 3 (servidor web, usuarios y
-pantallas).
+Con esto la fase 2 está completa.
+
+### Fase 3: qué incluye (de momento)
+
+- **Aplicación web** (FastAPI): `planificador web` y se abre `http://127.0.0.1:8000`. Con
+  `--host 0.0.0.0` entran los demás equipos de la red. Logotipo de La Sala, Montserrat fina a
+  10 pt (norma de la empresa) y los colores del planificador HTML; también en el móvil.
+- **Usuarios con contraseña** (cifrada con scrypt, 10 caracteres o más) y tres perfiles:
+  *consulta* (ver), *planificador* (además asignar, cargar EXTENSIONES y PDF, recalcular) y
+  *admin* (además reimportar, restaurar copias y gestionar usuarios). El primero se crea en la
+  consola: `planificador usuario crear NOMBRE --rol admin`. Sesión firmada de 12 horas,
+  protección CSRF en todos los formularios y cabeceras de seguridad.
+- **Resumen**: % por sala (Bloques, Partidas o Real, el día que se elija), invernaderos de cada
+  sala, calles de un invernadero y las partidas que entran y salen ese día.
+- **Planificación Global** (Bloques), **por Partida** y **Exacta** (Real): rejilla de la semana
+  × invernaderos (filtro por sala y tipo); se escribe en la celda y se guarda al salir o con
+  Intro (baja a la celda de abajo). Pendientes, % de cada invernadero al final de la semana y
+  aviso de los que pasan su capacidad. En Partidas y Exacta, la fecha técnico de cada partida.
+- **Datos y copias**: subir EXTENSIONES/EXTENSIONCALLES y los PDF, recalcular, reimportar los
+  Excel (desde cero o conservando) y restaurar copias.
+- Comprobado en el navegador con los datos reales (base de prueba del 23/11/2026).
+
+Falta: las pantallas *Por invernadero* (gráfico), *Por semana* y *Ocupación Hotel* (Gantt);
+asignar por calle desde la web; «Rellenar Bloques con lo real» (§10.4b, nuevo en el documento
+maestro del 25/11); y publicarla para entrar desde fuera (servidor, HTTPS y PostgreSQL).
 
 ## Decisiones nuevas respecto al documento maestro
 
@@ -124,6 +147,10 @@ planificador recalcular                              # las tres bases, todas las
 planificador reimportar 201126.xlsx "PLANTA NORMAL.xlsx" [--conservar]
 planificador copias                                  # y «restaurar-copia N» para deshacer
 planificador ocupacion --base partidas --fecha 2026-12-01
+
+# Aplicación web (fase 3)
+planificador usuario crear ana --rol admin           # pide la contraseña
+planificador web                                     # http://127.0.0.1:8000
 ```
 
 ## Cambiar las tablas (migraciones)
@@ -155,5 +182,9 @@ planificador ocupacion --base partidas --fecha 2026-12-01
 - `src/planificador/bd/calles.py` — carga por calle de EXTENSIONCALLES.xlsx en la base Real.
 - `src/planificador/bd/pdf.py` — PDF de túneles (parte de injerto) y de cargas.
 - `src/planificador/bd/recalcular.py` — recalcular, reimportar y copias de seguridad.
+- `src/planificador/web/app.py` — aplicación web: rutas, sesiones y permisos.
+- `src/planificador/web/datos.py` — lo que muestra cada pantalla.
+- `src/planificador/web/seguridad.py` — usuarios y contraseñas.
+- `src/planificador/web/plantillas/`, `estatico/` — páginas, estilo y JavaScript.
 - `src/planificador/datos/invernaderos.json` — invernaderos y calles con su capacidad.
 - `tests/` — casos del §17.1 y §17.2 del documento maestro y de la fase 2.

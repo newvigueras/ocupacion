@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titulo %}Mi cuenta{% endblock %}
+{% block contenido %}
+<header class="cabecera"><div><h1>Mi cuenta</h1>
+  <p class="suave">{{ usuario.nombre }} · perfil {{ usuario.rol }}</p></div></header>
+<form class="tarjeta estrecha" method="post" action="/cuenta">
+  <h2>Cambiar la contraseña</h2>
+  <input type="hidden" name="csrf" value="{{ csrf }}">
+  <label>Contraseña actual <input type="password" name="actual" required autocomplete="current-password"></label>
+  <label>Nueva (10 caracteres o más) <input type="password" name="nueva" required minlength="10" autocomplete="new-password"></label>
+  <label>Repetir la nueva <input type="password" name="repetida" required minlength="10" autocomplete="new-password"></label>
+  <button type="submit" class="principal">Cambiar</button>
+</form>
+{% endblock %}

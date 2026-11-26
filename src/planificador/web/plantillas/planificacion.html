@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titulo %}{% for c, ruta, n in VISTAS if c == vista %}{{ n }}{% endfor %}{% endblock %}
+{% block contenido %}
+<header class="cabecera">
+  <div>
+    <h1>{% for c, ruta, n in VISTAS if c == vista %}{{ n }}{% endfor %}</h1>
+    <p class="suave">Base {{ NOMBRE_BASE[r.base] }} · semana {{ r.etiqueta }}
+      ({{ r.inicio | fecha }} – {{ r.fin | fecha }}) · el % de cada invernadero es el del
+      {{ r.fin | fecha }}, con lo ya colocado{% if vista == 'exacta' %} en Real{% endif %}.</p>
+  </div>
+  <form method="get" class="filtros">
+    <a class="boton" href="?semana={{ r.semana - 1 }}&tipo={{ r.tipo or '' }}&sala={{ sala }}" aria-label="Semana anterior">◀</a>
+    <label>Semana <input type="number" name="semana" min="1" max="{{ n_semanas }}" value="{{ r.semana }}"></label>
+    <a class="boton" href="?semana={{ r.semana + 1 }}&tipo={{ r.tipo or '' }}&sala={{ sala }}" aria-label="Semana siguiente">▶</a>
+    {% if vista != 'exacta' %}
+    <label>Tipo
+      <select name="tipo">
+        {% if vista == 'partidas' %}<option value="">Todos</option>{% endif %}
+        {% for t in tipos %}<option value="{{ t }}" {{ 'selected' if t == r.tipo }}>{{ NOMBRE_TIPO[t] }}</option>{% endfor %}
+      </select>
+    </label>
+    {% endif %}
+    <label>Sala
+      <select name="sala">
+        <option value="">Todas</option>
+        {% for nombre, clave in salas %}<option value="{{ clave }}" {{ 'selected' if clave == sala }}>{{ nombre }}</option>{% endfor %}
+      </select>
+    </label>
+    <button type="submit">Ver</button>
+  </form>
+</header>
+
+<div class="estado" id="estado" role="status" aria-live="polite"></div>
+
+<div id="rejilla" class="rejilla-caja"
+     data-vista="{{ vista }}" data-semana="{{ r.semana }}" data-tipo="{{ r.tipo or '' }}" data-sala="{{ sala }}"
+     data-editable="{{ '1' if puede('asignar') else '' }}">
+  {% include "_rejilla.html" %}
+</div>
+{% endblock %}

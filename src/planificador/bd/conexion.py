@@ -42,6 +42,10 @@ def crear_motor(url: str | None = None) -> Engine:
 
 #: Versión en la que se «adoptan» las bases creadas antes de usar Alembic (22–26/11/2026).
 VERSION_ADOPCION = "0001"
+#: Tablas de esa versión: al adoptar solo se crean las que falten de estas (las posteriores
+#: las crean sus migraciones).
+TABLAS_ADOPCION = ("ajuste", "invernadero", "calle", "partida", "fecha_tecnico", "dato_real",
+                   "asignacion", "copia_seguridad")
 
 
 def _config_alembic(conexion: Connection) -> Config:
@@ -75,7 +79,8 @@ def migrar(motor: Engine) -> str:
             return "al día"
         tablas = set(inspect(conexion).get_table_names())
         if actual is None and "partida" in tablas:
-            Base.metadata.create_all(conexion)  # solo las que faltan (p. ej. copia_seguridad)
+            Base.metadata.create_all(conexion, tables=[Base.metadata.tables[n]
+                                                       for n in TABLAS_ADOPCION])
             command.stamp(cfg, VERSION_ADOPCION)
             command.upgrade(cfg, "head")
             return "adoptada"

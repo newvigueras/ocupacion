@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block titulo %}Usuarios{% endblock %}
+{% block contenido %}
+<header class="cabecera">
+  <div>
+    <h1>Usuarios</h1>
+    <p class="suave"><b>Consulta</b>: solo ver · <b>Planificador</b>: además asignar, cargar
+      EXTENSIONES y PDF, recalcular · <b>Admin</b>: además reimportar, restaurar copias y
+      gestionar usuarios.</p>
+  </div>
+</header>
+
+<section class="tarjeta">
+  <table class="lista">
+    <thead><tr><th>Usuario</th><th>Nombre</th><th>Perfil</th><th>Activo</th><th>Nueva contraseña</th><th>Último acceso</th><th></th></tr></thead>
+    <tbody>
+    {% for x in lista %}
+      <tr>
+        <td><b>{{ x.nombre }}</b></td>
+        <td>{{ x.nombre_completo }}</td>
+        <td colspan="3">
+          <form method="post" action="/usuarios/{{ x.id }}" class="en-linea" id="u{{ x.id }}">
+            <input type="hidden" name="csrf" value="{{ csrf }}">
+            <select name="rol" aria-label="Perfil de {{ x.nombre }}">{% for r in ROLES %}<option {{ 'selected' if r == x.rol }}>{{ r }}</option>{% endfor %}</select>
+            <label><input type="checkbox" name="activo" value="1" {{ 'checked' if x.activo }}> activo</label>
+            <input type="password" name="clave" placeholder="(sin cambiar)" autocomplete="new-password" aria-label="Nueva contraseña de {{ x.nombre }}">
+          </form>
+        </td>
+        <td>{{ x.ultimo_acceso.strftime('%d/%m/%Y %H:%M') if x.ultimo_acceso else '—' }}</td>
+        <td><button type="submit" form="u{{ x.id }}">Guardar</button></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<form class="tarjeta" method="post" action="/usuarios/nuevo">
+  <h2>Nuevo usuario</h2>
+  <input type="hidden" name="csrf" value="{{ csrf }}">
+  <div class="en-linea">
+    <label>Usuario <input name="nombre" required autocomplete="off"></label>
+    <label>Nombre <input name="nombre_completo"></label>
+    <label>Perfil <select name="rol">{% for r in ROLES %}<option>{{ r }}</option>{% endfor %}</select></label>
+    <label>Contraseña (10 caracteres o más) <input type="password" name="clave" required minlength="10" autocomplete="new-password"></label>
+    <button type="submit" class="principal">Crear</button>
+  </div>
+</form>
+{% endblock %}

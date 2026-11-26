@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block titulo %}Resumen{% endblock %}
+{% block contenido %}
+<header class="cabecera">
+  <div>
+    <h1>Resumen</h1>
+    <p class="suave">Ocupación el {{ dia | fecha }} · semana {{ semana.etiqueta }}
+      {% if base != 'real' %}· con lo ya colocado (Real){% endif %}</p>
+  </div>
+  <form method="get" class="filtros">
+    <div class="pestanas" role="group" aria-label="Base">
+      {% for b in ['bloques', 'partidas', 'real'] %}
+      <a href="?base={{ b }}&fecha={{ dia.isoformat() }}&sala={{ sala or '' }}" class="{{ 'activa' if b == base }}">{{ NOMBRE_BASE[b] }}</a>
+      {% endfor %}
+    </div>
+    <input type="hidden" name="base" value="{{ base }}">
+    <label>Día <input type="date" name="fecha" value="{{ dia.isoformat() }}"></label>
+    {% if sala %}<input type="hidden" name="sala" value="{{ sala }}">{% endif %}
+    <button type="submit">Ver</button>
+  </form>
+</header>
+
+<section class="salas">
+  {% for s in salas %}
+  <a class="tarjeta sala {{ 'elegida' if s.clave == sala }}" href="?base={{ base }}&fecha={{ dia.isoformat() }}&sala={{ s.clave }}">
+    <span class="sala-nombre">{{ s.nombre }}</span>
+    <span class="pct {{ s.clase }}">{{ '%.0f' % s.pct }} %</span>
+    <span class="barra"><i class="{{ s.clase }}" style="--p: {{ [s.pct, 100] | min }}%"></i></span>
+    <small>{{ s.ocupado | miles }} de {{ s.capacidad | miles }} bandejas</small>
+  </a>
+  {% endfor %}
+</section>
+
+{% for s in salas if s.clave == sala %}
+<section class="tarjeta">
+  <h2>{{ s.nombre }}</h2>
+  <table class="lista">
+    <thead><tr><th>Invernadero</th><th class="num">Ocupado</th><th class="num">Capacidad</th><th>%</th></tr></thead>
+    <tbody>
+    {% for i in s.invernaderos %}
+      <tr>
+        <td><a href="?base={{ base }}&fecha={{ dia.isoformat() }}&sala={{ sala }}&inv={{ i.nombre }}">{{ i.nombre }}</a></td>
+        <td class="num">{{ i.ocupado | miles }}</td>
+        <td class="num">{{ '' if i.especial else i.capacidad | miles }}</td>
+        <td class="ancho">{% if not i.especial %}<span class="barra"><i class="{{ i.clase }}" style="--p: {{ [i.pct, 100] | min }}%"></i></span> <span class="pct-texto {{ i.clase }}">{{ '%.0f' % i.pct }} %</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endfor %}
+
+{% if detalle %}
+{% set inv, calles, sin_calle = detalle %}
+<section class="tarjeta">
+  <h2>{{ inv.nombre }} · calles ({{ NOMBRE_BASE[base] }})</h2>
+  <p class="suave">Solo lo asignado en esta base con calle.
+    {% if sin_calle %}Sin calle: {{ sin_calle | miles }} bandejas.{% endif %}
+    {% if calles and calles[0].estimada %}Capacidad por calle estimada.{% endif %}</p>
+  <div class="calles">
+    {% for c in calles %}
+    <div class="calle {{ c.clase if c.ocupado else 'vacia' }}" title="{% for cod, b in c.partidas %}{{ cod }}: {{ b }}&#10;{% endfor %}">
+      <b>{{ c.numero }}</b>
+      <span>{{ c.ocupado | miles }}/{{ c.capacidad | miles }}</span>
+      <small>{{ c.zona }}</small>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="dos">
+  <div class="tarjeta">
+    <h2>Entran el {{ dia | fecha }} ({{ entran | length }})</h2>
+    <table class="lista">
+      {% for p in entran[:40] %}
+      <tr><td>{{ p.codigo }}</td><td>{{ p.cultivo }}</td><td>{{ p.cliente }}</td><td class="num">{{ p.bandejas | miles }}</td></tr>
+      {% else %}<tr><td class="suave">Ninguna partida.</td></tr>{% endfor %}
+    </table>
+  </div>
+  <div class="tarjeta">
+    <h2>Salen el {{ dia | fecha }} (PDF de cargas, {{ salen | length }})</h2>
+    <table class="lista">
+      {% for d in salen[:40] %}
+      <tr><td>{{ d.codigo }}</td><td>{{ d.cliente }}</td></tr>
+      {% else %}<tr><td class="suave">Ninguna salida registrada.</td></tr>{% endfor %}
+    </table>
+  </div>
+</section>
+{% endblock %}
