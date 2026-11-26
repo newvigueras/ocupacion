@@ -80,8 +80,8 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
   `201126.xlsx` conservando recorta 170 bandejas en Bloques y 250 en Partidas, 78 cambian de
   ECO/BIO y 38 trozos cambian de semana.
 
-Quedan para más adelante: los checks de calidad (§12.3) y las migraciones de la base de datos
-(Alembic) antes de ponerla en común.
+Queda para más adelante: las migraciones de la base de datos (Alembic) antes de ponerla en
+común.
 
 ## Decisiones nuevas respecto al documento maestro
 
@@ -95,6 +95,7 @@ Quedan para más adelante: los checks de calidad (§12.3) y las migraciones de l
 | 22/11/2026 | Pepino Jiffy **PI35** = Pl sol ÷ **15** (antes 18), lleve o no «JIF» la variedad. |
 | 22/11/2026 | **Calabacín** tiene línea propia en el resumen por cultivo (antes iba en «Otros»). |
 | 22/11/2026 | Jiffy desarrollada (tallos/brazos) e hidro adelantada van a 15 aunque no se conozca la medida. |
+| 26/11/2026 | **No se desarrollan los checks de calidad** (§12.3): quedan fuera de la versión Python. |
 
 ## Uso
 
