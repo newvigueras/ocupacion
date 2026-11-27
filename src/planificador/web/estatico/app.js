@@ -95,6 +95,105 @@
       focoSiguiente = null;
     }
   });
+
+  // Repartir una partida entre las calles de un invernadero (ventana aparte).
+  const dialogo = document.getElementById("calles");
+  if (!dialogo || !editable) return;
+  const contenido = dialogo.querySelector("[data-contenido]");
+  const miles = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const numero = (input) => Number(input.value.trim().replace(/\./g, "")) || 0;
+  let volverA = null;
+
+  caja.addEventListener("click", async (ev) => {
+    const boton = ev.target.closest("button.a-calles");
+    if (!boton) return;
+    const clave = JSON.parse(boton.closest("tr[data-clave]").dataset.clave);
+    volverA = selectorDe(boton.parentElement.querySelector("input.valor"));
+    const q = new URLSearchParams({ vista: caja.dataset.vista, codigo: clave.codigo, inv: boton.dataset.inv });
+    try {
+      const r = await fetch("/calles?" + q, { credentials: "same-origin" });
+      const j = await r.json().catch(() => ({ error: "Respuesta no válida del servidor" }));
+      if (!r.ok || !j.html) { avisar(j.error || "No se han podido leer las calles", true); return; }
+      contenido.innerHTML = j.html;
+      repasar();
+      dialogo.showModal();
+      contenido.querySelector("input.valor")?.focus();
+    } catch (e) {
+      avisar("Sin conexión con el servidor", true);
+    }
+  });
+
+  function repasar() {
+    const form = contenido.querySelector("[data-reparto]");
+    if (!form) return;
+    const aqui = Number(form.dataset.aqui), maximo = Number(form.dataset.maximo);
+    let total = 0;
+    const pasadas = [];
+    form.querySelectorAll("tbody tr").forEach((tr) => {
+      const input = tr.querySelector("input.valor");
+      const v = numero(input);
+      total += v;
+      const libre = Number(tr.querySelector("[data-libre]").dataset.libre);
+      const pasa = v > libre;
+      input.classList.toggle("pasa", pasa);
+      tr.classList.toggle("llena", v > 0);
+      if (pasa) pasadas.push(input.name.slice(6));
+    });
+    form.querySelector("[data-en-calles]").textContent = miles(total);
+    form.querySelector("[data-sin-calle]").textContent = miles(Math.max(0, aqui - total));
+    const avisos = [];
+    if (pasadas.length) avisos.push(`Pasa del hueco en la calle ${pasadas.join(", ")} (se puede, con aviso).`);
+    if (total > maximo) avisos.push(`La partida solo puede tener ${miles(maximo)} bandejas aquí: se pondrán como mucho esas.`);
+    const aviso = form.querySelector("[data-aviso]");
+    aviso.textContent = avisos.join(" ");
+    aviso.hidden = !avisos.length;
+  }
+
+  contenido.addEventListener("input", repasar);
+
+  contenido.addEventListener("click", (ev) => {
+    const form = contenido.querySelector("[data-reparto]");
+    if (!form) return;
+    if (ev.target.closest("[data-cerrar]")) { dialogo.close(); return; }
+    const vaciar = ev.target.closest("[data-vaciar]");
+    const llenar = ev.target.closest("[data-llenar]");
+    if (!vaciar && !llenar) return;
+    const filas = [...form.querySelectorAll("tbody tr")];
+    filas.forEach((tr) => { tr.querySelector("input.valor").value = ""; });
+    if (llenar) {
+      const aqui = Number(form.dataset.aqui);
+      let resto = aqui > 0 ? aqui : Number(form.dataset.maximo);
+      for (const tr of filas) {
+        if (resto <= 0) break;
+        const pon = Math.min(resto, Number(tr.querySelector("[data-libre]").dataset.libre));
+        if (pon > 0) { tr.querySelector("input.valor").value = pon; resto -= pon; }
+      }
+      repasar();
+      if (resto > 0) {
+        const aviso = form.querySelector("[data-aviso]");
+        aviso.textContent = `No caben ${miles(resto)} bandejas en las calles con hueco: se quedan sin calle.`;
+        aviso.hidden = false;
+      }
+    } else {
+      repasar();
+    }
+  });
+
+  contenido.addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const form = ev.target;
+    const datos = { codigo: form.dataset.codigo, invernadero: form.dataset.invernadero };
+    for (const input of form.querySelectorAll("input.valor")) {
+      const v = input.value.trim().replace(/\./g, "");
+      if (v && !/^\d+$/.test(v)) { input.focus(); input.select(); return; }
+      datos[input.name] = v;
+    }
+    dialogo.close();
+    enviar("/calles", datos, volverA);
+  });
+
+  // «close» llega con retraso: si ya se ha vuelto a abrir con otra partida, no se borra.
+  dialogo.addEventListener("close", () => { if (!dialogo.open) contenido.innerHTML = ""; });
 })();
 
 // Por invernadero: abrir o cerrar todas las tarjetas.

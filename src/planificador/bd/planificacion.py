@@ -74,6 +74,20 @@ class Exceso:
 
 
 @dataclass(frozen=True)
+class OcupacionCalle:
+    numero: int
+    zona: str
+    capacidad: int
+    estimada: bool
+    pico: int  # máximo ocupado en el periodo pedido
+    partidas: list[tuple[str, int]]
+
+    @property
+    def libre(self) -> int:
+        return max(0, self.capacidad - self.pico)
+
+
+@dataclass(frozen=True)
 class Mezcla:
     invernadero: str
     primer_dia: date
@@ -323,6 +337,90 @@ class Planificador:
             tipo_planta=p.tipo_planta or "injerto", cultivo=p.cultivo or "Otros",
             categoria=p.categoria or "", bio=p.bio or "", cliente=p.cliente or "",
         )
+
+    # --- Calles -------------------------------------------------------------------
+
+    def asignar_calles(self, base: str, codigo: str, invernadero: str,
+                       reparto: dict[int, int]) -> tuple[dict[int, int], int]:
+        """Reparte una partida entre las calles de un invernadero (bases Partidas y Real).
+
+        ``reparto``: calle → bandejas. Sustituye todo lo que la partida tuviera en ese
+        invernadero (con y sin calle). Lo que antes había en el invernadero y no se pone
+        en calles se queda en él sin calle; lo que pase de ahí sale de las bandejas libres
+        de la partida (topado). Devuelve (calle → bandejas puestas, bandejas sin calle).
+        """
+        if base not in ("partidas", "real"):
+            raise ErrorPlan("Las calles se asignan en la base Partidas o Real")
+        inv = self.invernadero(invernadero)
+        if inv.especial:
+            raise ErrorPlan(f"{inv.nombre} no tiene calles")
+        codigo = codigo.strip().upper()
+        if base == "real":
+            self.dato_real(codigo)
+        else:
+            self.partida(codigo)
+        calles = {c.numero: c for c in inv.calles}
+        for n, v in reparto.items():
+            if n not in calles:
+                raise ErrorPlan(f"{inv.nombre} no tiene la calle {n}")
+            if v < 0:
+                raise ErrorPlan("Las bandejas no pueden ser negativas")
+
+        donde = (Asignacion.base == base, Asignacion.codigo == codigo,
+                 Asignacion.invernadero_id == inv.id)
+        antes = self.s.scalar(select(func.coalesce(func.sum(Asignacion.bandejas), 0)).where(*donde))
+        self.s.execute(delete(Asignacion).where(*donde))
+        puestas: dict[int, int] = {}
+        for n in sorted(reparto):
+            if reparto[n] > 0:
+                puesto = self._poner_partida(base, codigo, inv, calles[n], reparto[n])
+                if puesto:
+                    puestas[n] = puesto
+        resto = antes - sum(puestas.values())
+        sin_calle = self._poner_partida(base, codigo, inv, None, resto) if resto > 0 else 0
+        return puestas, sin_calle
+
+    def asignaciones_en_calles(self, base: str, inv: Invernadero) -> list[Asignacion]:
+        """Lo que ocupa las calles de un invernadero en ``base``.
+
+        En Bloques y Partidas cuenta también lo colocado en Real: lo de Real manda, y lo
+        de la base solo cuenta en las partidas que no tienen nada en Real (§10.3 3b).
+        """
+        q = select(Asignacion).where(Asignacion.invernadero_id == inv.id,
+                                     Asignacion.calle_id.is_not(None))
+        propias = list(self.s.scalars(q.where(Asignacion.base == base)))
+        if base == "real":
+            return propias
+        reales = list(self.s.scalars(q.where(Asignacion.base == "real")))
+        en_real = set(self.s.scalars(select(Asignacion.codigo).where(Asignacion.base == "real")))
+        return reales + [a for a in propias if a.codigo not in en_real]
+
+    def ocupacion_calles(self, base: str, invernadero: str, desde: date, hasta: date,
+                         excluir_codigo: str | None = None) -> dict[int, OcupacionCalle]:
+        """Calle (número) → máximo ocupado entre ``desde`` y ``hasta`` y las partidas que hay."""
+        inv = self.invernadero(invernadero)
+        por_calle: dict[int, list[Asignacion]] = defaultdict(list)
+        for a in self.asignaciones_en_calles(base, inv):
+            if a.codigo == excluir_codigo:
+                continue
+            entrada = a.entrada or self.calendario.primer_dia
+            liberacion = a.liberacion or self.calendario.ultimo_dia
+            if entrada <= hasta and liberacion >= desde:
+                por_calle[a.calle_id].append(a)
+        res = {}
+        for c in inv.calles:
+            lista = por_calle.get(c.id, [])
+            # El máximo siempre cae en el día en que entra alguna (o en ``desde``).
+            puntos = {desde} | {max(a.entrada or desde, desde) for a in lista}
+            pico = max((sum(a.bandejas for a in lista
+                            if (a.entrada or desde) <= d <= (a.liberacion or hasta)) for d in puntos),
+                       default=0)
+            juntas: dict[str, int] = defaultdict(int)
+            for a in lista:
+                juntas[a.codigo] += a.bandejas
+            res[c.numero] = OcupacionCalle(c.numero, c.zona, c.capacidad, c.estimada, pico,
+                                           sorted(juntas.items()))
+        return res
 
     def vaciar_base(self, base: str) -> int:
         if base not in BASES:

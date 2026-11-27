@@ -54,7 +54,7 @@
 {% set inv, calles, sin_calle = detalle %}
 <section class="tarjeta">
   <h2>{{ inv.nombre }} · calles ({{ NOMBRE_BASE[base] }})</h2>
-  <p class="suave">Solo lo asignado en esta base con calle.
+  <p class="suave">Lo asignado con calle{% if base != 'real' %} (lo ya colocado en Real manda){% endif %}.
     {% if sin_calle %}Sin calle: {{ sin_calle | miles }} bandejas.{% endif %}
     {% if calles and calles[0].estimada %}Capacidad por calle estimada.{% endif %}</p>
   <div class="calles">

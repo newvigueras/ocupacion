@@ -166,6 +166,23 @@ def test_real_cuenta_y_se_sustituye(plan, s):
     assert plan.partidas_reales(49) == []
 
 
+def test_calles_con_real(plan, s):
+    """Por calles, lo colocado en Real manda sobre lo planificado de la misma partida."""
+    s.add(DatoReal(codigo="26X02589", bandejas_real=361, fec_entrada_real=date(2026, 11, 28),
+                   fuente="EXTENSIONES"))
+    s.flush()
+    assert plan.asignar_calles("real", "26X02589", "INV41", {1: 92, 2: 500}) == ({1: 92, 2: 269}, 0)
+    assert plan.asignar_calles("partidas", "26X02589", "INV41", {3: 50}) == ({3: 50}, 0)
+    d1, d2 = date(2026, 11, 28), date(2027, 3, 1)
+    occ = plan.ocupacion_calles("partidas", "INV41", d1, d2)
+    assert (occ[1].pico, occ[2].pico, occ[3].pico) == (92, 269, 0)
+    assert plan.ocupacion_calles("real", "INV41", d1, d2)[3].pico == 0
+    with pytest.raises(ErrorPlan, match="no tiene calles"):
+        plan.asignar_calles("partidas", "26X02589", "BASURA", {})
+    with pytest.raises(ErrorPlan, match="Partidas o Real"):
+        plan.asignar_calles("bloques", "26X02589", "INV41", {1: 5})
+
+
 # --- Avisos (§5.8, §5.9) y máximo asignable -----------------------------------------
 
 def test_exceso_basura_y_maximo(plan):

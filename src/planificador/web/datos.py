@@ -116,20 +116,19 @@ class FilaCalle:
 
 
 def calles_de(plan: Planificador, base: str, nombre: str, dia: date) -> tuple[Invernadero, list[FilaCalle], int]:
-    """Calles de un invernadero ese día con lo asignado en ``base`` (y lo que va sin calle)."""
+    """Calles de un invernadero ese día (con lo ya colocado en Real, que manda) y lo que
+    ``base`` tiene en él sin calle."""
     inv = plan.invernadero(nombre)
     filas = {c.id: FilaCalle(c.numero, c.zona, c.capacidad, c.estimada) for c in inv.calles}
-    sin_calle = 0
-    q = select(Asignacion).where(Asignacion.base == base, Asignacion.invernadero_id == inv.id,
-                                 Asignacion.entrada <= dia, Asignacion.liberacion >= dia)
-    for a in plan.s.scalars(q):
-        if a.calle_id in filas:
+    for a in plan.asignaciones_en_calles(base, inv):
+        if a.calle_id in filas and a.entrada and a.liberacion and a.entrada <= dia <= a.liberacion:
             f = filas[a.calle_id]
             f.ocupado += a.bandejas
             f.partidas.append((a.codigo, a.bandejas))
-        else:
-            sin_calle += a.bandejas
-    return inv, list(filas.values()), sin_calle
+    q = select(func.coalesce(func.sum(Asignacion.bandejas), 0)).where(
+        Asignacion.base == base, Asignacion.invernadero_id == inv.id,
+        Asignacion.calle_id.is_(None), Asignacion.entrada <= dia, Asignacion.liberacion >= dia)
+    return inv, list(filas.values()), plan.s.scalar(q)
 
 
 def movimientos_del_dia(plan: Planificador, dia: date) -> tuple[list[Partida], list[DatoReal]]:
@@ -328,3 +327,87 @@ def salas(plan: Planificador) -> list[tuple[str, str]]:
             vistas.append((inv.sala, inv.sala.lower().replace(" ", "")))
     return vistas
 
+
+
+# --- Reparto de una partida entre las calles de un invernadero ------------------------
+
+@dataclass
+class FilaReparto:
+    numero: int
+    zona: str
+    capacidad: int
+    estimada: bool
+    ocupado: int  # máximo de las demás partidas durante la estancia de esta
+    partidas: list[tuple[str, int]]
+    esta: int  # bandejas de esta partida en la calle
+
+    @property
+    def libre(self) -> int:
+        return max(0, self.capacidad - self.ocupado)
+
+    @property
+    def detalle(self) -> str:
+        return "\n".join(f"{c}: {miles(b)}" for c, b in self.partidas) or "Vacía"
+
+
+@dataclass
+class Reparto:
+    base: str
+    codigo: str
+    invernadero: str
+    sala: str
+    total: int  # bandejas de la partida
+    entrada: date
+    liberacion: date
+    sin_calle: int  # en este invernadero, sin calle
+    en_otros: int  # en otros invernaderos
+    filas: list[FilaReparto]
+
+    @property
+    def en_calles(self) -> int:
+        return sum(f.esta for f in self.filas)
+
+    @property
+    def aqui(self) -> int:
+        return self.sin_calle + self.en_calles
+
+    @property
+    def maximo(self) -> int:
+        """Lo máximo que puede tener en este invernadero (lo que no está en otros)."""
+        return max(0, self.total - self.en_otros)
+
+    @property
+    def estimadas(self) -> bool:
+        return any(f.estimada for f in self.filas)
+
+
+def reparto_calles(plan: Planificador, base: str, codigo: str, nombre: str) -> Reparto:
+    """Lo necesario para repartir una partida entre las calles de un invernadero."""
+    inv = plan.invernadero(nombre)
+    codigo = codigo.strip().upper()
+    if base == "real":
+        d = plan.dato_real(codigo)
+        total = d.bandejas_real
+        entrada, liberacion = plan.fechas_reales(d)
+    else:
+        p = plan.partida(codigo)
+        total = p.bandejas
+        entrada, liberacion = p.entrada, plan.liberacion_efectiva(p)
+    entrada = entrada or plan.calendario.primer_dia
+    liberacion = liberacion or plan.calendario.ultimo_dia
+    numeros = {c.id: c.numero for c in inv.calles}
+    esta: dict[int, int] = defaultdict(int)
+    sin_calle = en_otros = 0
+    for a in plan.s.scalars(select(Asignacion).where(Asignacion.base == base,
+                                                     Asignacion.codigo == codigo)):
+        if a.invernadero_id != inv.id:
+            en_otros += a.bandejas
+        elif a.calle_id in numeros:
+            esta[numeros[a.calle_id]] += a.bandejas
+        else:
+            sin_calle += a.bandejas
+    occ = plan.ocupacion_calles(base, inv.nombre, entrada, liberacion, excluir_codigo=codigo)
+    filas = [FilaReparto(o.numero, o.zona, o.capacidad, o.estimada, o.pico, o.partidas,
+                         esta.get(o.numero, 0)) for o in occ.values()]
+    return Reparto(base, codigo, inv.nombre, inv.sala or "", total, entrada, liberacion,
+                   sin_calle, en_otros, filas)

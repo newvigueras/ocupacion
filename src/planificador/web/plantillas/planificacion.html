@@ -37,4 +37,7 @@
      data-editable="{{ '1' if puede('asignar') else '' }}">
   {% include "_rejilla.html" %}
 </div>
+{% if vista != 'global' and puede('asignar') %}
+<dialog id="calles" class="dialogo-calles" aria-label="Repartir en calles"><div data-contenido></div></dialog>
+{% endif %}
 {% endblock %}

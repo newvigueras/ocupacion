@@ -316,6 +316,61 @@ def crear_app(url_bd: str | None = None) -> FastAPI:
                                  f.get("sala") or None,
                                  f"✓ Fecha técnico de {codigo}: {texto} ({n} asignaciones)")
 
+    # --- Reparto de una partida por calles --------------------------------------------
+
+    BASE_DE_VISTA = {"partidas": "partidas", "exacta": "real"}
+
+    @app.get("/calles")
+    def calles(request: Request, vista: str = "", codigo: str = "", inv: str = "",
+               u: Usuario = Depends(exige("asignar")), s: Session = Depends(sesion_bd)):
+        plan = Planificador(s)
+        try:
+            if vista not in BASE_DE_VISTA:
+                raise ErrorPlan("Las calles se reparten en Planificación por Partida o Exacta")
+            if plan.invernadero(inv).especial:
+                raise ErrorPlan(f"{inv} no tiene calles")
+            r = D.reparto_calles(plan, BASE_DE_VISTA[vista], codigo, inv)
+        except ErrorPlan as e:
+            return JSONResponse({"error": str(e)}, status_code=400)
+        html = plantillas.get_template("_calles.html").render(r=r, NOMBRE_BASE=D.NOMBRE_BASE)
+        return JSONResponse({"html": html})
+
+    @app.post("/calles", dependencies=[Depends(csrf)])
+    async def calles_post(request: Request, u: Usuario = Depends(exige("asignar")),
+                          s: Session = Depends(sesion_bd)):
+        f = await request.form()
+        vista = f.get("vista", "")
+        plan = Planificador(s)
+        semana = _semana(plan, f.get("semana"))
+        tipo = f.get("tipo") or None
+        sala = f.get("sala") or None
+        codigo = f.get("codigo", "")
+        inv = f.get("invernadero", "")
+        try:
+            if vista not in BASE_DE_VISTA:
+                raise ErrorPlan("Las calles se reparten en Planificación por Partida o Exacta")
+            reparto = {}
+            for k, v in f.items():
+                if k.startswith("calle_") and str(v).strip():
+                    n, valor = a_entero(k[6:]), a_entero(str(v).replace(".", ""))
+                    if n is None or valor is None or valor < 0:
+                        raise ErrorPlan("Escriba números enteros de bandejas")
+                    reparto[n] = valor
+            puestas, sin_calle = plan.asignar_calles(BASE_DE_VISTA[vista], codigo, inv, reparto)
+        except ErrorPlan as e:
+            s.rollback()
+            return responder_rejilla(request, plan, vista, semana, tipo, sala, str(e), True)
+        s.commit()
+        pedidas = sum(reparto.values())
+        en_calles = sum(puestas.values())
+        texto = (f"✓ {codigo.strip().upper()} → {inv}: {D.miles(en_calles)} bandejas en "
+                 f"{len(puestas)} calles")
+        if sin_calle:
+            texto += f" y {D.miles(sin_calle)} sin calle"
+        if en_calles < pedidas:
+            texto += f" (pedidas {D.miles(pedidas)}: no hay más libres)"
+        return responder_rejilla(request, plan, vista, semana, tipo, sala, texto)
+
     # --- Consultas: Por invernadero, Por semana y Hotel -----------------------------------
 
     def _periodo(plan: Planificador, desde: str | None, hasta: str | None) -> V.Periodo:

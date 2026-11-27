@@ -184,6 +184,57 @@ def test_editar_celdas(app, url):
     assert r.status_code == 403 and "perfil" in r.json()["error"]
 
 
+def test_repartir_por_calles(app, url):
+    """Una partida se reparte entre las calles de un invernadero desde la rejilla."""
+    c, token = entrar(app, "pepe")
+    cab = {"X-CSRF": token}
+    base = {"vista": "partidas", "semana": "49", "codigo": "26X02589", "invernadero": "INV41"}
+    c.post("/celda", data={**base, "valor": "500"}, headers=cab)
+    assert 'class="a-calles' in c.get("/partidas?semana=49").text  # botón en la celda llena
+
+    r = c.get("/calles?vista=partidas&codigo=26x02589&inv=INV41")
+    html = r.json()["html"]
+    assert r.status_code == 200 and "26X02589 en INV41" in html
+    assert 'name="calle_1"' in html and 'name="calle_42"' in html and 'data-aqui="500"' in html
+
+    # 192 en calles: los otros 308 que tenía se quedan sin calle (el invernadero sigue en 500).
+    j = c.post("/calles", data={**base, "calle_1": "92", "calle_2": "100", "calle_3": ""},
+               headers=cab).json()
+    assert not j["error"] and "192 bandejas en 2 calles y 308 sin calle" in j["mensaje"]
+    assert "+192 c." in j["html"] and 'value="308"' in j["html"]
+    # Más de lo que tenía: sale de lo libre de la partida y, si no hay más, se topa.
+    j = c.post("/calles", data={**base, "calle_1": "92", "calle_2": "3.000"}, headers=cab).json()
+    assert "2.028 bandejas en 2 calles" in j["mensaje"] and "no hay más" in j["mensaje"]
+    with Session(crear_motor(url)) as s:
+        plan = Planificador(s)
+        assert plan.asignado("partidas", "26X02589") == 2028
+        p = plan.partida("26X02589")
+        occ = plan.ocupacion_calles("partidas", "INV41", p.entrada, p.liberacion)
+        assert occ[1].pico == 92 and occ[1].libre == 0 and occ[2].pico == 1936
+        assert occ[2].partidas == [("26X02589", 1936)] and occ[3].pico == 0
+        sin_ella = plan.ocupacion_calles("partidas", "INV41", p.entrada, p.liberacion, "26X02589")
+        assert sin_ella[1].pico == 0
+        from planificador.web import datos as D
+        _, calles, sin_calle = D.calles_de(plan, "partidas", "INV41", p.entrada)
+        assert sin_calle == 0 and calles[1].ocupado == 1936
+
+    # Vaciar las calles devuelve lo que había al invernadero sin calle.
+    j = c.post("/calles", data={**base, "calle_1": "", "calle_2": "0"}, headers=cab).json()
+    assert "0 bandejas en 0 calles y 2.028 sin calle" in j["mensaje"]
+
+    def error(**cambios):
+        return c.post("/calles", data={**base, **cambios}, headers=cab).json()
+    assert "no tiene la calle 99" in error(calle_99="5")["mensaje"]
+    assert error(calle_1="-3")["error"] and error(calle_1="mucho")["error"]
+    assert error(vista="global")["error"]
+    assert c.get("/calles?vista=global&codigo=26X02589&inv=INV41").status_code == 400
+    assert c.get("/calles?vista=partidas&codigo=26X02589&inv=BASURA").status_code == 400
+    assert c.get("/calles?vista=exacta&codigo=26X02589&inv=INV41").status_code == 400  # sin dato real
+    luis, token_luis = entrar(app, "luis")
+    assert luis.get("/calles?vista=partidas&codigo=26X02589&inv=INV41").status_code == 403
+    assert 'class="a-calles' not in luis.get("/partidas?semana=49").text
+
+
 def test_datos_y_usuarios(app, tmp_path, excel_ejemplo):
     pepe, token = entrar(app, "pepe")
     assert pepe.get("/datos").status_code == 200

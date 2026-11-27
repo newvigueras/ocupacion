@@ -1,0 +1,51 @@
+<form class="reparto" data-reparto data-codigo="{{ r.codigo }}" data-invernadero="{{ r.invernadero }}"
+      data-aqui="{{ r.aqui }}" data-maximo="{{ r.maximo }}">
+  <header>
+    <h2>{{ r.codigo }} en {{ r.invernadero }} · calles</h2>
+    <p class="suave">{{ r.sala }} · base {{ NOMBRE_BASE[r.base] }} · {{ r.total | miles }} bandejas,
+      del {{ r.entrada | fecha }} al {{ r.liberacion | fecha }}{% if r.en_otros %} ·
+      {{ r.en_otros | miles }} en otros invernaderos{% endif %}.</p>
+    <p class="suave">«Ocupada» es el máximo de las demás partidas mientras esta está en el invernadero{% if r.base != 'real' %}, con lo ya colocado en Real{% endif %}.
+      {% if r.estimadas %}En esta sala la capacidad de cada calle es una estimación.{% endif %}</p>
+  </header>
+
+  <div class="reparto-cifras">
+    <span>En calles <b data-en-calles>{{ r.en_calles | miles }}</b></span>
+    <span>Sin calle <b data-sin-calle>{{ r.sin_calle | miles }}</b></span>
+    <span>En {{ r.invernadero }} <b>{{ r.aqui | miles }}</b> de {{ r.maximo | miles }} posibles</span>
+  </div>
+
+  <div class="reparto-botones">
+    <button type="button" data-llenar title="Pone las bandejas que tiene en {{ r.invernadero }} (o, si no tiene, las que le quedan) en las primeras calles con hueco">Llenar calles con hueco</button>
+    <button type="button" data-vaciar>Vaciar calles</button>
+  </div>
+
+  <div class="reparto-scroll">
+  <table class="reparto-tabla">
+    <thead>
+      <tr><th>Calle</th><th class="zona">Zona</th><th class="num">Capacidad</th><th class="num">Ocupada</th><th class="num">Libre</th><th class="num">Esta partida</th></tr>
+    </thead>
+    <tbody>
+    {% for f in r.filas %}
+      <tr class="{{ 'llena' if f.esta }}{{ ' sin-hueco' if not f.libre }}">
+        <th>{{ f.numero }}</th>
+        <td class="zona">{{ f.zona }}</td>
+        <td class="num">{{ f.capacidad | miles }}{% if f.estimada %}<small title="Estimada">*</small>{% endif %}</td>
+        <td class="num" title="{{ f.detalle }}">{{ f.ocupado | miles if f.ocupado else '' }}{% if f.partidas %} <small>({{ f.partidas | length }})</small>{% endif %}</td>
+        <td class="num" data-libre="{{ f.libre }}">{{ f.libre | miles }}</td>
+        <td class="num"><input class="valor" name="calle_{{ f.numero }}" inputmode="numeric" value="{{ f.esta if f.esta else '' }}"
+             aria-label="Bandejas de {{ r.codigo }} en la calle {{ f.numero }}"></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+  <p class="suave">Lo que tenía en {{ r.invernadero }} y no se ponga en calles se queda en el invernadero sin calle.
+    Si se pone más, sale de las bandejas que le quedan libres.</p>
+  <p class="aviso-reparto" data-aviso hidden></p>
+  <footer>
+    <button type="submit" class="principal">Guardar</button>
+    <button type="button" data-cerrar>Cancelar</button>
+  </footer>
+</form>

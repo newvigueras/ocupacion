@@ -13,7 +13,7 @@ para todos, accesible desde fuera de la empresa con usuario y contraseña.
 |---|---|---|
 | 1 | Motor de cálculo: Excel de previsión → partidas, fechas, ECO/BIO, bandejas, calendario | ✅ con pruebas |
 | 2 | Base de datos y asignaciones (Bloques, Partidas, Real), ocupación diaria y avisos | ✅ con pruebas |
-| 3 | Servidor web, usuarios y pantallas | en curso: las 7 pantallas hechas |
+| 3 | Servidor web, usuarios y pantallas | en curso: las 7 pantallas y la asignación por calle hechas |
 
 ### Fase 2: qué incluye
 
@@ -104,6 +104,12 @@ Con esto la fase 2 está completa.
   × invernaderos (filtro por sala y tipo); se escribe en la celda y se guarda al salir o con
   Intro (baja a la celda de abajo). Pendientes, % de cada invernadero al final de la semana y
   aviso de los que pasan su capacidad. En Partidas y Exacta, la fecha técnico de cada partida.
+- **Asignar por calle** (por Partida y Exacta): en cada celda con bandejas, el botón «calles»
+  (o «+N c.» si ya tiene) abre las calles de ese invernadero con su capacidad, lo ocupado por
+  las demás partidas mientras esta está allí (con lo colocado en Real, que manda) y el hueco.
+  Se escribe lo de cada calle o se pulsa «Llenar calles con hueco» (de la primera en adelante);
+  avisa si una calle pasa de su hueco. Al guardar, lo que tenía en el invernadero y no va a
+  calles se queda sin calle; si se pone más, sale de lo libre de la partida (topado).
 - **Datos y copias**: subir EXTENSIONES/EXTENSIONCALLES y los PDF, recalcular, reimportar los
   Excel (desde cero o conservando) y restaurar copias.
 - **Por invernadero**: por cada invernadero, gráfico de la ocupación día a día en el periodo
@@ -122,7 +128,7 @@ Con esto la fase 2 está completa.
   todas las pantallas coinciden (99.615 bandejas el 21/11/2026 en la base de prueba).
 - Comprobado en el navegador con los datos reales (base de prueba del 23/11/2026).
 
-Falta: asignar por calle desde la web; «Rellenar Bloques con lo real» (§10.4b, nuevo en el documento
+Falta: «Rellenar Bloques con lo real» (§10.4b, nuevo en el documento
 maestro del 25/11); y publicarla para entrar desde fuera (servidor, HTTPS y PostgreSQL).
 
 ## Decisiones nuevas respecto al documento maestro

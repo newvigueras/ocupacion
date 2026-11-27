@@ -44,7 +44,10 @@
       {% set cc = f.con_calle.get(c.nombre, 0) %}
       <td class="celda {{ 'llena' if v or cc }}">
         <input class="valor" inputmode="numeric" value="{{ v if v else '' }}" data-inv="{{ c.nombre }}" aria-label="{{ f.titulo }} en {{ c.nombre }}">
-        {% if cc %}<small title="En calles (se cambia desde la carga por calle)">+{{ cc | miles }} c.</small>{% endif %}
+        {% if vista != 'global' and not c.especial and (v or cc) and puede('asignar') %}
+        <button type="button" class="a-calles {{ 'con' if cc }}" data-inv="{{ c.nombre }}"
+                title="{{ 'En calles: ' ~ (cc | miles) ~ ' bandejas. ' if cc }}Repartir en las calles de {{ c.nombre }}">{{ '+' ~ (cc | miles) ~ ' c.' if cc else 'calles' }}</button>
+        {% elif cc %}<small title="En calles">+{{ cc | miles }} c.</small>{% endif %}
       </td>
       {% endfor %}
     </tr>

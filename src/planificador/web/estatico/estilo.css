@@ -252,3 +252,36 @@ a.chip:hover, .chip.elegida { border-color: var(--brand); box-shadow: 0 0 0 1px 
   .lista td.ancho { width: auto; }
   .barra { max-width: 90px; }
 }
+
+/* Reparto de una partida por calles */
+.rejilla td.celda button.a-calles { display: block; margin: 1px auto 0; padding: 0 5px; font-size: 0.78em;
+  line-height: 1.5; border-radius: 6px; color: var(--ink-soft); background: transparent; border-color: transparent; }
+.rejilla td.celda button.a-calles.con { color: var(--brand); font-weight: 500; }
+.rejilla td.celda button.a-calles:hover { border-color: var(--brand); background: #fff; }
+.dialogo-calles { border: none; border-radius: var(--radio); padding: 0; width: min(720px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px); overflow: hidden; box-shadow: 0 18px 50px rgba(14, 31, 23, 0.28); color: var(--ink); }
+.dialogo-calles::backdrop { background: rgba(14, 31, 23, 0.4); }
+.reparto { display: flex; flex-direction: column; gap: 10px; padding: 18px 20px; max-height: calc(100vh - 48px); }
+.reparto header h2 { margin: 0 0 4px; }
+.reparto header p { margin: 0 0 2px; }
+.reparto-cifras { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.reparto-cifras b { font-size: 1.15em; }
+.reparto-botones { display: flex; flex-wrap: wrap; gap: 8px; }
+.reparto-scroll { flex: 1 1 auto; overflow-y: auto; overflow-x: auto; min-height: 120px; border: 1px solid var(--line); border-radius: var(--radio-s); }
+.reparto-tabla { width: 100%; border-collapse: collapse; }
+.reparto-tabla th, .reparto-tabla td { padding: 3px 8px; border-bottom: 1px solid var(--line); text-align: left; }
+.reparto-tabla .num { text-align: right; }
+.reparto-tabla thead th { position: sticky; top: 0; background: var(--panel-soft); z-index: 1; }
+.reparto-tabla tr.llena { background: var(--brand-light); }
+.reparto-tabla tr.sin-hueco td[data-libre] { color: var(--bad); }
+.reparto-tabla input { width: 76px; text-align: right; padding: 3px 6px; }
+.reparto-tabla input.pasa { border-color: var(--bad); color: var(--bad); }
+.reparto-tabla small { color: var(--ink-soft); }
+.aviso-reparto { margin: 0; color: var(--warn); font-weight: 500; }
+.reparto footer { display: flex; gap: 8px; justify-content: flex-end; }
+@media (max-width: 600px) {
+  .reparto { padding: 14px 12px; }
+  .reparto-tabla .zona { display: none; }
+  .reparto-tabla th, .reparto-tabla td { padding: 3px 5px; }
+  .reparto-tabla input { width: 62px; }
+}
